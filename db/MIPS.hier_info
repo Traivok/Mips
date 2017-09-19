@@ -1,9 +1,4 @@
 |MIPS
-in => in.IN1
-out <= TestModule:comb_3.port1
-
-
-|MIPS|TestModule:comb_3
 a[0] => a[0].IN1
 a[1] => a[1].IN1
 a[2] => a[2].IN1
@@ -73,7 +68,7 @@ res => res.IN1
 lod => lod.IN1
 
 
-|MIPS|TestModule:comb_3|Registrador:comb_3
+|MIPS|Registrador:comb_3
 Clk => Saida[0]~reg0.CLK
 Clk => Saida[1]~reg0.CLK
 Clk => Saida[2]~reg0.CLK

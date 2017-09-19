@@ -1,3 +1,6 @@
-module MIPS(input logic in, output logic out);
-	TestModule(in, out);
+module MIPS(input logic [31:0] a, 
+				  output logic [31:0] b,
+				  input logic clk, res, lod);
+	Registrador(clk, res, lod, a, b);
+	
 endmodule : MIPS

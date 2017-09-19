@@ -1,5 +1,5 @@
 Flow report for MIPS
-Tue Sep 19 09:55:46 2017
+Tue Sep 19 10:16:09 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Flow Summary                                                                      ;
 +------------------------------------+----------------------------------------------+
-; Flow Status                        ; Successful - Tue Sep 19 09:55:46 2017        ;
+; Flow Status                        ; Successful - Tue Sep 19 10:16:09 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
@@ -46,11 +46,11 @@ applicable agreement for further details.
 ; Device                             ; EP2C70F896C6                                 ;
 ; Timing Models                      ; Final                                        ;
 ; Met timing requirements            ; Yes                                          ;
-; Total logic elements               ; 0 / 68,416 ( 0 % )                           ;
+; Total logic elements               ; 32 / 68,416 ( < 1 % )                        ;
 ;     Total combinational functions  ; 0 / 68,416 ( 0 % )                           ;
-;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                           ;
-; Total registers                    ; 0                                            ;
-; Total pins                         ; 2 / 622 ( < 1 % )                            ;
+;     Dedicated logic registers      ; 32 / 68,416 ( < 1 % )                        ;
+; Total registers                    ; 32                                           ;
+; Total pins                         ; 67 / 622 ( 11 % )                            ;
 ; Total virtual pins                 ; 0                                            ;
 ; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                        ;
 ; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                              ;
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/19/2017 09:55:23 ;
+; Start date & time ; 09/19/2017 10:15:48 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; MIPS                ;
 +-------------------+---------------------+
@@ -74,7 +74,7 @@ applicable agreement for further details.
 +------------------------------------+---------------------------------+---------------+-------------+----------------+
 ; Assignment Name                    ; Value                           ; Default Value ; Entity Name ; Section Id     ;
 +------------------------------------+---------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID              ; 198690275901894.150582572312004 ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID              ; 198690275901894.150582694810820 ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP             ; 85                              ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP             ; 0                               ; --            ; --          ; --             ;
 ; PARTITION_COLOR                    ; 16764057                        ; --            ; --          ; Top            ;
@@ -88,11 +88,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:03     ; 1.0                     ; 229 MB              ; 00:00:01                           ;
-; Fitter                  ; 00:00:12     ; 2.5                     ; 363 MB              ; 00:00:13                           ;
-; Assembler               ; 00:00:06     ; 1.0                     ; 333 MB              ; 00:00:05                           ;
-; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 160 MB              ; 00:00:00                           ;
-; Total                   ; 00:00:22     ; --                      ; --                  ; 00:00:19                           ;
+; Analysis & Synthesis    ; 00:00:02     ; 1.0                     ; 235 MB              ; 00:00:02                           ;
+; Fitter                  ; 00:00:11     ; 2.0                     ; 364 MB              ; 00:00:12                           ;
+; Assembler               ; 00:00:05     ; 1.0                     ; 334 MB              ; 00:00:04                           ;
+; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 165 MB              ; 00:00:00                           ;
+; Total                   ; 00:00:19     ; --                      ; --                  ; 00:00:18                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

@@ -1,0 +1,271 @@
+Simulator report for MIPS
+Tue Sep 19 10:15:15 2017
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Simulator Summary
+  3. Simulator Settings
+  4. Simulation Waveforms
+  5. Coverage Summary
+  6. Complete 1/0-Value Coverage
+  7. Missing 1-Value Coverage
+  8. Missing 0-Value Coverage
+  9. Simulator INI Usage
+ 10. Simulator Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2010 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------+
+; Simulator Summary                          ;
++-----------------------------+--------------+
+; Type                        ; Value        ;
++-----------------------------+--------------+
+; Simulation Start Time       ; 0 ps         ;
+; Simulation End Time         ; 1.0 us       ;
+; Simulation Netlist Size     ; 99 nodes     ;
+; Simulation Coverage         ;      79.80 % ;
+; Total Number of Transitions ; 319          ;
+; Simulation Breakpoints      ; 0            ;
+; Family                      ; Cyclone II   ;
++-----------------------------+--------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Simulator Settings                                                                                                      ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Option                                                                                     ; Setting    ; Default Value ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+; Simulation mode                                                                            ; Functional ; Timing        ;
+; Start time                                                                                 ; 0 ns       ; 0 ns          ;
+; Simulation results format                                                                  ; CVWF       ;               ;
+; Vector input source                                                                        ; MIPS.vwf   ;               ;
+; Add pins automatically to simulation output waveforms                                      ; On         ; On            ;
+; Check outputs                                                                              ; Off        ; Off           ;
+; Report simulation coverage                                                                 ; On         ; On            ;
+; Display complete 1/0 value coverage report                                                 ; On         ; On            ;
+; Display missing 1-value coverage report                                                    ; On         ; On            ;
+; Display missing 0-value coverage report                                                    ; On         ; On            ;
+; Detect setup and hold time violations                                                      ; Off        ; Off           ;
+; Detect glitches                                                                            ; Off        ; Off           ;
+; Disable timing delays in Timing Simulation                                                 ; Off        ; Off           ;
+; Generate Signal Activity File                                                              ; Off        ; Off           ;
+; Generate VCD File for PowerPlay Power Analyzer                                             ; Off        ; Off           ;
+; Group bus channels in simulation results                                                   ; Off        ; Off           ;
+; Preserve fewer signal transitions to reduce memory requirements                            ; On         ; On            ;
+; Trigger vector comparison with the specified mode                                          ; INPUT_EDGE ; INPUT_EDGE    ;
+; Disable setup and hold time violations detection in input registers of bi-directional pins ; Off        ; Off           ;
+; Overwrite Waveform Inputs With Simulation Outputs                                          ; On         ;               ;
+; Perform Glitch Filtering in Timing Simulation                                              ; Auto       ; Auto          ;
++--------------------------------------------------------------------------------------------+------------+---------------+
+
+
++----------------------+
+; Simulation Waveforms ;
++----------------------+
+Waveform report data cannot be output to ASCII.
+Please use Quartus II to view the waveform report data.
+
+
++--------------------------------------------------------------------+
+; Coverage Summary                                                   ;
++-----------------------------------------------------+--------------+
+; Type                                                ; Value        ;
++-----------------------------------------------------+--------------+
+; Total coverage as a percentage                      ;      79.80 % ;
+; Total nodes checked                                 ; 99           ;
+; Total output ports checked                          ; 99           ;
+; Total output ports with complete 1/0-value coverage ; 79           ;
+; Total output ports with no 1/0-value coverage       ; 8            ;
+; Total output ports with no 1-value coverage         ; 8            ;
+; Total output ports with no 0-value coverage         ; 20           ;
++-----------------------------------------------------+--------------+
+
+
+The following table displays output ports that toggle between 1 and 0 during simulation.
++--------------------------------------------------------------------------------------------+
+; Complete 1/0-Value Coverage                                                                ;
++------------------------------------+------------------------------------+------------------+
+; Node Name                          ; Output Port Name                   ; Output Port Type ;
++------------------------------------+------------------------------------+------------------+
+; |MIPS|a[2]                         ; |MIPS|a[2]                         ; out              ;
+; |MIPS|a[7]                         ; |MIPS|a[7]                         ; out              ;
+; |MIPS|a[8]                         ; |MIPS|a[8]                         ; out              ;
+; |MIPS|a[9]                         ; |MIPS|a[9]                         ; out              ;
+; |MIPS|a[10]                        ; |MIPS|a[10]                        ; out              ;
+; |MIPS|a[11]                        ; |MIPS|a[11]                        ; out              ;
+; |MIPS|a[12]                        ; |MIPS|a[12]                        ; out              ;
+; |MIPS|a[13]                        ; |MIPS|a[13]                        ; out              ;
+; |MIPS|a[14]                        ; |MIPS|a[14]                        ; out              ;
+; |MIPS|a[15]                        ; |MIPS|a[15]                        ; out              ;
+; |MIPS|a[16]                        ; |MIPS|a[16]                        ; out              ;
+; |MIPS|a[17]                        ; |MIPS|a[17]                        ; out              ;
+; |MIPS|a[18]                        ; |MIPS|a[18]                        ; out              ;
+; |MIPS|a[19]                        ; |MIPS|a[19]                        ; out              ;
+; |MIPS|a[20]                        ; |MIPS|a[20]                        ; out              ;
+; |MIPS|a[21]                        ; |MIPS|a[21]                        ; out              ;
+; |MIPS|a[22]                        ; |MIPS|a[22]                        ; out              ;
+; |MIPS|a[23]                        ; |MIPS|a[23]                        ; out              ;
+; |MIPS|a[24]                        ; |MIPS|a[24]                        ; out              ;
+; |MIPS|a[25]                        ; |MIPS|a[25]                        ; out              ;
+; |MIPS|a[26]                        ; |MIPS|a[26]                        ; out              ;
+; |MIPS|a[27]                        ; |MIPS|a[27]                        ; out              ;
+; |MIPS|a[28]                        ; |MIPS|a[28]                        ; out              ;
+; |MIPS|a[29]                        ; |MIPS|a[29]                        ; out              ;
+; |MIPS|a[30]                        ; |MIPS|a[30]                        ; out              ;
+; |MIPS|a[31]                        ; |MIPS|a[31]                        ; out              ;
+; |MIPS|b[2]                         ; |MIPS|b[2]                         ; pin_out          ;
+; |MIPS|b[7]                         ; |MIPS|b[7]                         ; pin_out          ;
+; |MIPS|b[8]                         ; |MIPS|b[8]                         ; pin_out          ;
+; |MIPS|b[9]                         ; |MIPS|b[9]                         ; pin_out          ;
+; |MIPS|b[10]                        ; |MIPS|b[10]                        ; pin_out          ;
+; |MIPS|b[11]                        ; |MIPS|b[11]                        ; pin_out          ;
+; |MIPS|b[12]                        ; |MIPS|b[12]                        ; pin_out          ;
+; |MIPS|b[13]                        ; |MIPS|b[13]                        ; pin_out          ;
+; |MIPS|b[14]                        ; |MIPS|b[14]                        ; pin_out          ;
+; |MIPS|b[15]                        ; |MIPS|b[15]                        ; pin_out          ;
+; |MIPS|b[16]                        ; |MIPS|b[16]                        ; pin_out          ;
+; |MIPS|b[17]                        ; |MIPS|b[17]                        ; pin_out          ;
+; |MIPS|b[18]                        ; |MIPS|b[18]                        ; pin_out          ;
+; |MIPS|b[19]                        ; |MIPS|b[19]                        ; pin_out          ;
+; |MIPS|b[20]                        ; |MIPS|b[20]                        ; pin_out          ;
+; |MIPS|b[21]                        ; |MIPS|b[21]                        ; pin_out          ;
+; |MIPS|b[22]                        ; |MIPS|b[22]                        ; pin_out          ;
+; |MIPS|b[23]                        ; |MIPS|b[23]                        ; pin_out          ;
+; |MIPS|b[24]                        ; |MIPS|b[24]                        ; pin_out          ;
+; |MIPS|b[25]                        ; |MIPS|b[25]                        ; pin_out          ;
+; |MIPS|b[26]                        ; |MIPS|b[26]                        ; pin_out          ;
+; |MIPS|b[27]                        ; |MIPS|b[27]                        ; pin_out          ;
+; |MIPS|b[28]                        ; |MIPS|b[28]                        ; pin_out          ;
+; |MIPS|b[29]                        ; |MIPS|b[29]                        ; pin_out          ;
+; |MIPS|b[30]                        ; |MIPS|b[30]                        ; pin_out          ;
+; |MIPS|b[31]                        ; |MIPS|b[31]                        ; pin_out          ;
+; |MIPS|clk                          ; |MIPS|clk                          ; out              ;
+; |MIPS|Registrador:comb_3|Saida[31] ; |MIPS|Registrador:comb_3|Saida[31] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[30] ; |MIPS|Registrador:comb_3|Saida[30] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[29] ; |MIPS|Registrador:comb_3|Saida[29] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[28] ; |MIPS|Registrador:comb_3|Saida[28] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[27] ; |MIPS|Registrador:comb_3|Saida[27] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[26] ; |MIPS|Registrador:comb_3|Saida[26] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[25] ; |MIPS|Registrador:comb_3|Saida[25] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[24] ; |MIPS|Registrador:comb_3|Saida[24] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[23] ; |MIPS|Registrador:comb_3|Saida[23] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[22] ; |MIPS|Registrador:comb_3|Saida[22] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[21] ; |MIPS|Registrador:comb_3|Saida[21] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[20] ; |MIPS|Registrador:comb_3|Saida[20] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[19] ; |MIPS|Registrador:comb_3|Saida[19] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[18] ; |MIPS|Registrador:comb_3|Saida[18] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[17] ; |MIPS|Registrador:comb_3|Saida[17] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[16] ; |MIPS|Registrador:comb_3|Saida[16] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[15] ; |MIPS|Registrador:comb_3|Saida[15] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[14] ; |MIPS|Registrador:comb_3|Saida[14] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[13] ; |MIPS|Registrador:comb_3|Saida[13] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[12] ; |MIPS|Registrador:comb_3|Saida[12] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[11] ; |MIPS|Registrador:comb_3|Saida[11] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[10] ; |MIPS|Registrador:comb_3|Saida[10] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[9]  ; |MIPS|Registrador:comb_3|Saida[9]  ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[8]  ; |MIPS|Registrador:comb_3|Saida[8]  ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[7]  ; |MIPS|Registrador:comb_3|Saida[7]  ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[2]  ; |MIPS|Registrador:comb_3|Saida[2]  ; regout           ;
++------------------------------------+------------------------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 1 during simulation.
++--------------------------------------------------+
+; Missing 1-Value Coverage                         ;
++------------+------------------+------------------+
+; Node Name  ; Output Port Name ; Output Port Type ;
++------------+------------------+------------------+
+; |MIPS|a[0] ; |MIPS|a[0]       ; out              ;
+; |MIPS|a[1] ; |MIPS|a[1]       ; out              ;
+; |MIPS|a[3] ; |MIPS|a[3]       ; out              ;
+; |MIPS|a[4] ; |MIPS|a[4]       ; out              ;
+; |MIPS|a[5] ; |MIPS|a[5]       ; out              ;
+; |MIPS|a[6] ; |MIPS|a[6]       ; out              ;
+; |MIPS|res  ; |MIPS|res        ; out              ;
+; |MIPS|lod  ; |MIPS|lod        ; out              ;
++------------+------------------+------------------+
+
+
+The following table displays output ports that do not toggle to 0 during simulation.
++------------------------------------------------------------------------------------------+
+; Missing 0-Value Coverage                                                                 ;
++-----------------------------------+-----------------------------------+------------------+
+; Node Name                         ; Output Port Name                  ; Output Port Type ;
++-----------------------------------+-----------------------------------+------------------+
+; |MIPS|a[0]                        ; |MIPS|a[0]                        ; out              ;
+; |MIPS|a[1]                        ; |MIPS|a[1]                        ; out              ;
+; |MIPS|a[3]                        ; |MIPS|a[3]                        ; out              ;
+; |MIPS|a[4]                        ; |MIPS|a[4]                        ; out              ;
+; |MIPS|a[5]                        ; |MIPS|a[5]                        ; out              ;
+; |MIPS|a[6]                        ; |MIPS|a[6]                        ; out              ;
+; |MIPS|b[0]                        ; |MIPS|b[0]                        ; pin_out          ;
+; |MIPS|b[1]                        ; |MIPS|b[1]                        ; pin_out          ;
+; |MIPS|b[3]                        ; |MIPS|b[3]                        ; pin_out          ;
+; |MIPS|b[4]                        ; |MIPS|b[4]                        ; pin_out          ;
+; |MIPS|b[5]                        ; |MIPS|b[5]                        ; pin_out          ;
+; |MIPS|b[6]                        ; |MIPS|b[6]                        ; pin_out          ;
+; |MIPS|res                         ; |MIPS|res                         ; out              ;
+; |MIPS|lod                         ; |MIPS|lod                         ; out              ;
+; |MIPS|Registrador:comb_3|Saida[6] ; |MIPS|Registrador:comb_3|Saida[6] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[5] ; |MIPS|Registrador:comb_3|Saida[5] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[4] ; |MIPS|Registrador:comb_3|Saida[4] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[3] ; |MIPS|Registrador:comb_3|Saida[3] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[1] ; |MIPS|Registrador:comb_3|Saida[1] ; regout           ;
+; |MIPS|Registrador:comb_3|Saida[0] ; |MIPS|Registrador:comb_3|Saida[0] ; regout           ;
++-----------------------------------+-----------------------------------+------------------+
+
+
++---------------------+
+; Simulator INI Usage ;
++--------+------------+
+; Option ; Usage      ;
++--------+------------+
+
+
++--------------------+
+; Simulator Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus II Simulator
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Tue Sep 19 10:15:14 2017
+Info: Command: quartus_sim --read_settings_files=on --write_settings_files=off MIPS -c MIPS
+Info: Using vector source file "C:/Users/jraf/Documents/MIPS/MIPS.vwf"
+Info: Overwriting simulation input file with simulation results
+    Info: A backup of MIPS.vwf called MIPS.sim_ori.vwf has been created in the db folder
+Info: Option to preserve fewer signal transitions to reduce memory requirements is enabled
+    Info: Simulation has been partitioned into sub-simulations according to the maximum transition count determined by the engine. Transitions from memory will be flushed out to disk at the end of each sub-simulation to reduce memory requirements.
+Info: Simulation partitioned into 1 sub-simulations
+Info: Simulation coverage is      79.80 %
+Info: Number of transitions in simulation is 319
+Info: Vector file MIPS.vwf is saved in VWF text format. You can compress it into CVWF format in order to reduce file size. For more details please refer to the Quartus II Help.
+Info: Quartus II Simulator was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 150 megabytes
+    Info: Processing ended: Tue Sep 19 10:15:16 2017
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:00
+
+

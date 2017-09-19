@@ -1,7 +1,8 @@
-module MIPS(input logic in, output logic out);
-	_TestModule(in, out);
-endmodule : MIPS
-
-module _TestModule(input logic a, output logic b);
+module MIPS(//input logic [31:0] a, 
+				//  output logic [31:0] b,
+	//			  input logic clk, res, lod);
+	//Registrador(clk, res, lod, a, b);
+	input logic a, output logic b);
 	assign b = a;
-endmodule : _TestModule
+	
+endmodule : MIPS
