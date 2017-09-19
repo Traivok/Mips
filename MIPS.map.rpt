@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MIPS
-Tue Sep 19 10:15:49 2017
+Tue Sep 19 11:49:25 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -15,6 +15,7 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
   7. Analysis & Synthesis Resource Utilization by Entity
   8. General Register Statistics
   9. Analysis & Synthesis Messages
+ 10. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -40,7 +41,7 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Tue Sep 19 10:15:49 2017        ;
+; Analysis & Synthesis Status        ; Successful - Tue Sep 19 11:49:25 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
@@ -224,7 +225,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Tue Sep 19 10:15:48 2017
+    Info: Processing started: Tue Sep 19 11:49:23 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
 Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Found 2 design units, including 1 entities, in source file banco_reg.vhd
@@ -250,18 +251,28 @@ Info: Found 1 design units, including 1 entities, in source file mips.sv
     Info: Found entity 1: MIPS
 Info: Found 1 design units, including 1 entities, in source file testmodule.sv
     Info: Found entity 1: TestModule
+Info: Found 1 design units, including 1 entities, in source file datapath.sv
+    Info: Found entity 1: DataPath
+Warning: Can't analyze file -- file PC.sv is missing
 Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(4): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at TestModule.sv(4): instance has no name
 Info: Elaborating entity "MIPS" for the top level hierarchy
 Info: Elaborating entity "Registrador" for hierarchy "Registrador:comb_3"
+Info: Generated suppressed messages file C:/Users/jraf/Documents/MIPS/MIPS.map.smsg
 Info: Implemented 99 device resources after synthesis - the final resource count might be different
     Info: Implemented 35 input pins
     Info: Implemented 32 output pins
     Info: Implemented 32 logic cells
-Info: Quartus II Analysis & Synthesis was successful. 0 errors, 2 warnings
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 3 warnings
     Info: Peak virtual memory: 235 megabytes
-    Info: Processing ended: Tue Sep 19 10:15:49 2017
-    Info: Elapsed time: 00:00:01
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Processing ended: Tue Sep 19 11:49:25 2017
+    Info: Elapsed time: 00:00:02
+    Info: Total CPU time (on all processors): 00:00:01
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/jraf/Documents/MIPS/MIPS.map.smsg.
 
 

@@ -60,4 +60,6 @@ set_global_assignment -name VHDL_FILE ula32.vhd
 set_global_assignment -name VECTOR_WAVEFORM_FILE MIPS.vwf
 set_global_assignment -name SYSTEMVERILOG_FILE MIPS.sv
 set_global_assignment -name SYSTEMVERILOG_FILE TestModule.sv
+set_global_assignment -name SYSTEMVERILOG_FILE DataPath.sv
+set_global_assignment -name SYSTEMVERILOG_FILE PC.sv
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
