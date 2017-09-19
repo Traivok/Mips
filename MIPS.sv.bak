@@ -1,0 +1,7 @@
+module MIPS(input logic in, output logic out);
+	_TestModule(in, out);
+endmodule : MIPS
+
+module _TestModule(input logic a, output logic b);
+	assign b = a;
+endmodule : _TestModule
