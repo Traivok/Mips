@@ -6,9 +6,6 @@ module MUX_PC(input logic [31:0] ALUresult, // PC + 4
 				input logic PCwriteCOND,
 				input logic zeroSignal, // used to detect if the two operands of the beq are equal
 				output logic [31:0] newPC);
-				
-reg sel;
-assign sel = (PCwriteCOND && zeroSignal) || PCwrite;
 
 reg [31:0] PC_aux;
 
@@ -20,8 +17,10 @@ begin
 		PC_aux <= ALUout;
 	else if (PCsource == 2'b10)
 		PC_aux <= instrShiftLeft;
-		
-	if (sel)
+	else
+		PC_aux <= 0;
+	
+	if ((PCwriteCOND && zeroSignal) || PCwrite)
 		newPC <= PC_aux;
 end
 
