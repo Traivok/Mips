@@ -20,8 +20,6 @@ begin
 		PC_aux <= ALUout;
 	else if (PCsource == 2'b10)
 		PC_aux <= instrShiftLeft;
-	else
-		//sel <= 2'b00;
 		
 	if (sel)
 		newPC <= PC_aux;
