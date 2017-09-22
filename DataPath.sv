@@ -13,7 +13,7 @@ module DataPath(
 			output logic [1:0] ALUSrcB_Out,		// Alu source B mux
 			output logic ALUSrcA_Out,			// Alu source A mux
 			
-			output logic [31:0] PC_content; 	// PC out, current instruction address
+			output logic [31:0] PC_content, 	// PC out, current instruction address
 			
 			output logic [7:0] ControlState_Out	// Control state
 		);

@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MIPS
-Fri Sep 22 10:52:06 2017
+Fri Sep 22 12:57:34 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Sep 22 10:52:06 2017        ;
+; Analysis & Synthesis Status        ; Successful - Fri Sep 22 12:57:34 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
@@ -224,7 +224,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Fri Sep 22 10:52:04 2017
+    Info: Processing started: Fri Sep 22 12:57:33 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
 Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Found 2 design units, including 1 entities, in source file banco_reg.vhd
@@ -253,12 +253,12 @@ Info: Found 1 design units, including 1 entities, in source file testmodule.sv
 Info: Found 1 design units, including 1 entities, in source file datapath.sv
     Info: Found entity 1: DataPath
 Warning: Can't analyze file -- file PC.sv is missing
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(83): created implicit net for "pc_reset"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(83): created implicit net for "pc_load"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(94): created implicit net for "MDROut"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(102): created implicit net for "ALUout_reset"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(102): created implicit net for "ALUout_load"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(102): created implicit net for "ALU_opResult"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(85): created implicit net for "pc_reset"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(85): created implicit net for "pc_load"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(96): created implicit net for "MDROut"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(104): created implicit net for "ALUout_reset"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(104): created implicit net for "ALUout_load"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(104): created implicit net for "ALU_opResult"
 Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(4): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at TestModule.sv(4): instance has no name
 Info: Elaborating entity "MIPS" for the top level hierarchy
@@ -268,9 +268,9 @@ Info: Implemented 99 device resources after synthesis - the final resource count
     Info: Implemented 32 output pins
     Info: Implemented 32 logic cells
 Info: Quartus II Analysis & Synthesis was successful. 0 errors, 9 warnings
-    Info: Peak virtual memory: 235 megabytes
-    Info: Processing ended: Fri Sep 22 10:52:06 2017
-    Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Peak virtual memory: 238 megabytes
+    Info: Processing ended: Fri Sep 22 12:57:34 2017
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
 
 
