@@ -2,14 +2,20 @@ module DataPath(
 		input logic Clk, // the system clock
 	
 		/* Begin of Register control section */
-		input logic pc_reset, pc_load, // PC control	
-		input logic mem_write, // Memory control
+		input logic pc_reset, pc_load, // PC control
+				    PCWriteCond, PCWrite,
+		input logic IorD, // instruction or data
+		input logic MemWrite, MemRead, // Memory control
 		input logic instReg_reset, instReg_load, // Instruction register control
+		input logic IRWrite, // write at instruction register 
 		//input logic mdr_reset, mdr_load, // MDR control
+		input logic PCSource, // Pc Mux control
 		input logic a_reset, a_load, // A register control
 		input logic b_reset, b_load, // B register control
 		input logic ALUout_reset, ALUout_load, // ALU control
 		input logic [3:0] ALUSrcB, // a mux control for rhs of ALU 
+		input logic [1:0] ALUSrcA, // mux control for lhs of ALU
+		input logic [1:0] ALUOp, // alu operation control
 		/* End of Register control section */
 		
 		input AluOut_reset, AluOut_load, // AluOut control
@@ -42,14 +48,14 @@ module DataPath(
 						   ALU_RHS_B = 4'b00, // content of register B
 						   ALU_RHS_4 = 4'b01, // constant 4
 						   ALU_RHS_SIGNEX = 4'b10, // Sign extend
-						   ALU_RHS_SHLFT = 4'b11 } ALU_RHS; // shift left (2)
+						   ALU_RHS_SHLFT = 4'b11 } ALU_RHS_SEL; // shift left (2)
 		/* ENd OF ENUM SECTION */
 		
 		// pass Clk, reset and load control, the input is the next instruction, and get the current instruction
 		Registrador PC(Clk, pc_reset, pc_load, nextInstruction, currentInstruction);
 		
 		// currentInstruction as address, and the may write and value readed by the memory
-		Memoria Memory(currentInstruction, Clk, mem_DataWrite, mem_DataRead);
+		Memoria Memory(currentInstruction, Clk, MemWrite,mem_DataWrite, mem_DataRead);
 		
 		// instruction register
 		Registrador InstructionReg(Clk, instReg_reset, instReg_load, mem_DataRead, instruction);
