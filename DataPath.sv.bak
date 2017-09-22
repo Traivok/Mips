@@ -14,6 +14,8 @@ module DataPath(
 		input logic b_reset, b_load, // B register control
 		input logic ALUout_reset, ALUout_load, // ALU control
 		input logic [3:0] ALUSrcB, // a mux control for rhs of ALU 
+		input logic [1:0] ALUSrcA, // mux control for lhs of ALU
+		input logic [1:0] ALUOp, // alu operation control
 		/* End of Register control section */
 		
 		input AluOut_reset, AluOut_load, // AluOut control
