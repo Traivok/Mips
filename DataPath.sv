@@ -74,13 +74,22 @@ module DataPath(
 		logic ALU_zero; // A + B = 0
 		logic ALU_equal; // A = B
 		logic ALU_greater; // A > B 
-		logic ALU_lesser; // A < B	
-		/* END OF DATA SECTION */
+		logic ALU_lesser; // A < B
 		
+		logic [31:0] ALU_LHS, ALU_RHS;	
+		/* END OF DATA SECTION */		
 		
+		logic [31:0] ALUTOut_content;	
 		
-		logic [31:0] testVar;		
+		const logic [31:0] PC_Increment = 32'd4;
 		
+		always_comb
+		begin
+			LHS <= PC_out;
+			RHS <= PC_Increment;
+			PC_in <= ALUTOut_content;
+		end
+				
 		// pass Clk, reset and load control, the input is the next instruction, and get the current instruction
 		Registrador PC(Clk, pc_reset, pc_load, PC_in, PC_out);
 		
@@ -90,6 +99,7 @@ module DataPath(
 		// instruction register
 		Instr_Reg Instruction_Register(Clk, RegBank_reset, RegBank_write, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 			
+		
 		Registers Banco_reg(Clk, RegBank_reset, RegBank_write, RegBank_ReadReg1, RegBank_ReadReg2,
 							RegBank_WriteReg, RegBank_WriteData, RegBank_ReadData1, RegBank_ReadData2); 
 		
@@ -99,8 +109,8 @@ module DataPath(
 		Registrador A(Clk, A_reset, A_load, Aout);
 		Registrador B(Clk, A_reset, A_load, Bout);
 		
-		ALU ula32(Aout, Bout, ALUOp, ALU_result, ALU_overflow, ALU_negSignal, ALU_zero, ALU_equal, ALU_greater, ALU_lesser);
+		ALU ula32(LHS, RHS, ALUOp, ALU_result, ALU_overflow, ALU_negSignal, ALU_zero, ALU_equal, ALU_greater, ALU_lesser);
 		
-		Registrador ALUout(Clk, ALUout_reset, ALUout_load, ALU_opResult, testVar);		
+		Registrador ALUout(Clk, ALUout_reset, ALUout_load, ALU_result, ALUTOut_content);		
 		
 endmodule : DataPath
