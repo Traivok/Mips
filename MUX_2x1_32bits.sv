@@ -19,6 +19,8 @@ begin
 			OUT <= B;
 		end
 		
+		default: OUT <= 32'b0;
+		
 end
 
 
