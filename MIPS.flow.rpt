@@ -1,5 +1,5 @@
 Flow report for MIPS
-Tue Sep 19 11:49:43 2017
+Fri Sep 22 09:03:04 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -38,14 +38,14 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Flow Summary                                                                      ;
 +------------------------------------+----------------------------------------------+
-; Flow Status                        ; Successful - Tue Sep 19 11:49:43 2017        ;
+; Flow Status                        ; Successful - Fri Sep 22 09:03:04 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
 ; Family                             ; Cyclone II                                   ;
 ; Device                             ; EP2C70F896C6                                 ;
 ; Timing Models                      ; Final                                        ;
-; Met timing requirements            ; N/A                                          ;
+; Met timing requirements            ; Yes                                          ;
 ; Total logic elements               ; 32 / 68,416 ( < 1 % )                        ;
 ;     Total combinational functions  ; 0 / 68,416 ( 0 % )                           ;
 ;     Dedicated logic registers      ; 32 / 68,416 ( < 1 % )                        ;
@@ -63,47 +63,49 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/19/2017 11:49:24 ;
+; Start date & time ; 09/22/2017 09:02:42 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; MIPS                ;
 +-------------------+---------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------+
-; Flow Non-Default Global Settings                                                                                    ;
-+------------------------------------+---------------------------------+---------------+-------------+----------------+
-; Assignment Name                    ; Value                           ; Default Value ; Entity Name ; Section Id     ;
-+------------------------------------+---------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID              ; 198690275901894.150583256307244 ; --            ; --          ; --             ;
-; MAX_CORE_JUNCTION_TEMP             ; 85                              ; --            ; --          ; --             ;
-; MIN_CORE_JUNCTION_TEMP             ; 0                               ; --            ; --          ; --             ;
-; PARTITION_COLOR                    ; 16764057                        ; --            ; --          ; Top            ;
-; PARTITION_NETLIST_TYPE             ; SOURCE                          ; --            ; --          ; Top            ;
-; USE_GENERATED_PHYSICAL_CONSTRAINTS ; Off                             ; --            ; --          ; eda_blast_fpga ;
-+------------------------------------+---------------------------------+---------------+-------------+----------------+
++--------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                   ;
++------------------------------------+--------------------------------+---------------+-------------+----------------+
+; Assignment Name                    ; Value                          ; Default Value ; Entity Name ; Section Id     ;
++------------------------------------+--------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID              ; 17727280413250.150608176109020 ; --            ; --          ; --             ;
+; MAX_CORE_JUNCTION_TEMP             ; 85                             ; --            ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP             ; 0                              ; --            ; --          ; --             ;
+; PARTITION_COLOR                    ; 16764057                       ; --            ; --          ; Top            ;
+; PARTITION_NETLIST_TYPE             ; SOURCE                         ; --            ; --          ; Top            ;
+; USE_GENERATED_PHYSICAL_CONSTRAINTS ; Off                            ; --            ; --          ; eda_blast_fpga ;
++------------------------------------+--------------------------------+---------------+-------------+----------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------+
-; Flow Elapsed Time                                                                                                        ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:03     ; 1.0                     ; 235 MB              ; 00:00:01                           ;
-; Fitter               ; 00:00:10     ; 2.0                     ; 364 MB              ; 00:00:12                           ;
-; Assembler            ; 00:00:06     ; 1.0                     ; 334 MB              ; 00:00:04                           ;
-; Total                ; 00:00:19     ; --                      ; --                  ; 00:00:17                           ;
-+----------------------+--------------+-------------------------+---------------------+------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                           ;
++-------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++-------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis    ; 00:00:05     ; 1.0                     ; 235 MB              ; 00:00:01                           ;
+; Fitter                  ; 00:00:10     ; 2.5                     ; 364 MB              ; 00:00:12                           ;
+; Assembler               ; 00:00:06     ; 1.0                     ; 334 MB              ; 00:00:04                           ;
+; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 165 MB              ; 00:00:00                           ;
+; Total                   ; 00:00:22     ; --                      ; --                  ; 00:00:17                           ;
++-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+---------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                       ;
-+----------------------+------------------+---------------+------------+----------------+
-; Module Name          ; Machine Hostname ; OS Name       ; OS Version ; Processor type ;
-+----------------------+------------------+---------------+------------+----------------+
-; Analysis & Synthesis ; G1C48            ; Windows Vista ; 6.1        ; x86_64         ;
-; Fitter               ; G1C48            ; Windows Vista ; 6.1        ; x86_64         ;
-; Assembler            ; G1C48            ; Windows Vista ; 6.1        ; x86_64         ;
-+----------------------+------------------+---------------+------------+----------------+
++------------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                          ;
++-------------------------+------------------+---------------+------------+----------------+
+; Module Name             ; Machine Hostname ; OS Name       ; OS Version ; Processor type ;
++-------------------------+------------------+---------------+------------+----------------+
+; Analysis & Synthesis    ; G3C27            ; Windows Vista ; 6.1        ; x86_64         ;
+; Fitter                  ; G3C27            ; Windows Vista ; 6.1        ; x86_64         ;
+; Assembler               ; G3C27            ; Windows Vista ; 6.1        ; x86_64         ;
+; Classic Timing Analyzer ; G3C27            ; Windows Vista ; 6.1        ; x86_64         ;
++-------------------------+------------------+---------------+------------+----------------+
 
 
 ------------
@@ -112,6 +114,7 @@ applicable agreement for further details.
 quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
 quartus_fit --read_settings_files=off --write_settings_files=off MIPS -c MIPS
 quartus_asm --read_settings_files=off --write_settings_files=off MIPS -c MIPS
+quartus_tan --read_settings_files=off --write_settings_files=off MIPS -c MIPS --timing_analysis_only
 
 
 
