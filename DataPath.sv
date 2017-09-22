@@ -1,30 +1,38 @@
 module DataPath(
-		input logic Clk, // the system clock
-	
-		/* Begin of Register control section */
-		input logic pc_reset, pc_load, // PC control
-				    PCWriteCond, PCWrite,
-		input logic IorD, // instruction or data
-		input logic MemWrite, MemRead, // Memory control
-		input logic instReg_reset, instReg_load, // Instruction register control
-		input logic IRWrite, // write at instruction register 
-		//input logic mdr_reset, mdr_load, // MDR control
-		input logic PCSource, // Pc Mux control
-		input logic a_reset, a_load, // A register control
-		input logic b_reset, b_load, // B register control
-		input logic ALUout_reset, ALUout_load, // ALU control
-		/* End of Register control section */
-		
-		input AluOut_reset, AluOut_load, // AluOut control
-		
-		output logic [5:0] Operation // for control	
+			input logic Clk, // the system clock
+			
+			output logic PCWriteCond_Out,		// Pc write for conditional jumps
+			output logic PCWrite_Out,			// Pc Write control
+			output logic IorD_Out,				// Instruction or Data	
+			output logic MemRead_Out,			// Memory read control
+			output logic MemtoReg_Out,			// Memory write control
+			output logic IRWrite_Out,			// Instruction register write
+			output logic [1:0] PCSource_Out,	// PC source mux
+			output logic [1:0] ALUOp_Out,		// Alu Operation 
+			output logic [1:0] ALUSrcB_Out,		// Alu source B mux
+			output logic ALUSrcA_Out,			// Alu source A mux
+			
+			output logic [7:0] ControlState_Out	
 		);
+		
+		/* Control Data */
+		logic PCWriteCond;
+		logic PCWrite;
+		logic IorD;
+		logic MemRead;
+		logic MemtoReg;
+		logic IRWrite;
+		logic [1:0] PCSource;
+		logic [1:0] ALUOp;
+		logic [1:0] ALU_RHS_Mux;
+		logic ALU_LHS_Mux;
+		/* Control Data */		
 		
 		/* BEGIN OF DATA SECTION */		
 		logic [31:0] nextInstruction, currentInstruction; // PC in/out
-		logic [31:0] testVar;
 		logic [31:0] mem_DataWrite, mem_DataRead; // Memory  in/out
 		logic [31:0] instruction; // the instruction code
+		logic [5:0] Operation;
 		initial Operation = 6'h0; // start with NoOp
 		logic [31:0] ALUout_data; // alu out content
 		logic [31:0] ALU_opResult; // ALU operation result
@@ -36,6 +44,7 @@ module DataPath(
 		logic ALU_lesser; // A < B	
 		/* END OF DATA SECTION */
 		
+		/*
 		// pass Clk, reset and load control, the input is the next instruction, and get the current instruction
 		Registrador PC(Clk, pc_reset, pc_load, nextInstruction, currentInstruction);
 		
@@ -54,5 +63,6 @@ module DataPath(
 		ALU ula32(Aout, Bout, ALU_select, ALU_opResult, ALU_overflow, ALU_negSignal, ALU_zero, ALU_equal, ALU_greater, ALU_lesser);
 		
 		Registrador ALUout(Clk, ALUout_reset, ALUout_load, ALU_opResult, testVar);		
+		*/
 		
 endmodule : DataPath
