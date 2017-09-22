@@ -21,7 +21,7 @@ module DataPath(
 	logic [31:0] MemData;		// Memory content
 	logic [31:0] Address;		// address of memory query
 	logic [31:0] WriteDataMem;	// data to write at memory
-	logic [4:0] WriteRegister; 	// Register to be overwrited
+	logic [04:0] WriteRegister; // Register to be overwrited
 	logic [31:0] WriteDataReg; 	// Data to be write
 	logic [31:0] MDR;			// Memory Data Register content
 	logic [31:0] Alu;			// ALU result
@@ -45,14 +45,16 @@ module DataPath(
 	initial NEW_PC = 31'd0;
 	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
+	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);	
+	Memoria Memory(Address, Clk, wr, 
 	
-	Memoria Memory
+	/*
 	Instr_Reg Instruction_Register
 	Registers Banco_reg
 	MemDataRegister Registrador
 	Registrador A
 	Registrador B
 	ALU ula32
-	Registrador ALUOut_reg	
+	Registrador ALUOut_reg*/	
 	
 endmodule : DataPath

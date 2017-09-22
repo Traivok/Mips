@@ -88,7 +88,7 @@ module Mux32bit_2x1 (
 			
 			default:
 			begin
-				out <= 32'd1234567890;
+				out <= 32'dd1234567890;
 			end
 		endcase
 	end
