@@ -42,31 +42,53 @@ module Control(
 		lbu = 8'h0x24, lhu = 8'h0x25, lui = 8'h0xf, 
 		lw = 8'h0x23, sb = 8'h0x28, sh = 8'h0x29, 
 		slti = 8'h0xa, sw = 8'h0x2b, sxori = 8'h0xe, 
-		j = 8'h0x2, jal = 8'h0x3;
+		j = 8'h0x2, jal = 8'h0x3, Fetch = 8'd1;
 		
 		initial State = Init;
 	/* END OF STATE SECTION */	
 		
+		always_ff@(posedge Clk) begin //decodificador do op
+			case (op)
+				0x00:
+					case(func) begin
+						state <= FUNCT_STATE;
+					end
+				0x02:
+					state <= ADD;
+				0x03:
+					state <= SUB;
+				
+			state <= state;
+		end
+			
+			
+		always_comb@(state)
+			case (state)
+				FETCH:  nexState <= FETCH2;
+				FETCH2: nexState <= DECODE;
+				ADD: 	nexState <= ADD2;
+				ADD2: 	nexState <= OTH;
+				FUNCT_STATE: 	nexState <= FETCH;
+				
 		always_comb@(posedge Clk)
 		begin
-			case (State)
+			case(state)
 				Init:
 				begin
 					
 					
 				end
 				
-				funct_state:
+				FUNCT_STATE:
 				begin
 				
 				end
 				
-				rte:
+				Fetch:
 				begin
 					PCWrite = 1'b1;
 					wr = 1'b1;
 					PCWriteCond = 1'b0;
-					
 				end
 				
 		end
