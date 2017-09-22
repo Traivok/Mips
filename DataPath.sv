@@ -38,20 +38,26 @@ module DataPath(
 	
 	/* Begin of Control Section */
 	logic PC_reset, PC_load;
-	
+	logic MDR_reset, MDR_load;
+	logic Instr_Reg_reset, Instr_Reg_load;
 	/* End of Control Section */
 	
 	logic [31:0] NEW_PC;
 	initial NEW_PC = 31'd0;
 	
+	logic [5:0] Instr31_26;
+	logic [4:0] Instr25_21;
+	logic [4:0] Instr20_16;
+	logic [15:0] Instr15_0;
+	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);
 	Memoria Memory(Address, Clk, wr, WriteDataMem, MemData);
+	Instr_Reg Instruction_Register(Clk, Instr_Reg_reset, Instr_Reg_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
+	MemDataRegister Registrador(Clk, MDR_reset, MDR_load, MDR);
 	
 	/*
-	Instr_Reg Instruction_Register
 	Registers Banco_reg
-	MemDataRegister Registrador
 	Registrador A
 	Registrador B
 	ALU ula32
