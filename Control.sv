@@ -11,7 +11,7 @@ module Control(
 				output logic IRWrite, 				// Instruction register write controla a escrita no registrador de instruç˜oes.
 				output logic [1:0] PCSource,
 				output logic [1:0] ALUOp,
-				output logic [1:0] ALUSrcB
+				output logic [1:0] ALUSrcB,
 				output logic ALUSrcA,
 				output logic RegWrite,				// write registers control
 				output logic RegDst,
@@ -31,66 +31,35 @@ module Control(
 		logic ALUOut_reset;
 		logic IR_load;
 		logic IR_reset;
+		
+		logic [7:0] State;
 	/* END OF DATA SECTION */
 		
-	/* BEGIN OF STATE SECTION */
-		logic [7:0] State;
+	/* BEGIN OF ENUM SECTION */		
+		enum logic [5:0] { ADD_OP = 8'h0, AND_OP = 8'h0, SUB_OP = 8'h0, XOR_OP = 8'h0, BREAK_OP = 8'h0, NOP_OP = 8'h0,
+				  BEQ_OP = 8'h4, BNE_OP = 8'h5, LW_OP = 8'h23, SW_OP = 8'h2b, LUI_OP = 8'hf } OpCodeEnum;
+				  
+		enum logic [5:0] { ADD_FUNCT = 8'h20, AND_FUNCT = 8'h24, SUB_FUNCT = 8'h22, XOR_FUNCT = 8'h26, BREAK_FUNCT = 8'hd, NOP_FUNCT = 8'h0 } FunctEnum;
 		
-		parameter init = 8'd0, funct_state = 8'h0x0, 
-		rte = 8'h0x10, addi = 8'h0x8, addu = 8'h0x9, 
-		andi = 8'h0xc, beq = 8'h0x4, bne = 8'h0x5, 
-		lbu = 8'h0x24, lhu = 8'h0x25, lui = 8'h0xf, 
-		lw = 8'h0x23, sb = 8'h0x28, sh = 8'h0x29, 
-		slti = 8'h0xa, sw = 8'h0x2b, sxori = 8'h0xe, 
-		j = 8'h0x2, jal = 8'h0x3, Fetch = 8'd1;
+		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE } StateEnum;
+	/* END OF enum SECTION */
 		
-		initial State = Init;
-	/* END OF STATE SECTION */	
-		
-		always_ff@(posedge Clk) begin //decodificador do op
-			case (op)
-				0x00:
-					case(func) begin
-						state <= FUNCT_STATE;
-					end
-				0x02:
-					state <= ADD;
-				0x03:
-					state <= SUB;
-				
-			state <= state;
-		end
-			
-			
-		always_comb@(state)
-			case (state)
-				FETCH:  nexState <= FETCH2;
-				FETCH2: nexState <= DECODE;
-				ADD: 	nexState <= ADD2;
-				ADD2: 	nexState <= OTH;
-				FUNCT_STATE: 	nexState <= FETCH;
-				
-		always_comb@(posedge Clk)
+		initial
 		begin
-			case(state)
-				Init:
-				begin
-					
-					
-				end
-				
-				FUNCT_STATE:
-				begin
-				
-				end
-				
-				Fetch:
-				begin
-					PCWrite = 1'b1;
-					wr = 1'b1;
-					PCWriteCond = 1'b0;
-				end
-				
+			State = FETCH;	
 		end
+		
+		
+		always_ff@(posedge Clk)
+		begin
+			
+//			case (State)
+			
+		
+//			endcase
+			
 	
-endmodule : Control;
+		end
+		
+	
+endmodule : Control
