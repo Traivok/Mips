@@ -43,11 +43,11 @@ module Control(
 		
 	/* BEGIN OF ENUM SECTION */		
 		enum logic [5:0] { FUNCT_OP = 8'h0,
-				  BEQ_OP = 8'h4, BNE_OP = 8'h5, LW_OP = 8'h23, SW_OP = 8'h2b, LUI_OP = 8'hf } OpCodeEnum;
+				  BEQ_OP = 8'h4, BNE_OP = 8'h5, LW_OP = 8'h23, SW_OP = 8'h2b, LUI_OP = 8'hf, J_OP = 8'h2 } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 8'h20, AND_FUNCT = 8'h24, SUB_FUNCT = 8'h22, XOR_FUNCT = 8'h26, BREAK_FUNCT = 8'hd, NOP_FUNCT = 8'h0 } FunctEnum;
 		
-		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI } StateEnum;
+		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
@@ -114,6 +114,12 @@ module Control(
 						begin
 							state <= LUI;
 						end	
+						
+						J_OP:
+						begin
+							state <= J;
+						end
+						
 					endcase // case OP		
 				
 				end // DECODE
@@ -291,10 +297,10 @@ module Control(
 				BEQ1: // PERFORM SUBTRACTION
 				begin
 
-					PCWriteCond = 1; 	// if result of Bout - Aout is zero, then PC will be overwrite
+					PCWriteCond = 0;
 					PCWrite = 0;
 					wr = 0;			  
-					IRWrite = 0; 
+					IRWrite = 0;
 					RegWrite = 0;
 					
 					ALUOp = 2'b01;
@@ -303,7 +309,7 @@ module Control(
 					MemtoReg = 1'bx;
 					ALUSrcB = 2'b00;
 					ALUSrcA = 1'b1;
-					PCSource = 2'b01;
+					PCSource = 2'bxx;
 					RegDst = 1'bx;
 					
 					A_load = 0;
@@ -322,7 +328,64 @@ module Control(
 				
 				BEQ2: // CONDITIONAL JUMP
 				begin
-					// to be continued 
+
+					PCWriteCond = 1; 	// if result of Bout - Aout is zero, then PC will be overwrite
+					PCWrite = 0;
+					wr = 0;			  
+					IRWrite = 0;
+					RegWrite = 0;
+					
+					ALUOp = 2'b01;
+					
+					IorD = 1'bx;		
+					MemtoReg = 1'bx;
+					ALUSrcB = 2'bxx;
+					ALUSrcA = 1'bx;
+					PCSource = 2'b01;
+					RegDst = 1'bx;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 0;
+					IR_reset = 0;
+
+				end
+				
+				J:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 1; // unconditional jump			
+					wr = 0;
+					IRWrite = 0;
+					RegWrite = 0;
+					
+					ALUOp = 2'bxx;
+					
+					IorD = 1'bxx;		
+					MemtoReg = 1'bx;
+					ALUSrcB = 2'bxx;
+					ALUSrcA = 1'bx;
+					PCSource = 2'b10;
+					RegDst = 1'bx;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 0;
+					IR_reset = 0;
 				end
 				
 		end
