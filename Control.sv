@@ -3,8 +3,13 @@ module Control(
 				input logic Reset,
 				input logic [5:0] Op,
 				input logic [7:0] nextFunctState, 	// in case of OP = 0x0
-				input logic ALU_ZERO,	
-				
+				input logic ALU_zero,				// alu zero result flag
+				input logic ALU_overflow,
+				input logic ALU_neg,				// alu < 0 flag
+				input logic ALU_eq,					// alu equal flag
+				input logic ALU_gt,					// alu greater flag
+				input logic ALU_lt,					// alu less flag
+								
 				output logic [7:0] StateOut,
 				
 				output logic PCWriteCond, 
@@ -12,7 +17,7 @@ module Control(
 				output logic IorD,
 				output logic wr, 					// memory write/read control
 				output logic MemtoReg, 
-				output logic IRWrite, 				// Instruction register write controla a escrita no registrador de instru�oes.
+				output logic IRWrite, 				// Instruction register write controla a escrita no registrador de instruç˜oes.
 				output logic [1:0] PCSource,
 				output logic [1:0] ALUOp,
 				output logic [1:0] ALUSrcB,
@@ -20,6 +25,7 @@ module Control(
 				output logic RegWrite,				// write registers control
 				output logic RegReset,
 				output logic RegDst,				
+				output logic [2:0] ALU_sel,
 				
 				output logic A_load,
 				output logic A_reset,		
@@ -46,7 +52,7 @@ module Control(
 		logic [7:0] state;
 		logic [7:0] nextFunctState;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
-		assign PC_load = PCWrite | ( PCWriteCond & ALU_ZERO ); 
+		assign PC_load = PCWrite | ( PCWriteCond & ALU_zero ); 
 	/* END OF DATA SECTION */
 	
 		
