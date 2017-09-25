@@ -21,7 +21,6 @@ module Control(
 				output logic RegReset,
 												
 				output logic [2:0] ALU_sel,
-				output logic [1:0] ALUOp,
 				
 				output logic MemtoReg, 
 				output logic [1:0] PCSource,
@@ -162,7 +161,6 @@ module Control(
 				RegReset = 
 												
 				ALU_sel = 3'bxxx;
-				ALUOp = 2'bxx;
 				
 				MemtoReg = 1'bx;
 				PCSource = 2'bxx; 
@@ -191,15 +189,14 @@ module Control(
 				FETCH:
 				begin
 					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWrite = 1;
 					
 					wr = 0;		
-					IRWrite = 0; 
+					IRWrite = 1; 
 					RegWrite = 0;
 					RegReset = 0;
 													
 					ALU_sel = 3'b000;
-					ALUOp = 2'b00;
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
@@ -233,7 +230,6 @@ module Control(
 					RegReset = 0;
 													
 					ALU_sel = 3'b000;
-					ALUOp = 2'b00;
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
@@ -267,7 +263,6 @@ module Control(
 					RegReset = 0;
 													
 					ALU_sel = 3'b000;
-					ALUOp = 2'b00;
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
@@ -301,7 +296,6 @@ module Control(
 					RegReset = 0;
 													
 					ALU_sel = 3'b000;
-					ALUOp = 2'b00;
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
