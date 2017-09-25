@@ -60,7 +60,7 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
+		enum logic [7:0] { FETCH, MEM_DELAY1, MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
@@ -90,22 +90,24 @@ module Control(
 			case (state)
 				FETCH:
 				begin
-					state <= DELAY1;
+					state <= MEM_DELAY1;
 				end
 				
-				DELAY1:
+				MEM_DELAY1:
 				begin
-					state <= DELAY2;
+					state <= MEM_DELAY2;
 				end
 				
-				DELAY2:
+				MEM_DELAY2:
 				begin
 					state <= DECODE;
 				end
 				
 				DECODE:
 				begin
-			
+					
+					//state <= state; // TIRAR ISSO, ta pra compilar	
+					/*
 					case (Op)
 					
 						BEQ_OP:
@@ -139,7 +141,7 @@ module Control(
 						end
 						
 					endcase // case OP		
-				
+					*/
 				end // DECODE
 				
 				default:
@@ -152,11 +154,11 @@ module Control(
 
 /*		APAGAR ISSO DEPOIS, ZE
 				PCWriteCond =  
-				PCWrite =  				// ativo em 1
+				PCWrite = 
 				
-				wr =  					// memory write/read control				
-				IRWrite = 				// Instruction register write
-				RegWrite = 				// write registers control
+				wr = 				
+				IRWrite = 
+				RegWrite = 
 				RegReset = 
 												
 				ALU_sel = 3'bxxx;
@@ -173,7 +175,6 @@ module Control(
 				A_reset = 		
 				B_load = 
 				B_reset = 
-				PC_load = 
 				PC_reset = 		
 				MDR_load = 
 				MDR_reset = 
@@ -183,161 +184,147 @@ module Control(
 				IR_reset = 
 
 
-*//*
+*/
 	always_comb
 		begin
 			case (state)
 				FETCH:
 				begin
-					
 					PCWriteCond = 0;
-					PCWrite = 1;
+					PCWrite = 0;
 					
-					wr = 0;
-					IRWrite = 1;
+					wr = 0;		
+					IRWrite = 0; 
 					RegWrite = 0;
 					RegReset = 0;
 													
-					ALU_sel = 3'bxxx;
-					ALUOp = 2'bxx;
+					ALU_sel = 3'b000;
+					ALUOp = 2'b00;
 					
-					MemtoReg = 1'bx;
-					PCSource = 2'bxx; 
-					ALUSrcA = 1'bx;
-					ALUSrcB = 2'bxx; 
-					IorD = 1'bx;
-					RegDst = 1'bx;
-					
-					A_load = 
-					A_reset = 		
-					B_load = 
-					B_reset = 
-					PC_load = 
-					PC_reset = 		
-					MDR_load = 1;
-					MDR_reset = 
-					ALUOut_load = 
-					ALUOut_reset = 
-					IR_load = 1;
-					IR_reset = 
-					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'bxxx;
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-				
-				end
-				
-				DELAY1:
-				begin
-
-					PCWriteCond = 0;
-					PCWrite = 0;			
-					wr = 0;			// read			  
-					IRWrite = 1;	// write at IR
-					RegWrite = 0;
-					RegReset = 0;
-					
-					ALUOp = 2'bxx;
-					
-					IorD = 1'bx;			
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'bxx;
-					ALUSrcA = 1'bx;
-					PCSource = 2'bxx;
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx;
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
 					
 					A_load = 0;
 					A_reset = 0;	
 					B_load = 0;
 					B_reset = 0;
+
 					PC_reset = 0;	
-					MDR_load = 1;
+					MDR_load = 0;
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;
-					IR_reset = 0;	
-				
+					IR_load = 0;
+					IR_reset = 	0;			
 				end
 				
-				DELAY2:
+				MEM_DELAY1:
 				begin
-
-					PCWriteCond = 0;
-					PCWrite = 0;			
-					wr = 0;			// read			  
-					IRWrite = 1;	// write at IR
+					PCWriteCond = 0; 
+					PCWrite = 0;
+					
+					wr = 0;		
+					IRWrite = 0; 
 					RegWrite = 0;
 					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					ALUOp = 2'b00;
 					
-					ALUOp = 2'bxx;
-					
-					IorD = 1'bx;			
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'bxx;
-					ALUSrcA = 1'bx;
-					PCSource = 2'bxx;
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx; 
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
 					
 					A_load = 0;
 					A_reset = 0;	
 					B_load = 0;
 					B_reset = 0;
+
 					PC_reset = 0;	
-					MDR_load = 1;
+					MDR_load = 0;
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;
+					IR_load = 0;
 					IR_reset = 0;
+				end
 				
+				MEM_DELAY2:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;		
+					IRWrite = 0; 
+					RegWrite = 0;
+					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					ALUOp = 2'b00;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 0;
+					IR_reset = 0;
 				end
 				
 				DECODE:
 				begin
-
 					PCWriteCond = 0;
-					PCWrite = 0;			
-					wr = 0;		  
+					PCWrite = 0; 
+					
+					wr = 0;	
 					IRWrite = 0; 
 					RegWrite = 0;
 					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					ALUOp = 2'b00;
 					
-					ALUOp = 2'b00;			// pc + offset
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
 					
-					IorD = 1'bx;		
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'b11;		// get the signex and shift left of 15-0 instruction field
-					ALUSrcA = 1'b0;			// pc content
-					PCSource = 2'bxx;
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx; 
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-					
-					A_load = 1;				// store read1 at A
+					A_load = 0;
 					A_reset = 0;	
-					B_load = 1;				// store read2 at B
+					B_load = 0;
 					B_reset = 0;
+
 					PC_reset = 0;	
 					MDR_load = 0;
 					MDR_reset = 0;
-					ALUOut_load = 1;		// write the pc + offset result at aluout register
+					ALUOut_load = 0;
 					ALUOut_reset = 0;
 					IR_load = 0;
-					IR_reset = 0;					
+					IR_reset = 0;
 				end
 			endcase // state
-		end
-	*/	
+		end //end always comb
+
 	
 endmodule : Control
