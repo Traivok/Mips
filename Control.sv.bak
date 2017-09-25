@@ -16,23 +16,31 @@ module Control(
 				output logic [1:0] ALUSrcB,
 				output logic ALUSrcA,
 				output logic RegWrite,				// write registers control
+				output logic RegReset;
 				output logic RegDst,
 				output logic [7:0] StateOut
+				
+				output logic A_load,
+				output logic A_reset,		
+				output logic B_load,
+				output logic B_reset,
+				output logic PC_load,
+				output logic PC_reset,		
+				output logic MDR_load,
+				output logic MDR_reset,
+				output logic ALUOut_load,
+				output logic ALUOut_reset,
+				output logic IR_load,
+				output logic IR_reset,
+				
+				output logic BEQ_SHIFTLEFT_reset, JMP_SHIFTLEFT_reset,
+				output logic [2:0] BEQ_SHIFTLEFT_funct, JMP_SHIFTLEFT_funct,
+				output logic [4:0] BEQ_SHIFTLEFT_N, JMP_SHIFTLEFT_N,			
+				
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
-		logic A_load;
-		logic A_reset;		
-		logic B_load;
-		logic B_reset;
-		logic PC_load;
-		logic PC_reset;		
-		logic MDR_load;
-		logic MDR_reset;
-		logic ALUOut_load;
-		logic ALUOut_reset;
-		logic IR_load;
-		logic IR_reset;
+
 		
 		logic [7:0] state;
 		logic [7:0] nextFunctState;
@@ -139,7 +147,8 @@ module Control(
 					wr = 					  
 					IRWrite = 
 					RegWrite = 
-					
+					RegReset = 
+						
 					ALUOp = 2'b
 					
 					IorD = 1'b				
@@ -149,6 +158,14 @@ module Control(
 					PCSource = 2'b
 					RegDst = 1'b
 					
+					BEQ_SHIFTLEFT_reset = 
+					BEQ_SHIFTLEFT_funct = 3'b 
+					BEQ_SHIFTLEFT_N = 5'b
+					
+					JMP_SHIFTLEFT_reset = 
+					JMP_SHIFTLEFT_funct = 3'b
+					JMP_SHIFTLEFT_N = 5'b
+
 					A_load =
 					A_reset =		
 					B_load =
@@ -174,6 +191,7 @@ module Control(
 					wr = 0;				// read			  
 					IRWrite = 1;		// write at IR
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'b00;		// perform an pc + 4 operation
 					
@@ -206,6 +224,7 @@ module Control(
 					wr = 0;			// read			  
 					IRWrite = 1;	// write at IR
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'bxx;
 					
@@ -238,6 +257,7 @@ module Control(
 					wr = 0;			// read			  
 					IRWrite = 1;	// write at IR
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'bxx;
 					
@@ -270,6 +290,7 @@ module Control(
 					wr = 0;		  
 					IRWrite = 0; 
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'b00;			// pc + offset
 					
@@ -302,6 +323,7 @@ module Control(
 					wr = 0;			  
 					IRWrite = 0;
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'b01;
 					
@@ -334,6 +356,7 @@ module Control(
 					wr = 0;			  
 					IRWrite = 0;
 					RegWrite = 0;
+					RegReset = 0;
 					
 					ALUOp = 2'b01;
 					
@@ -356,6 +379,37 @@ module Control(
 					IR_load = 0;
 					IR_reset = 0;
 
+				end
+				
+				J:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 1; // unconditional jump			
+					wr = 0;
+					IRWrite = 0;
+					RegWrite = 0;
+					RegReset = 0;
+					
+					ALUOp = 2'bxx;
+					
+					IorD = 1'bxx;		
+					MemtoReg = 1'bx;
+					ALUSrcB = 2'bxx;
+					ALUSrcA = 1'bx;
+					PCSource = 2'b10;	// PC = contentOf(25-0)*4
+					RegDst = 1'bx;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 0;
+					IR_reset = 0;
 				end
 				
 		end

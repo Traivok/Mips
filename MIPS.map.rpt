@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MIPS
-Sat Sep 23 16:33:30 2017
+Sun Sep 24 21:23:58 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -40,7 +40,7 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Sep 23 16:33:30 2017        ;
+; Analysis & Synthesis Status        ; Successful - Sun Sep 24 21:23:57 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
@@ -136,31 +136,25 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------+--------------------+--------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 4           ;
-; Maximum allowed            ; 4           ;
-;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     1 processor            ; 100.0%      ;
-;     2-4 processors         ;   0.0%      ;
-+----------------------------+-------------+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
 
 
-+------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                 ;
-+----------------------------------+-----------------+------------------------------+------------------------------------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path       ;
-+----------------------------------+-----------------+------------------------------+------------------------------------+
-; Registrador.vhd                  ; yes             ; User VHDL File               ; C:/Users/dpc2/Mips/Registrador.vhd ;
-; MIPS.sv                          ; yes             ; User SystemVerilog HDL File  ; C:/Users/dpc2/Mips/MIPS.sv         ;
-+----------------------------------+-----------------+------------------------------+------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                           ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                 ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------+
+; Registrador.vhd                  ; yes             ; User VHDL File               ; C:/Users/José/Documents/Mips/Registrador.vhd ;
+; MIPS.sv                          ; yes             ; User SystemVerilog HDL File  ; C:/Users/José/Documents/Mips/MIPS.sv         ;
++----------------------------------+-----------------+------------------------------+----------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -224,9 +218,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Sat Sep 23 16:33:28 2017
+    Info: Processing started: Sun Sep 24 21:22:24 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
-Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Found 2 design units, including 1 entities, in source file banco_reg.vhd
     Info: Found design unit 1: Banco_reg-behavioral_arch
     Info: Found entity 1: Banco_reg
@@ -257,8 +250,10 @@ Info: Found 3 design units, including 3 entities, in source file mux.sv
     Info: Found entity 1: Mux32bits_4x2
     Info: Found entity 2: Mux5bit_2x1
     Info: Found entity 3: Mux32bit_2x1
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(53): created implicit net for "Clk"
-Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(54): created implicit net for "IorD"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(94): created implicit net for "Clk"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(113): created implicit net for "BEQ_SHIFTLEFT_shift"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(121): created implicit net for "AluSrcA"
+Warning (10236): Verilog HDL Implicit Net warning at DataPath.sv(122): created implicit net for "AluSrcB"
 Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(4): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at TestModule.sv(4): instance has no name
 Info: Elaborating entity "MIPS" for the top level hierarchy
@@ -267,10 +262,10 @@ Info: Implemented 99 device resources after synthesis - the final resource count
     Info: Implemented 35 input pins
     Info: Implemented 32 output pins
     Info: Implemented 32 logic cells
-Info: Quartus II Analysis & Synthesis was successful. 0 errors, 5 warnings
-    Info: Peak virtual memory: 235 megabytes
-    Info: Processing ended: Sat Sep 23 16:33:30 2017
-    Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:02
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 7 warnings
+    Info: Peak virtual memory: 256 megabytes
+    Info: Processing ended: Sun Sep 24 21:23:58 2017
+    Info: Elapsed time: 00:01:34
+    Info: Total CPU time (on all processors): 00:00:06
 
 
