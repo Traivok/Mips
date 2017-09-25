@@ -1,10 +1,12 @@
 module Control( 
 				input logic Clk,
-				input logic Reset;
+				input logic Reset,
 				input logic [5:0] Op,
-				input logic [7:0] nextFunctState; 	// in case of OP = 0x0
-				input logic ALU_ZERO;	
-						
+				input logic [7:0] nextFunctState, 	// in case of OP = 0x0
+				input logic ALU_ZERO,	
+				
+				output logic [7:0] StateOut,
+				
 				output logic PCWriteCond, 
 				output logic PCWrite, 				// ativo em 1
 				output logic IorD,
@@ -16,9 +18,8 @@ module Control(
 				output logic [1:0] ALUSrcB,
 				output logic ALUSrcA,
 				output logic RegWrite,				// write registers control
-				output logic RegReset;
-				output logic RegDst,
-				output logic [7:0] StateOut
+				output logic RegReset,
+				output logic RegDst,				
 				
 				output logic A_load,
 				output logic A_reset,		
