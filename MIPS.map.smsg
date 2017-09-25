@@ -1,13 +1,1 @@
-Warning (10273): Verilog HDL warning at Control.sv(254): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(255): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(291): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(292): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(328): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(329): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(365): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(366): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(402): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(403): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(438): extended using "x" or "z"
-Warning (10273): Verilog HDL warning at Control.sv(439): extended using "x" or "z"
 Info (10281): Verilog HDL Declaration information at MIPS.sv(57): object "Alu" differs only in case from object "ALU" in the same scope

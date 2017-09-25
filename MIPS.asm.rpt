@@ -1,5 +1,5 @@
 Assembler report for MIPS
-Mon Sep 25 11:42:15 2017
+Mon Sep 25 12:13:37 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Mon Sep 25 11:42:15 2017 ;
+; Assembler Status      ; Successful - Mon Sep 25 12:13:37 2017 ;
 ; Revision Name         ; MIPS                                  ;
 ; Top-level Entity Name ; MIPS                                  ;
 ; Family                ; Cyclone II                            ;
@@ -95,7 +95,7 @@ applicable agreement for further details.
 +----------------+------------------------------------------------+
 ; Device         ; EP2C70F896C6                                   ;
 ; JTAG usercode  ; 0xFFFFFFFF                                     ;
-; Checksum       ; 0x00605D85                                     ;
+; Checksum       ; 0x00605D6D                                     ;
 +----------------+------------------------------------------------+
 
 
@@ -106,7 +106,7 @@ applicable agreement for further details.
 +--------------------+--------------------------------------------+
 ; Device             ; EPCS16                                     ;
 ; JTAG usercode      ; 0x00000000                                 ;
-; Checksum           ; 0x187F8C6C                                 ;
+; Checksum           ; 0x187F88F8                                 ;
 ; Compression Ratio  ; 3                                          ;
 +--------------------+--------------------------------------------+
 
@@ -117,13 +117,13 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II Assembler
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Mon Sep 25 11:42:12 2017
+    Info: Processing started: Mon Sep 25 12:13:34 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off MIPS -c MIPS
 Info: Writing out detailed assembly data for power analysis
 Info: Assembler is generating device programming files
 Info: Quartus II Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 336 megabytes
-    Info: Processing ended: Mon Sep 25 11:42:15 2017
+    Info: Processing ended: Mon Sep 25 12:13:37 2017
     Info: Elapsed time: 00:00:03
     Info: Total CPU time (on all processors): 00:00:03
 

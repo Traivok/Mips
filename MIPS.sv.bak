@@ -1,4 +1,4 @@
-module MIPS(output logic SO_PRA_COMPILAR);
+module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 
@@ -80,19 +80,63 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
-	// extract [15-11] field of instruction to Instr15_11
+	// DUVIDA AQUI extract [15-11] field of instruction to Instr15_11
 	assign Instr15_11 = { Instr15_0[15:11] };
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
 	// DUVIDA AQUI, Concatenação correta:
 	assign JMP_address = { PC[31-:4], Instr25_21, Instr20_16, Instr15_0, 2'b00}; 
-		
+	
+	/* CONTROL SECTION BEGINS HERE */
+			Control (	
+					// control inputs
+					Clk, reset, Instr31_26, nextFunctState, 
+					// alu flags
+					ALU_zero, ALU_overflow, ALU_neg, ALU_eq, ALU_gt, ALU_lt, 
+					
+					Estado,
+					
+					// enables, disables
+					PCWriteCond,
+					PCWrite,
+					IorD,
+					MemtoReg,
+					IRWrite,
+					PCSource,
+					ALUOp,
+					ALUSrcB,
+					ALUSrcA,
+					RegDst,
+					ALU_sel,
+					
+					// registers load and reset signals
+					A_load,
+					A_reset,		
+					B_load,
+					B_reset,
+					PC_load,
+					PC_reset,		
+					MDR_load,
+					MDR_reset,
+					ALUOut_load,
+					ALUOut_reset,
+					IR_load,
+					IR_reset,
+						
+					// reg shift control signals
+					BEQ_SHIFTLEFT_reset,
+					BEQ_SHIFTLEFT_funct,
+					BEQ_SHIFTLEFT_N
+				);
+				
+	/* CONTROL SECTION ENDS HERE */
+	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);
 	Memoria Memory(Address, Clk, wr, WriteDataMem, MemData);
 	
 	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
-	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MDR);	
+	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);	
 
 	Mux5bit_2x1 WriteRegMux(RegDst, Instr25_21, Instr15_11, WriteRegister);
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);

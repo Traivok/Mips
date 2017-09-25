@@ -1068,7 +1068,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-SignExtend:comb_66
+SignExtend:comb_67
 }
 # macro_sequence
 
@@ -1118,7 +1118,7 @@ ON
 # case_sensitive
 # source_file
 mips.sv
-5c4c82f7dd18175fa43d28a94c98f77
+628d3ef5e25b75a12b66323ac59e647d
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1138,6 +1138,42 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 }
 # hierarchies {
 |
+}
+# macro_sequence
+
+# end
+# entity
+Control
+# storage
+db|MIPS.(16).cnf
+db|MIPS.(16).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+control.sv
+815341e48c6439f4955412fdcb756c4
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+Control:comb_66
 }
 # macro_sequence
 

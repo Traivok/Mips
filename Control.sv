@@ -56,10 +56,10 @@ module Control(
 	
 		
 	/* BEGIN OF ENUM SECTION */		
-		enum logic [5:0] { FUNCT_OP = 8'h0,
-				  BEQ_OP = 8'h4, BNE_OP = 8'h5, LW_OP = 8'h23, SW_OP = 8'h2b, LUI_OP = 8'hf, J_OP = 8'h2 } OpCodeEnum;
+		enum logic [5:0] { FUNCT_OP = 6'h0,
+				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2 } OpCodeEnum;
 				  
-		enum logic [5:0] { ADD_FUNCT = 8'h20, AND_FUNCT = 8'h24, SUB_FUNCT = 8'h22, XOR_FUNCT = 8'h26, BREAK_FUNCT = 8'hd, NOP_FUNCT = 8'h0 } FunctEnum;
+		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
 		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
@@ -190,7 +190,7 @@ module Control(
 					IR_reset =
 */
 
-		
+		/*
 		always_comb
 		begin
 			case (state)
@@ -251,8 +251,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bx;
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx;
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -288,8 +288,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'dx; 
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx; 
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -325,8 +325,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'dx; 
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx; 
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 1;				// store read1 at A
 					A_reset = 0;	
@@ -362,8 +362,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'dx; 
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx; 
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -399,8 +399,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'dx;
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx;
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -435,8 +435,8 @@ module Control(
 					RegDst = 1'bx;
 					
 					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'dx;
-					BEQ_SHIFTLEFT_N = 5'dx;
+					BEQ_SHIFTLEFT_funct = 3'bxxx;
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -453,6 +453,6 @@ module Control(
 				end
 			endcase // state
 		end
-		
+		*/
 	
 endmodule : Control

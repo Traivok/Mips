@@ -1,5 +1,95 @@
 |MIPS
+Clk => Clk.IN10
+reset => reset.IN1
 SO_PRA_COMPILAR <= <GND>
+
+
+|MIPS|Control:comb_66
+Clk => state[0].CLK
+Clk => state[1].CLK
+Clk => state[2].CLK
+Clk => state[3].CLK
+Clk => state[4].CLK
+Clk => state[5].CLK
+Clk => state[6].CLK
+Clk => state[7].CLK
+Clk => StateOut[0]~reg0.CLK
+Clk => StateOut[1]~reg0.CLK
+Clk => StateOut[2]~reg0.CLK
+Clk => StateOut[3]~reg0.CLK
+Clk => StateOut[4]~reg0.CLK
+Clk => StateOut[5]~reg0.CLK
+Clk => StateOut[6]~reg0.CLK
+Clk => StateOut[7]~reg0.CLK
+Reset => ~NO_FANOUT~
+Op[0] => Decoder0.IN5
+Op[1] => Decoder0.IN4
+Op[2] => Decoder0.IN3
+Op[3] => Decoder0.IN2
+Op[4] => Decoder0.IN1
+Op[5] => Decoder0.IN0
+nextFunctState[0] => Selector7.IN6
+nextFunctState[1] => Selector6.IN6
+nextFunctState[2] => Selector5.IN6
+nextFunctState[3] => Selector4.IN6
+nextFunctState[4] => Selector3.IN4
+nextFunctState[5] => Selector2.IN4
+nextFunctState[6] => Selector1.IN4
+nextFunctState[7] => Selector0.IN4
+ALU_zero => ~NO_FANOUT~
+ALU_overflow => ~NO_FANOUT~
+ALU_neg => ~NO_FANOUT~
+ALU_eq => ~NO_FANOUT~
+ALU_gt => ~NO_FANOUT~
+ALU_lt => ~NO_FANOUT~
+StateOut[0] <= StateOut[0]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[1] <= StateOut[1]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[2] <= StateOut[2]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[3] <= StateOut[3]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[4] <= StateOut[4]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[5] <= StateOut[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[6] <= StateOut[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+StateOut[7] <= StateOut[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
+PCWriteCond <= <GND>
+PCWrite <= <GND>
+IorD <= <GND>
+wr <= <GND>
+MemtoReg <= <GND>
+IRWrite <= <GND>
+PCSource[0] <= <GND>
+PCSource[1] <= <GND>
+ALUOp[0] <= <GND>
+ALUOp[1] <= <GND>
+ALUSrcB[0] <= <GND>
+ALUSrcB[1] <= <GND>
+ALUSrcA <= <GND>
+RegWrite <= <GND>
+RegReset <= <GND>
+RegDst <= <GND>
+ALU_sel[0] <= <GND>
+ALU_sel[1] <= <GND>
+ALU_sel[2] <= <GND>
+A_load <= <GND>
+A_reset <= <GND>
+B_load <= <GND>
+B_reset <= <GND>
+PC_load <= <GND>
+PC_reset <= <GND>
+MDR_load <= <GND>
+MDR_reset <= <GND>
+ALUOut_load <= <GND>
+ALUOut_reset <= <GND>
+IR_load <= <GND>
+IR_reset <= <GND>
+BEQ_SHIFTLEFT_reset <= <GND>
+BEQ_SHIFTLEFT_funct[0] <= <GND>
+BEQ_SHIFTLEFT_funct[1] <= <GND>
+BEQ_SHIFTLEFT_funct[2] <= <GND>
+BEQ_SHIFTLEFT_N[0] <= <GND>
+BEQ_SHIFTLEFT_N[1] <= <GND>
+BEQ_SHIFTLEFT_N[2] <= <GND>
+BEQ_SHIFTLEFT_N[3] <= <GND>
+BEQ_SHIFTLEFT_N[4] <= <GND>
 
 
 |MIPS|Registrador:ProgramCounter
@@ -11254,7 +11344,7 @@ ReadData2[30] <= Mux33.DB_MAX_OUTPUT_PORT_TYPE
 ReadData2[31] <= Mux32.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|MIPS|SignExtend:comb_66
+|MIPS|SignExtend:comb_67
 in_vector[0] => out_vector[0].DATAIN
 in_vector[1] => out_vector[1].DATAIN
 in_vector[2] => out_vector[2].DATAIN
