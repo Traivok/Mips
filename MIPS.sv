@@ -110,7 +110,6 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 			.MemtoReg(MemtoReg),
 			.IRWrite(IRWrite),
 			.PCSource(PCSource),
-			.ALUOp(ALUOp),
 			.ALUSrcB(ALUSrcB),
 			.ALUSrcA(ALUSrcA),
 			.RegDst(RegDst),
