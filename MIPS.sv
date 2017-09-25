@@ -72,6 +72,7 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	logic [15:11] Instr15_11;
 	logic [25:0] Instr25_0;
 	logic [31:0] Instr15_0_EXTENDED;
+	logic [5:0] Funct;
 		
 	logic [31:0] ReadData1;
 	logic [31:0] ReadData2;
@@ -86,11 +87,13 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
 	// DUVIDA AQUI, Concatenação correta:
 	assign JMP_address = { PC[31-:4], Instr25_21, Instr20_16, Instr15_0, 2'b00}; 
+	// extract Funct field of instruction
+	assign Funct = { Instr15_0[5-:5] };
 	
 	/* CONTROL SECTION BEGINS HERE */
 	Control (	
 			// control inputs
-			Clk, reset, Instr31_26, nextFunctState, 
+			Clk, reset, Instr31_26, Funct, 
 			// alu flags
 			ALU_zero, ALU_overflow, ALU_neg, ALU_eq, ALU_gt, ALU_lt, 
 				

@@ -190,7 +190,7 @@ module Control(
 					IR_reset =
 */
 
-		/*
+		
 		always_comb
 		begin
 			case (state)
@@ -338,121 +338,10 @@ module Control(
 					ALUOut_load = 1;		// write the pc + offset result at aluout register
 					ALUOut_reset = 0;
 					IR_load = 0;
-					IR_reset = 0;
-		
-				end
-				
-				BEQ1: // PERFORM SUBTRACTION
-				begin
-
-					PCWriteCond = 0;
-					PCWrite = 0;
-					wr = 0;			  
-					IRWrite = 0;
-					RegWrite = 0;
-					RegReset = 0;
-					
-					ALUOp = 2'b01;
-					
-					IorD = 1'bx;		
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'b00;
-					ALUSrcA = 1'b1;
-					PCSource = 2'bxx;
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx; 
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 1;
-					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 0;
-	
-				end
-				
-				BEQ2: // CONDITIONAL JUMP
-				begin
-
-					PCWriteCond = 1; 	// if result of Bout - Aout is zero, then PC will be overwrite
-					PCWrite = 0;
-					wr = 0;			  
-					IRWrite = 0;
-					RegWrite = 0;
-					RegReset = 0;
-					
-					ALUOp = 2'b01;
-					
-					IorD = 1'bx;		
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'bxx;
-					ALUSrcA = 1'bx;
-					PCSource = 2'b01;
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx;
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 0;
-
-				end
-				
-				J:
-				begin
-					PCWriteCond = 0;
-					PCWrite = 1; // unconditional jump			
-					wr = 0;
-					IRWrite = 0;
-					RegWrite = 0;
-					RegReset = 0;
-					
-					ALUOp = 2'bxx;
-					
-					IorD = 1'bxx;		
-					MemtoReg = 1'bx;
-					ALUSrcB = 2'bxx;
-					ALUSrcA = 1'bx;
-					PCSource = 2'b10;	// PC = contentOf(25-0)*4
-					RegDst = 1'bx;
-					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx;
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 0;
-					
+					IR_reset = 0;					
 				end
 			endcase // state
 		end
-		*/
+		
 	
 endmodule : Control

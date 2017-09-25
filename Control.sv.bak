@@ -453,6 +453,6 @@ module Control(
 				end
 			endcase // state
 		end
-		8?
+		*/
 	
 endmodule : Control
