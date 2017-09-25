@@ -80,12 +80,12 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
-	// extract [15-11] field of instruction to Instr15_11
-	assign Instr15_11 = { Instr15_0[15], Instr15_0[14], Instr15_0[13], Instr15_0[12], Instr15_0[11]};
+	// DUVIDA AQUI extract [15-11] field of instruction to Instr15_11
+	assign Instr15_11 = { Instr15_0[15:11] };
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
 	// DUVIDA AQUI, Concatenação correta:
-	assign JMP_address = { Instr25_21, Instr20_16, Instr15_0, 2'b00, PC[3], PC[2], PC[1], PC[0] }; 
+	assign JMP_address = { PC[31-:4], Instr25_21, Instr20_16, Instr15_0, 2'b00}; 
 		
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);

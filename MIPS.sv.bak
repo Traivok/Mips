@@ -81,11 +81,11 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	/* End of Data Section */
 	
 	// extract [15-11] field of instruction to Instr15_11
-	assign Instr15_11 = { Instr15_0[15], Instr15_0[14], Instr15_0[13], Instr15_0[12], Instr15_0[11]};
+	assign Instr15_11 = { Instr15_0[15:11] };
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
 	// DUVIDA AQUI, Concatenação correta:
-	assign JMP_address = { Instr25_21, Instr20_16, Instr15_0, 2'b00, PC[3], PC[2], PC[1], PC[0] }; 
+	assign JMP_address = { PC[31-:4], Instr25_21, Instr20_16, Instr15_0, 2'b00}; 
 		
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);
@@ -103,6 +103,8 @@ module MIPS(output logic SO_PRA_COMPILAR);
 							 ReadData1, ReadData2
 						);
 			
+	SignExtend(Instr15_0, Instr15_0_EXTENDED);
+	
 	// The output of this 2bit shift left will be used at rhs of ALU
 	RegDesloc BEQ_SHIFTLEFT(Clk, BEQ_SHIFTLEFT_reset, 
 								  BEQ_SHIFTLEFT_shift, BEQ_SHIFTLEFT_N, 
@@ -115,7 +117,7 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	// mux for lhs input of alu
 	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, Reg_Desloc, ALU_RHS);
-
+		
 	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
 	
