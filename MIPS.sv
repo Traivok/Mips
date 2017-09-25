@@ -1,4 +1,4 @@
-module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
+module MIPS(input logic Clk, input logic reset);
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 
@@ -96,7 +96,7 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
 			// control inputs
-			.Clk(Clk), .Reset(reset), .Op(Instr31_26), .Funct(nextFunctState), 
+			.Clk(Clk), .Reset(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
 				
@@ -139,7 +139,7 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);	
 
-	Mux5bit_2x1 WriteRegMux(RegDst, Instr25_21, Instr15_11, WriteRegister);
+	Mux5bit_2x1 WriteRegMux(RegDst, Instr20_16, Instr15_11, WriteRegister);
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
 	
 	Banco_reg Registers(Clk, RegReset, RegWrite, 
@@ -160,6 +160,6 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
 	
-	Mux32bits_4x2 PC_MUX(PCSource, ALU_result, AluOut, JMP_address, NEW_PC);
+	Mux32bits_4x2 PC_MUX(PCSource, ALU_result, AluOut, JMP_address, 31'd12345, NEW_PC);
 	
 endmodule : MIPS

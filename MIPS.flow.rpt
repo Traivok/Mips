@@ -1,6 +1,6 @@
 Flow report for MIPS
-Mon Sep 25 16:42:19 2017
-Quartus II 64-Bit Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
+Mon Sep 25 17:10:43 2017
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
 ---------------------
@@ -35,27 +35,27 @@ applicable agreement for further details.
 
 
 
-+------------------------------------------------------------------------------------+
-; Flow Summary                                                                       ;
-+------------------------------------+-----------------------------------------------+
-; Flow Status                        ; Successful - Mon Sep 25 16:42:19 2017         ;
-; Quartus II 64-Bit Version          ; 9.1 Build 350 03/24/2010 SP 2 SJ Full Version ;
-; Revision Name                      ; MIPS                                          ;
-; Top-level Entity Name              ; MIPS                                          ;
-; Family                             ; Cyclone II                                    ;
-; Device                             ; EP2C70F896C6                                  ;
-; Timing Models                      ; Final                                         ;
-; Met timing requirements            ; Yes                                           ;
-; Total logic elements               ; 0 / 68,416 ( 0 % )                            ;
-;     Total combinational functions  ; 0 / 68,416 ( 0 % )                            ;
-;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                            ;
-; Total registers                    ; 0                                             ;
-; Total pins                         ; 3 / 622 ( < 1 % )                             ;
-; Total virtual pins                 ; 0                                             ;
-; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                         ;
-; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                               ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                                 ;
-+------------------------------------+-----------------------------------------------+
++-----------------------------------------------------------------------------------+
+; Flow Summary                                                                      ;
++------------------------------------+----------------------------------------------+
+; Flow Status                        ; Successful - Mon Sep 25 17:10:43 2017        ;
+; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
+; Revision Name                      ; MIPS                                         ;
+; Top-level Entity Name              ; MIPS                                         ;
+; Family                             ; Cyclone II                                   ;
+; Device                             ; EP2C70F896C6                                 ;
+; Timing Models                      ; Final                                        ;
+; Met timing requirements            ; Yes                                          ;
+; Total logic elements               ; 0 / 68,416 ( 0 % )                           ;
+;     Total combinational functions  ; 0 / 68,416 ( 0 % )                           ;
+;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                           ;
+; Total registers                    ; 0                                            ;
+; Total pins                         ; 2 / 622 ( < 1 % )                            ;
+; Total virtual pins                 ; 0                                            ;
+; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                        ;
+; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                              ;
+; Total PLLs                         ; 0 / 4 ( 0 % )                                ;
++------------------------------------+----------------------------------------------+
 
 
 +-----------------------------------------+
@@ -63,7 +63,7 @@ applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/25/2017 16:42:01 ;
+; Start date & time ; 09/25/2017 17:10:24 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; MIPS                ;
 +-------------------+---------------------+
@@ -74,7 +74,7 @@ applicable agreement for further details.
 +------------------------------------+--------------------------------+---------------+-------------+----------------+
 ; Assignment Name                    ; Value                          ; Default Value ; Entity Name ; Section Id     ;
 +------------------------------------+--------------------------------+---------------+-------------+----------------+
-; COMPILER_SIGNATURE_ID              ; 93179164539324.150636852100696 ; --            ; --          ; --             ;
+; COMPILER_SIGNATURE_ID              ; 93179164539304.150637022306544 ; --            ; --          ; --             ;
 ; MAX_CORE_JUNCTION_TEMP             ; 85                             ; --            ; --          ; --             ;
 ; MIN_CORE_JUNCTION_TEMP             ; 0                              ; --            ; --          ; --             ;
 ; PARTITION_COLOR                    ; 16764057                       ; --            ; --          ; Top            ;
@@ -88,11 +88,11 @@ applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:00:04     ; 1.0                     ; 338 MB              ; 00:00:02                           ;
-; Fitter                  ; 00:00:07     ; 1.0                     ; 452 MB              ; 00:00:07                           ;
-; Assembler               ; 00:00:04     ; 1.0                     ; 398 MB              ; 00:00:02                           ;
-; Classic Timing Analyzer ; 00:00:02     ; 1.0                     ; 197 MB              ; 00:00:00                           ;
-; Total                   ; 00:00:17     ; --                      ; --                  ; 00:00:11                           ;
+; Analysis & Synthesis    ; 00:00:03     ; 1.0                     ; 250 MB              ; 00:00:02                           ;
+; Fitter                  ; 00:00:07     ; 2.3                     ; 366 MB              ; 00:00:08                           ;
+; Assembler               ; 00:00:04     ; 1.0                     ; 336 MB              ; 00:00:03                           ;
+; Classic Timing Analyzer ; 00:00:01     ; 1.0                     ; 163 MB              ; 00:00:00                           ;
+; Total                   ; 00:00:15     ; --                      ; --                  ; 00:00:13                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -101,10 +101,10 @@ applicable agreement for further details.
 +-------------------------+------------------+---------------+------------+----------------+
 ; Module Name             ; Machine Hostname ; OS Name       ; OS Version ; Processor type ;
 +-------------------------+------------------+---------------+------------+----------------+
-; Analysis & Synthesis    ; HWC29            ; Windows Vista ; 6.1        ; x86_64         ;
-; Fitter                  ; HWC29            ; Windows Vista ; 6.1        ; x86_64         ;
-; Assembler               ; HWC29            ; Windows Vista ; 6.1        ; x86_64         ;
-; Classic Timing Analyzer ; HWC29            ; Windows Vista ; 6.1        ; x86_64         ;
+; Analysis & Synthesis    ; HWC22            ; Windows Vista ; 6.1        ; x86_64         ;
+; Fitter                  ; HWC22            ; Windows Vista ; 6.1        ; x86_64         ;
+; Assembler               ; HWC22            ; Windows Vista ; 6.1        ; x86_64         ;
+; Classic Timing Analyzer ; HWC22            ; Windows Vista ; 6.1        ; x86_64         ;
 +-------------------------+------------------+---------------+------------+----------------+
 
 

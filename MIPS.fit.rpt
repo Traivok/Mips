@@ -1,6 +1,6 @@
 Fitter report for MIPS
-Mon Sep 25 16:42:12 2017
-Quartus II 64-Bit Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
+Mon Sep 25 17:10:33 2017
+Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
 ---------------------
@@ -16,18 +16,17 @@ Quartus II 64-Bit Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Versio
   8. Pin-Out File
   9. Fitter Resource Usage Summary
  10. Input Pins
- 11. Output Pins
- 12. I/O Bank Usage
- 13. All Package Pins
- 14. Output Pin Default Load For Reported TCO
- 15. Fitter Resource Utilization by Entity
- 16. Delay Chain Summary
- 17. Pad To Core Delay Chain Fanout
- 18. Interconnect Usage Summary
- 19. Fitter Device Options
- 20. Operating Settings and Conditions
- 21. Fitter Messages
- 22. Fitter Suppressed Messages
+ 11. I/O Bank Usage
+ 12. All Package Pins
+ 13. Output Pin Default Load For Reported TCO
+ 14. Fitter Resource Utilization by Entity
+ 15. Delay Chain Summary
+ 16. Pad To Core Delay Chain Fanout
+ 17. Interconnect Usage Summary
+ 18. Fitter Device Options
+ 19. Operating Settings and Conditions
+ 20. Fitter Messages
+ 21. Fitter Suppressed Messages
 
 
 
@@ -50,26 +49,26 @@ applicable agreement for further details.
 
 
 
-+------------------------------------------------------------------------------------+
-; Fitter Summary                                                                     ;
-+------------------------------------+-----------------------------------------------+
-; Fitter Status                      ; Successful - Mon Sep 25 16:42:12 2017         ;
-; Quartus II 64-Bit Version          ; 9.1 Build 350 03/24/2010 SP 2 SJ Full Version ;
-; Revision Name                      ; MIPS                                          ;
-; Top-level Entity Name              ; MIPS                                          ;
-; Family                             ; Cyclone II                                    ;
-; Device                             ; EP2C70F896C6                                  ;
-; Timing Models                      ; Final                                         ;
-; Total logic elements               ; 0 / 68,416 ( 0 % )                            ;
-;     Total combinational functions  ; 0 / 68,416 ( 0 % )                            ;
-;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                            ;
-; Total registers                    ; 0                                             ;
-; Total pins                         ; 3 / 622 ( < 1 % )                             ;
-; Total virtual pins                 ; 0                                             ;
-; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                         ;
-; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                               ;
-; Total PLLs                         ; 0 / 4 ( 0 % )                                 ;
-+------------------------------------+-----------------------------------------------+
++-----------------------------------------------------------------------------------+
+; Fitter Summary                                                                    ;
++------------------------------------+----------------------------------------------+
+; Fitter Status                      ; Successful - Mon Sep 25 17:10:33 2017        ;
+; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
+; Revision Name                      ; MIPS                                         ;
+; Top-level Entity Name              ; MIPS                                         ;
+; Family                             ; Cyclone II                                   ;
+; Device                             ; EP2C70F896C6                                 ;
+; Timing Models                      ; Final                                        ;
+; Total logic elements               ; 0 / 68,416 ( 0 % )                           ;
+;     Total combinational functions  ; 0 / 68,416 ( 0 % )                           ;
+;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                           ;
+; Total registers                    ; 0                                            ;
+; Total pins                         ; 2 / 622 ( < 1 % )                            ;
+; Total virtual pins                 ; 0                                            ;
+; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                        ;
+; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                              ;
+; Total PLLs                         ; 0 / 4 ( 0 % )                                ;
++------------------------------------+----------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -133,12 +132,12 @@ applicable agreement for further details.
 ; Number detected on machine ; 4           ;
 ; Maximum allowed            ; 4           ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
+; Average used               ; 2.33        ;
 ; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     1 processor            ; 100.0%      ;
-;     2-4 processors         ; < 0.1%      ;
+;     2-4 processors         ;  16.7%      ;
 +----------------------------+-------------+
 
 
@@ -148,8 +147,8 @@ applicable agreement for further details.
 ; Type                    ; Value              ;
 +-------------------------+--------------------+
 ; Placement               ;                    ;
-;     -- Requested        ; 0 / 7 ( 0.00 % )   ;
-;     -- Achieved         ; 0 / 7 ( 0.00 % )   ;
+;     -- Requested        ; 0 / 6 ( 0.00 % )   ;
+;     -- Achieved         ; 0 / 6 ( 0.00 % )   ;
 ;                         ;                    ;
 ; Routing (by Connection) ;                    ;
 ;     -- Requested        ; 0 / 0 ( 0.00 % )   ;
@@ -171,14 +170,14 @@ applicable agreement for further details.
 +----------------+---------+-------------------+-------------------------+-------------------+
 ; Partition Name ; # Nodes ; # Preserved Nodes ; Preservation Level Used ; Netlist Type Used ;
 +----------------+---------+-------------------+-------------------------+-------------------+
-; Top            ; 7       ; 0                 ; N/A                     ; Source File       ;
+; Top            ; 6       ; 0                 ; N/A                     ; Source File       ;
 +----------------+---------+-------------------+-------------------------+-------------------+
 
 
 +--------------+
 ; Pin-Out File ;
 +--------------+
-The pin-out file can be found in C:/Users/aht/Desktop/Mips/MIPS.pin.
+The pin-out file can be found in C:/Users/jraf/Documents/Mips/MIPS.pin.
 
 
 +---------------------------------------------------------------------+
@@ -208,7 +207,7 @@ The pin-out file can be found in C:/Users/aht/Desktop/Mips/MIPS.pin.
 ; Total LABs:  partially or completely used   ; 0 / 4,276 ( 0 % )     ;
 ; User inserted logic elements                ; 0                     ;
 ; Virtual pins                                ; 0                     ;
-; I/O pins                                    ; 3 / 622 ( < 1 % )     ;
+; I/O pins                                    ; 2 / 622 ( < 1 % )     ;
 ;     -- Clock pins                           ; 1 / 8 ( 13 % )        ;
 ; Global signals                              ; 0                     ;
 ; M4Ks                                        ; 0 / 250 ( 0 % )       ;
@@ -235,15 +234,6 @@ The pin-out file can be found in C:/Users/aht/Desktop/Mips/MIPS.pin.
 +-------+-------+----------+--------------+--------------+-------------+-----------------------+--------------------+--------+----------------+---------------+-----------------+----------+--------------+--------------+-------------+----------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Output Pins                                                                                                                                                                                                                                                                                                                                   ;
-+-----------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
-; Name            ; Pin # ; I/O Bank ; X coordinate ; Y coordinate ; Cell number ; Output Register ; Output Enable Register ; Power Up High ; PCI I/O Enabled ; Open Drain ; TRI Primitive ; Bus Hold ; Weak Pull Up ; I/O Standard ; Current Strength ; Termination ; Location assigned by ; Load ; Output Enable Source ; Output Enable Group ;
-+-----------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
-; SO_PRA_COMPILAR ; G13   ; 3        ; 31           ; 51           ; 0           ; no              ; no                     ; no            ; no              ; no         ; no            ; no       ; Off          ; 3.3-V LVTTL  ; 24mA             ; Off         ; Fitter               ; 0 pF ; -                    ; -                   ;
-+-----------------+-------+----------+--------------+--------------+-------------+-----------------+------------------------+---------------+-----------------+------------+---------------+----------+--------------+--------------+------------------+-------------+----------------------+------+----------------------+---------------------+
-
-
 +----------------------------------------------------------+
 ; I/O Bank Usage                                           ;
 +----------+----------------+---------------+--------------+
@@ -251,7 +241,7 @@ The pin-out file can be found in C:/Users/aht/Desktop/Mips/MIPS.pin.
 +----------+----------------+---------------+--------------+
 ; 1        ; 0 / 85 ( 0 % ) ; 3.3V          ; --           ;
 ; 2        ; 2 / 79 ( 3 % ) ; 3.3V          ; --           ;
-; 3        ; 3 / 72 ( 4 % ) ; 3.3V          ; --           ;
+; 3        ; 2 / 72 ( 3 % ) ; 3.3V          ; --           ;
 ; 4        ; 0 / 74 ( 0 % ) ; 3.3V          ; --           ;
 ; 5        ; 0 / 85 ( 0 % ) ; 3.3V          ; --           ;
 ; 6        ; 1 / 81 ( 1 % ) ; 3.3V          ; --           ;
@@ -753,7 +743,7 @@ The pin-out file can be found in C:/Users/aht/Desktop/Mips/MIPS.pin.
 ; G10      ; 623        ; 3        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; G11      ; 610        ; 3        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; G12      ; 597        ; 3        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
-; G13      ; 582        ; 3        ; SO_PRA_COMPILAR                          ; output ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
+; G13      ; 582        ; 3        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; G14      ; 576        ; 3        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
 ; G15      ; 562        ; 3        ; reset                                    ; input  ; 3.3-V LVTTL  ;         ; Column I/O ; N               ; no       ; Off          ;
 ; G16      ; 555        ; 4        ; GND*                                     ;        ;              ;         ; Column I/O ;                 ; no       ; Off          ;
@@ -1207,20 +1197,19 @@ Note: User assignments will override these defaults. The user specified values a
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
 ; Compilation Hierarchy Node ; Logic Cells ; Dedicated Logic Registers ; I/O Registers ; Memory Bits ; M4Ks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; LUT-Only LCs ; Register-Only LCs ; LUT/Register LCs ; Full Hierarchy Name ; Library Name ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
-; |MIPS                      ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 3    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |MIPS               ; work         ;
+; |MIPS                      ; 0 (0)       ; 0 (0)                     ; 0 (0)         ; 0           ; 0    ; 0            ; 0       ; 0         ; 2    ; 0            ; 0 (0)        ; 0 (0)             ; 0 (0)            ; |MIPS               ; work         ;
 +----------------------------+-------------+---------------------------+---------------+-------------+------+--------------+---------+-----------+------+--------------+--------------+-------------------+------------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+------------------------------------------------------------------------------------------+
-; Delay Chain Summary                                                                      ;
-+-----------------+----------+---------------+---------------+-----------------------+-----+
-; Name            ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
-+-----------------+----------+---------------+---------------+-----------------------+-----+
-; reset           ; Input    ; (0) 287 ps    ; (0) 287 ps    ; --                    ; --  ;
-; SO_PRA_COMPILAR ; Output   ; --            ; --            ; --                    ; --  ;
-; Clk             ; Input    ; (0) 287 ps    ; (0) 287 ps    ; --                    ; --  ;
-+-----------------+----------+---------------+---------------+-----------------------+-----+
++--------------------------------------------------------------------------------+
+; Delay Chain Summary                                                            ;
++-------+----------+---------------+---------------+-----------------------+-----+
+; Name  ; Pin Type ; Pad to Core 0 ; Pad to Core 1 ; Pad to Input Register ; TCO ;
++-------+----------+---------------+---------------+-----------------------+-----+
+; reset ; Input    ; (0) 287 ps    ; (0) 287 ps    ; --                    ; --  ;
+; Clk   ; Input    ; (0) 287 ps    ; (0) 287 ps    ; --                    ; --  ;
++-------+----------+---------------+---------------+-----------------------+-----+
 
 
 +---------------------------------------------------+
@@ -1282,9 +1271,9 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; Fitter Messages ;
 +-----------------+
 Info: *******************************************************************
-Info: Running Quartus II 64-Bit Fitter
-    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
-    Info: Processing started: Mon Sep 25 16:42:06 2017
+Info: Running Quartus II Fitter
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+    Info: Processing started: Mon Sep 25 17:10:27 2017
 Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off MIPS -c MIPS
 Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Selected device EP2C70F896C6 for design "MIPS"
@@ -1296,9 +1285,8 @@ Info: Fitter converted 3 user pins into dedicated programming pins
     Info: Pin ~ASDO~ is reserved at location G7
     Info: Pin ~nCSO~ is reserved at location K9
     Info: Pin ~LVDS195p/nCEO~ is reserved at location AD25
-Critical Warning: No exact pin location assignment(s) for 3 pins of 3 total pins
+Critical Warning: No exact pin location assignment(s) for 2 pins of 2 total pins
     Info: Pin reset not assigned to an exact location on the device
-    Info: Pin SO_PRA_COMPILAR not assigned to an exact location on the device
     Info: Pin Clk not assigned to an exact location on the device
 Info: Timing-driven compilation is using the Classic Timing Analyzer
 Info: Timing requirements not specified -- quality metrics such as performance and power consumption may be sacrificed to reduce compilation time.
@@ -1306,7 +1294,7 @@ Info: Starting register packing
 Info: Finished register packing
     Extra Info: No registers were packed into other blocks
 Info: Statistics of I/O pins that need to be placed that use the same VCCIO and VREF, before I/O pin placement
-    Info: Number of I/O pins in group: 3 (unused VREF, 3.3V VCCIO, 2 input, 1 output, 0 bidirectional)
+    Info: Number of I/O pins in group: 2 (unused VREF, 3.3V VCCIO, 2 input, 0 output, 0 bidirectional)
         Info: I/O standards used: 3.3-V LVTTL.
 Info: I/O bank details before I/O pin placement
     Info: Statistics of I/O banks
@@ -1323,7 +1311,7 @@ Info: Fitter placement preparation operations beginning
 Info: Fitter placement preparation operations ending: elapsed time is 00:00:00
 Info: Fitter placement operations beginning
 Info: Fitter placement was successful
-Info: Fitter placement operations ending: elapsed time is 00:00:01
+Info: Fitter placement operations ending: elapsed time is 00:00:00
 Info: Fitter routing operations beginning
 Info: Average interconnect usage is 0% of the available device resources
     Info: Peak interconnect usage is 0% of the available device resources in the region that extends from location X0_Y26 to location X11_Y38
@@ -1332,21 +1320,19 @@ Info: The Fitter performed an Auto Fit compilation.  Optimizations were skipped 
     Info: Optimizations that may affect the design's routability were skipped
     Info: Optimizations that may affect the design's timing were skipped
 Info: Started post-fitting delay annotation
-Warning: Found 1 output pins without output pin load capacitance assignment
-    Info: Pin "SO_PRA_COMPILAR" has no specified output pin load capacitance -- assuming default load capacitance of 0 pF for timing analysis
 Info: Delay annotation completed successfully
 Warning: The Reserve All Unused Pins setting has not been specified, and will default to 'As output driving ground'.
-Info: Generated suppressed messages file C:/Users/aht/Desktop/Mips/MIPS.fit.smsg
-Info: Quartus II 64-Bit Fitter was successful. 0 errors, 3 warnings
-    Info: Peak virtual memory: 452 megabytes
-    Info: Processing ended: Mon Sep 25 16:42:12 2017
+Info: Generated suppressed messages file C:/Users/jraf/Documents/Mips/MIPS.fit.smsg
+Info: Quartus II Fitter was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 366 megabytes
+    Info: Processing ended: Mon Sep 25 17:10:33 2017
     Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:07
+    Info: Total CPU time (on all processors): 00:00:08
 
 
 +----------------------------+
 ; Fitter Suppressed Messages ;
 +----------------------------+
-The suppressed messages can be found in C:/Users/aht/Desktop/Mips/MIPS.fit.smsg.
+The suppressed messages can be found in C:/Users/jraf/Documents/Mips/MIPS.fit.smsg.
 
 

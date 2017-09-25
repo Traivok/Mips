@@ -1,5 +1,5 @@
-Quartus II 64-Bit
-Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
+Quartus II
+Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 11
 1040
 OFF
@@ -19,42 +19,6 @@ VHSM_ON
 -- End Library Paths --
 -- Start VHDL Libraries --
 -- End VHDL Libraries --
-# entity
-MIPS
-# storage
-db|MIPS.(0).cnf
-db|MIPS.(0).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_sensitive
-# source_file
-mips.sv
-9d9382a6b2eb2a76b8e03ecb13d2abf8
-9
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-IGNORE_VERILOG_INITIAL_CONSTRUCTS
-OFF
-VERILOG_CONSTANT_LOOP_LIMIT
-5000
-VERILOG_NON_CONSTANT_LOOP_LIMIT
-250
-}
-# hierarchies {
-|
-}
-# macro_sequence
-
-# end
 # entity
 SignExtend
 # storage
@@ -103,7 +67,7 @@ ON
 # case_sensitive
 # source_file
 control.sv
-4a27b91c60e0f4ad8b1aca7717fec3
+64766826d89d78612fb8a35a5bf7d8a
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -875,7 +839,7 @@ db|MIPS.(9).cnf
 # case_insensitive
 # source_file
 db|altsyncram_e1a1.tdf
-84c01be39b955864f9ca23fb789fd
+5f46b4426971a8cb9acc96938ade06f
 7
 # used_port {
 wren_a
@@ -1142,6 +1106,42 @@ Ula32:ALU
 # lmf
 |altera|91sp2|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+MIPS
+# storage
+db|MIPS.(0).cnf
+db|MIPS.(0).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+mips.sv
+1a26433bd2a4fcebeaf73eed3b3bf5
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+|
+}
 # macro_sequence
 
 # end

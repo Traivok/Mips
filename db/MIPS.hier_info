@@ -1,7 +1,6 @@
 |MIPS
 Clk => Clk.IN9
 reset => reset.IN1
-SO_PRA_COMPILAR <= <GND>
 
 
 |MIPS|SignExtend:comb_61
@@ -109,16 +108,14 @@ StateOut[5] <= StateOut[5]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 StateOut[6] <= StateOut[6]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 StateOut[7] <= StateOut[7]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 PCWriteCond <= <GND>
-PCWrite <= <GND>
+PCWrite <= IRWrite.DB_MAX_OUTPUT_PORT_TYPE
 wr <= <GND>
-IRWrite <= <GND>
+IRWrite <= IRWrite.DB_MAX_OUTPUT_PORT_TYPE
 RegWrite <= <GND>
 RegReset <= <GND>
 ALU_sel[0] <= <GND>
 ALU_sel[1] <= <GND>
 ALU_sel[2] <= <GND>
-ALUOp[0] <= <GND>
-ALUOp[1] <= <GND>
 MemtoReg <= <GND>
 PCSource[0] <= <GND>
 PCSource[1] <= <GND>
@@ -131,7 +128,7 @@ A_load <= <GND>
 A_reset <= <GND>
 B_load <= <GND>
 B_reset <= <GND>
-PC_load <= <GND>
+PC_load <= IRWrite.DB_MAX_OUTPUT_PORT_TYPE
 PC_reset <= <GND>
 MDR_load <= <GND>
 MDR_reset <= <GND>
