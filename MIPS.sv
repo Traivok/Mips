@@ -103,6 +103,8 @@ module MIPS(output logic SO_PRA_COMPILAR);
 							 ReadData1, ReadData2
 						);
 			
+	SignExtend(Instr15_0, Instr15_0_EXTENDED);
+	
 	// The output of this 2bit shift left will be used at rhs of ALU
 	RegDesloc BEQ_SHIFTLEFT(Clk, BEQ_SHIFTLEFT_reset, 
 								  BEQ_SHIFTLEFT_shift, BEQ_SHIFTLEFT_N, 
@@ -115,7 +117,7 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	// mux for lhs input of alu
 	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, Reg_Desloc, ALU_RHS);
-
+		
 	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
 	
