@@ -1,5 +1,4 @@
-module MIPS(
-			);
+module MIPS(output logic SO_PRA_COMPILAR);
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 

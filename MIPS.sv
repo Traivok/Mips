@@ -33,6 +33,8 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic BEQ_SHIFTLEFT_reset, JMP_SHIFTLEFT_reset;
 	logic [2:0] BEQ_SHIFTLEFT_funct, JMP_SHIFTLEFT_funct;
 	logic [4:0] BEQ_SHIFTLEFT_N, JMP_SHIFTLEFT_N;
+	
+	
 	/* End of Control Section */
 	
 	/* Begin of Data Section */
@@ -74,14 +76,15 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };
 	
+	Control(Clk, Reset, Instr31_26, nextFunctState, ALU_ZERO, Estado, 
+	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);
 	Memoria Memory(Address, Clk, wr, WriteDataMem, MemData);
 	
 	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
-	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MDR);
+	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);
 	
-
 	Mux5bit_2x1 WriteRegMux(RegDst, Instr25_21, Instr15_11, WriteRegister);
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
 	
