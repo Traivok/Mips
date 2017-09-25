@@ -94,46 +94,43 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	assign Funct = Instr15_0[5:0];
 	
 	/* CONTROL SECTION BEGINS HERE */
-	Control (	
+	Control(	
 			// control inputs
-			Clk, reset, Instr31_26, Funct, 
+			.Clk(Clk), .Reset(reset), .Op(Instr31_26), .Funct(nextFunctState), 
 			// alu flags
-			ALU_zero, ALU_overflow, ALU_neg, ALU_eq, ALU_gt, ALU_lt, 
+			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
 				
-			Estado,
+			.StateOut(Estado),
 				
 			// enables, disables
-			PCWriteCond,
-			PCWrite,
-			IorD,
-			MemtoReg,
-			IRWrite,
-			PCSource,
-			ALUOp,
-			ALUSrcB,
-			ALUSrcA,
-			RegDst,
-			ALU_sel,
+			.PCWriteCond(PCWriteCond),
+			.PCWrite(PCWrite),
+			.IorD(IorD),
+			.wr(wr),
+			.MemtoReg(MemtoReg),
+			.IRWrite(IRWrite),
+			.PCSource(PCSource),
+			.ALUOp(ALUOp),
+			.ALUSrcB(ALUSrcB),
+			.ALUSrcA(ALUSrcA),
+			.RegDst(RegDst),
+			.ALU_sel(ALU_sel),
 					
 			// registers load and reset signals
-			A_load,
-			A_reset,		
-			B_load,
-			B_reset,
-			PC_load,
-			PC_reset,		
-			MDR_load,
-			MDR_reset,
-			ALUOut_load,
-			ALUOut_reset,
-			IR_load,
-			IR_reset,
+			.A_load(A_load),
+			.A_reset(A_reset),		
+			.B_load(B_load),
+			.B_reset(B_reset),
+			.PC_load(PC_load),
+			.PC_reset(PC_reset),		
+			.MDR_load(MDR_load),
+			.MDR_reset(MDR_reset),
+			.ALUOut_load(ALUOut_load),
+			.ALUOut_reset(ALUOut_reset),
+			.IR_load(IR_load),
+			.IR_reset(IR_reset),
 						
-			// reg shift control signals
-			BEQ_SHIFTLEFT_reset,
-			BEQ_SHIFTLEFT_funct,
-			BEQ_SHIFTLEFT_N
-		);				
+		);			
 	/* CONTROL SECTION ENDS HERE */
 	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);

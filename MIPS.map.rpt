@@ -1,6 +1,6 @@
 Analysis & Synthesis report for MIPS
-Mon Sep 25 16:20:27 2017
-Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
+Mon Sep 25 16:42:04 2017
+Quartus II 64-Bit Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
 
 
 ---------------------
@@ -55,24 +55,24 @@ applicable agreement for further details.
 
 
 
-+-----------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                      ;
-+------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Sep 25 16:20:27 2017        ;
-; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
-; Revision Name                      ; MIPS                                         ;
-; Top-level Entity Name              ; MIPS                                         ;
-; Family                             ; Cyclone II                                   ;
-; Total logic elements               ; 0                                            ;
-;     Total combinational functions  ; 0                                            ;
-;     Dedicated logic registers      ; 0                                            ;
-; Total registers                    ; 0                                            ;
-; Total pins                         ; 3                                            ;
-; Total virtual pins                 ; 0                                            ;
-; Total memory bits                  ; 0                                            ;
-; Embedded Multiplier 9-bit elements ; 0                                            ;
-; Total PLLs                         ; 0                                            ;
-+------------------------------------+----------------------------------------------+
++------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                       ;
++------------------------------------+-----------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Mon Sep 25 16:42:04 2017         ;
+; Quartus II 64-Bit Version          ; 9.1 Build 350 03/24/2010 SP 2 SJ Full Version ;
+; Revision Name                      ; MIPS                                          ;
+; Top-level Entity Name              ; MIPS                                          ;
+; Family                             ; Cyclone II                                    ;
+; Total logic elements               ; 0                                             ;
+;     Total combinational functions  ; 0                                             ;
+;     Dedicated logic registers      ; 0                                             ;
+; Total registers                    ; 0                                             ;
+; Total pins                         ; 3                                             ;
+; Total virtual pins                 ; 0                                             ;
+; Total memory bits                  ; 0                                             ;
+; Embedded Multiplier 9-bit elements ; 0                                             ;
+; Total PLLs                         ; 0                                             ;
++------------------------------------+-----------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------+
@@ -176,20 +176,20 @@ applicable agreement for further details.
 +----------------------------------+-----------------+----------------------------------------+----------------------------------------------------------------+
 ; File Name with User-Entered Path ; Used in Netlist ; File Type                              ; File Name with Absolute Path                                   ;
 +----------------------------------+-----------------+----------------------------------------+----------------------------------------------------------------+
-; Control.sv                       ; yes             ; User SystemVerilog HDL File            ; C:/Users/jraf/Documents/Mips/Control.sv                        ;
-; Banco_reg.vhd                    ; yes             ; User VHDL File                         ; C:/Users/jraf/Documents/Mips/Banco_reg.vhd                     ;
-; Instr_Reg.vhd                    ; yes             ; User VHDL File                         ; C:/Users/jraf/Documents/Mips/Instr_Reg.vhd                     ;
-; Memoria.vhd                      ; yes             ; User VHDL File                         ; C:/Users/jraf/Documents/Mips/Memoria.vhd                       ;
-; Registrador.vhd                  ; yes             ; User VHDL File                         ; C:/Users/jraf/Documents/Mips/Registrador.vhd                   ;
-; ula32.vhd                        ; yes             ; User VHDL File                         ; C:/Users/jraf/Documents/Mips/ula32.vhd                         ;
-; MIPS.sv                          ; yes             ; User SystemVerilog HDL File            ; C:/Users/jraf/Documents/Mips/MIPS.sv                           ;
-; MUX.sv                           ; yes             ; User SystemVerilog HDL File            ; C:/Users/jraf/Documents/Mips/MUX.sv                            ;
-; signextend.sv                    ; yes             ; Auto-Found SystemVerilog HDL File      ; C:/Users/jraf/Documents/Mips/signextend.sv                     ;
+; Control.sv                       ; yes             ; User SystemVerilog HDL File            ; C:/Users/aht/Desktop/Mips/Control.sv                           ;
+; Banco_reg.vhd                    ; yes             ; User VHDL File                         ; C:/Users/aht/Desktop/Mips/Banco_reg.vhd                        ;
+; Instr_Reg.vhd                    ; yes             ; User VHDL File                         ; C:/Users/aht/Desktop/Mips/Instr_Reg.vhd                        ;
+; Memoria.vhd                      ; yes             ; User VHDL File                         ; C:/Users/aht/Desktop/Mips/Memoria.vhd                          ;
+; Registrador.vhd                  ; yes             ; User VHDL File                         ; C:/Users/aht/Desktop/Mips/Registrador.vhd                      ;
+; ula32.vhd                        ; yes             ; User VHDL File                         ; C:/Users/aht/Desktop/Mips/ula32.vhd                            ;
+; MIPS.sv                          ; yes             ; User SystemVerilog HDL File            ; C:/Users/aht/Desktop/Mips/MIPS.sv                              ;
+; MUX.sv                           ; yes             ; User SystemVerilog HDL File            ; C:/Users/aht/Desktop/Mips/MUX.sv                               ;
+; signextend.sv                    ; yes             ; Auto-Found SystemVerilog HDL File      ; C:/Users/aht/Desktop/Mips/signextend.sv                        ;
 ; lpm_ram_dq.tdf                   ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/megafunctions/lpm_ram_dq.tdf ;
 ; altram.tdf                       ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/megafunctions/altram.tdf     ;
 ; altsyncram.tdf                   ; yes             ; Megafunction                           ; c:/altera/91sp2/quartus/libraries/megafunctions/altsyncram.tdf ;
-; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/jraf/Documents/Mips/db/altsyncram_e1a1.tdf            ;
-; instrucoes.mif                   ; yes             ; Auto-Found Memory Initialization File  ; C:/Users/jraf/Documents/Mips/instrucoes.mif                    ;
+; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction            ; C:/Users/aht/Desktop/Mips/db/altsyncram_e1a1.tdf               ;
+; instrucoes.mif                   ; yes             ; Auto-Found Memory Initialization File  ; C:/Users/aht/Desktop/Mips/instrucoes.mif                       ;
 +----------------------------------+-----------------+----------------------------------------+----------------------------------------------------------------+
 
 
@@ -228,22 +228,16 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
-+---------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |MIPS|Control:comb_100|state                                                                                                ;
-+--------------+---------+-----------+----------+----------+-----------+-----------+--------------+--------------+--------------+-------------+
-; Name         ; state.J ; state.LUI ; state.SW ; state.LW ; state.BNE ; state.BEQ ; state.DECODE ; state.DELAY2 ; state.DELAY1 ; state.FETCH ;
-+--------------+---------+-----------+----------+----------+-----------+-----------+--------------+--------------+--------------+-------------+
-; state.FETCH  ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0            ; 0            ; 0           ;
-; state.DELAY1 ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0            ; 1            ; 1           ;
-; state.DELAY2 ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 1            ; 0            ; 1           ;
-; state.DECODE ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 1            ; 0            ; 0            ; 1           ;
-; state.BEQ    ; 0       ; 0         ; 0        ; 0        ; 0         ; 1         ; 0            ; 0            ; 0            ; 1           ;
-; state.BNE    ; 0       ; 0         ; 0        ; 0        ; 1         ; 0         ; 0            ; 0            ; 0            ; 1           ;
-; state.LW     ; 0       ; 0         ; 0        ; 1        ; 0         ; 0         ; 0            ; 0            ; 0            ; 1           ;
-; state.SW     ; 0       ; 0         ; 1        ; 0        ; 0         ; 0         ; 0            ; 0            ; 0            ; 1           ;
-; state.LUI    ; 0       ; 1         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0            ; 0            ; 1           ;
-; state.J      ; 1       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0            ; 0            ; 1           ;
-+--------------+---------+-----------+----------+----------+-----------+-----------+--------------+--------------+--------------+-------------+
++-------------------------------------------------------------------------------------+
+; State Machine - |MIPS|Control:comb_100|state                                        ;
++------------------+--------------+------------------+------------------+-------------+
+; Name             ; state.DECODE ; state.MEM_DELAY2 ; state.MEM_DELAY1 ; state.FETCH ;
++------------------+--------------+------------------+------------------+-------------+
+; state.FETCH      ; 0            ; 0                ; 0                ; 0           ;
+; state.MEM_DELAY1 ; 0            ; 0                ; 1                ; 1           ;
+; state.MEM_DELAY2 ; 0            ; 1                ; 0                ; 1           ;
+; state.DECODE     ; 1            ; 0                ; 0                ; 1           ;
++------------------+--------------+------------------+------------------+-------------+
 
 
 +-----------------------------------------------------------------------------------------------+
@@ -290,14 +284,7 @@ Encoding Type:  One-Hot
 ; Banco_reg:Registers|Reg31[0]                    ; Stuck at GND due to stuck port clock_enable ;
 ; Instr_Reg:Instruction_Register|Instr25_21[0..4] ; Lost fanout                                 ;
 ; Registrador:MemDataRegister|Saida[0]            ; Lost fanout                                 ;
-; Instr_Reg:Instruction_Register|Instr31_26[0..5] ; Stuck at GND due to stuck port clock_enable ;
 ; Registrador:ProgramCounter|Saida[0]             ; Lost fanout                                 ;
-; Control:comb_100|state.BEQ                      ; Lost fanout                                 ;
-; Control:comb_100|state.BNE                      ; Lost fanout                                 ;
-; Control:comb_100|state.LW                       ; Lost fanout                                 ;
-; Control:comb_100|state.SW                       ; Lost fanout                                 ;
-; Control:comb_100|state.LUI                      ; Lost fanout                                 ;
-; Control:comb_100|state.J                        ; Lost fanout                                 ;
 ; Control:comb_100|state~3                        ; Lost fanout                                 ;
 ; Control:comb_100|state~4                        ; Lost fanout                                 ;
 ; Control:comb_100|state~5                        ; Lost fanout                                 ;
@@ -307,10 +294,10 @@ Encoding Type:  One-Hot
 ; Control:comb_100|state~9                        ; Lost fanout                                 ;
 ; Control:comb_100|state~10                       ; Lost fanout                                 ;
 ; Control:comb_100|state.FETCH                    ; Lost fanout                                 ;
-; Control:comb_100|state.DELAY1                   ; Lost fanout                                 ;
-; Control:comb_100|state.DELAY2                   ; Lost fanout                                 ;
+; Control:comb_100|state.MEM_DELAY1               ; Lost fanout                                 ;
+; Control:comb_100|state.MEM_DELAY2               ; Lost fanout                                 ;
 ; Control:comb_100|state.DECODE                   ; Lost fanout                                 ;
-; Total Number of Removed Registers = 72          ;                                             ;
+; Total Number of Removed Registers = 60          ;                                             ;
 +-------------------------------------------------+---------------------------------------------+
 
 
@@ -346,12 +333,7 @@ Encoding Type:  One-Hot
 ;                                 ;                                ; Instr_Reg:Instruction_Register|Instr25_21[2],                                       ;
 ;                                 ;                                ; Instr_Reg:Instruction_Register|Instr25_21[1],                                       ;
 ;                                 ;                                ; Instr_Reg:Instruction_Register|Instr25_21[0], Registrador:MemDataRegister|Saida[0], ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[5],                                       ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[4],                                       ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[3],                                       ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[2],                                       ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[1],                                       ;
-;                                 ;                                ; Instr_Reg:Instruction_Register|Instr31_26[0], Registrador:ProgramCounter|Saida[0]   ;
+;                                 ;                                ; Registrador:ProgramCounter|Saida[0]                                                 ;
 +---------------------------------+--------------------------------+-------------------------------------------------------------------------------------+
 
 
@@ -548,37 +530,32 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------+--------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "Control:comb_100"                                                                                                                                                             ;
-+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port         ; Type   ; Severity ; Details                                                                                                                                                               ;
-+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; StateOut     ; Output ; Warning  ; Output or bidir port (8 bits) is wider than the port expression (1 bits) it drives; bit(s) "StateOut[7..1]" have no fanouts                                           ;
-; StateOut     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; PCWriteCond  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; PCWrite      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; RegWrite     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; RegReset     ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (2 bits) it drives.  The 1 most-significant bit(s) in the port expression will be connected to GND. ;
-; ALU_sel      ; Output ; Warning  ; Output or bidir port (3 bits) is wider than the port expression (2 bits) it drives; bit(s) "ALU_sel[2..2]" have no fanouts                                            ;
-; ALU_sel      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; ALUOp        ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; MemtoReg     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; PCSource     ; Output ; Warning  ; Output or bidir port (2 bits) is wider than the port expression (1 bits) it drives; bit(s) "PCSource[1..1]" have no fanouts                                           ;
-; ALUSrcA      ; Output ; Warning  ; Output or bidir port (1 bits) is smaller than the port expression (3 bits) it drives.  The 2 most-significant bit(s) in the port expression will be connected to GND. ;
-; ALUSrcB      ; Output ; Warning  ; Output or bidir port (2 bits) is wider than the port expression (1 bits) it drives; bit(s) "ALUSrcB[1..1]" have no fanouts                                            ;
-; ALUOut_reset ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; IR_load      ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-; IR_reset     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                   ;
-+--------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Control:comb_100"                                                                                                                                    ;
++-------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------+
+; Port        ; Type   ; Severity ; Details                                                                                                                                       ;
++-------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------+
+; Funct       ; Input  ; Warning  ; Input port expression (1 bits) is smaller than the input port (6 bits) it drives.  Extra input bit(s) "Funct[5..1]" will be connected to GND. ;
+; StateOut    ; Output ; Warning  ; Output or bidir port (8 bits) is wider than the port expression (1 bits) it drives; bit(s) "StateOut[7..1]" have no fanouts                   ;
+; StateOut    ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; PCWriteCond ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; PCWrite     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; IRWrite     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; ALUOp       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; ALUSrcB     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; ALUSrcA     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                           ;
+; RegWrite    ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                      ;
+; RegReset    ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                      ;
++-------------+--------+----------+-----------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-------------------------------+
 ; Analysis & Synthesis Messages ;
 +-------------------------------+
 Info: *******************************************************************
-Info: Running Quartus II Analysis & Synthesis
-    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Mon Sep 25 16:20:25 2017
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Full Version
+    Info: Processing started: Mon Sep 25 16:42:01 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
 Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Found 1 design units, including 1 entities, in source file control.sv
@@ -602,6 +579,7 @@ Info: Found 2 design units, including 1 entities, in source file registrador.vhd
 Info: Found 2 design units, including 1 entities, in source file ula32.vhd
     Info: Found design unit 1: Ula32-behavioral
     Info: Found entity 1: Ula32
+Warning (10275): Verilog HDL Module Instantiation warning at MIPS.sv(133): ignored dangling comma in List of Port Connections
 Info: Found 1 design units, including 1 entities, in source file mips.sv
     Info: Found entity 1: MIPS
 Info: Found 1 design units, including 1 entities, in source file testmodule.sv
@@ -612,17 +590,16 @@ Info: Found 3 design units, including 3 entities, in source file mux.sv
     Info: Found entity 1: Mux32bits_4x2
     Info: Found entity 2: Mux5bit_2x1
     Info: Found entity 3: Mux32bit_2x1
+Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(99): created implicit net for "nextFunctState"
 Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(103): created implicit net for "Estado"
-Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(133): created implicit net for "BEQ_SHIFTLEFT_reset"
-Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(134): created implicit net for "BEQ_SHIFTLEFT_funct"
-Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(136): created implicit net for "BEQ_SHIFTLEFT_N"
-Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(161): created implicit net for "AluSrcA"
-Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(162): created implicit net for "AluSrcB"
+Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(158): created implicit net for "AluSrcA"
+Warning (10236): Verilog HDL Implicit Net warning at MIPS.sv(159): created implicit net for "AluSrcB"
 Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(90): instance has no name
-Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(136): instance has no name
+Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(133): instance has no name
 Critical Warning (10846): Verilog HDL Instantiation warning at TestModule.sv(4): instance has no name
 Info: Elaborating entity "MIPS" for the top level hierarchy
 Warning (10036): Verilog HDL or VHDL warning at MIPS.sv(69): object "Instr25_0" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at MIPS.sv(71): object "Funct" assigned a value but never read
 Warning (10830): SystemVerilog warning at MIPS.sv(82): index 15 falls outside the bounds [4:0] of array "Instr15_11"
 Warning (10830): SystemVerilog warning at MIPS.sv(82): index 11 falls outside the bounds [4:0] of array "Instr15_11"
 Warning (10034): Output port "SO_PRA_COMPILAR" at MIPS.sv(1) has no driver
@@ -630,21 +607,6 @@ Warning: Using design file signextend.sv, which is not specified as a design fil
     Info: Found entity 1: SignExtend
 Info: Elaborating entity "SignExtend" for hierarchy "SignExtend:comb_61"
 Info: Elaborating entity "Control" for hierarchy "Control:comb_100"
-Info (10264): Verilog HDL Case Statement information at Control.sv(90): all case item expressions in this case statement are onehot
-Warning (10030): Net "PCWriteCond" at Control.sv(15) has no driver or initial value, using a default initial value '0'
-Warning (10030): Net "PCWrite" at Control.sv(16) has no driver or initial value, using a default initial value '0'
-Warning (10034): Output port "ALU_sel" at Control.sv(23) has no driver
-Warning (10034): Output port "ALUOp" at Control.sv(24) has no driver
-Warning (10034): Output port "PCSource" at Control.sv(27) has no driver
-Warning (10034): Output port "ALUSrcB" at Control.sv(29) has no driver
-Warning (10034): Output port "wr" at Control.sv(18) has no driver
-Warning (10034): Output port "IRWrite" at Control.sv(19) has no driver
-Warning (10034): Output port "RegWrite" at Control.sv(20) has no driver
-Warning (10034): Output port "RegReset" at Control.sv(21) has no driver
-Warning (10034): Output port "MemtoReg" at Control.sv(26) has no driver
-Warning (10034): Output port "ALUSrcA" at Control.sv(28) has no driver
-Warning (10034): Output port "IorD" at Control.sv(30) has no driver
-Warning (10034): Output port "RegDst" at Control.sv(31) has no driver
 Info: Elaborating entity "Registrador" for hierarchy "Registrador:ProgramCounter"
 Info: Elaborating entity "Mux32bit_2x1" for hierarchy "Mux32bit_2x1:MemMux"
 Warning (10230): Verilog HDL assignment warning at MUX.sv(81): truncated value with size 32 to match size of target (1)
@@ -1342,9 +1304,6 @@ Warning: Net is missing source, defaulting to GND
     Warning (12110): Net "ALU_LHS[2]" is missing source, defaulting to GND
     Warning (12110): Net "ALU_LHS[1]" is missing source, defaulting to GND
 Warning: Net is missing source, defaulting to GND
-    Warning (12110): Net "PCSource[1]" is missing source, defaulting to GND
-    Warning (12110): Net "ALU_sel[2]" is missing source, defaulting to GND
-    Warning (12110): Net "ALU_sel[1]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[31]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[30]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[29]" is missing source, defaulting to GND
@@ -1471,9 +1430,6 @@ Warning: Net is missing source, defaulting to GND
     Warning (12110): Net "ALU_LHS[2]" is missing source, defaulting to GND
     Warning (12110): Net "ALU_LHS[1]" is missing source, defaulting to GND
 Warning: Net is missing source, defaulting to GND
-    Warning (12110): Net "PCSource[1]" is missing source, defaulting to GND
-    Warning (12110): Net "ALU_sel[2]" is missing source, defaulting to GND
-    Warning (12110): Net "ALU_sel[1]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[31]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[30]" is missing source, defaulting to GND
     Warning (12110): Net "NEW_PC[29]" is missing source, defaulting to GND
@@ -1616,6 +1572,12 @@ Warning: Synthesized away the following node(s):
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[5]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[6]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[7]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[2]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[3]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[4]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[5]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[6]"
+        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[7]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[0]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[0]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[1]"
@@ -1627,16 +1589,10 @@ Warning: Synthesized away the following node(s):
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[7]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[0]"
         Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[1]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[2]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[3]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[4]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[5]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[6]"
-        Warning (14320): Synthesized away node "Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated|q_a[7]"
 Warning: 6 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning: Output pins are stuck at VCC or GND
     Warning (13410): Pin "SO_PRA_COMPILAR" is stuck at GND
-Info: 33 registers lost all their fanouts during netlist optimizations. The first 33 are displayed below.
+Info: 27 registers lost all their fanouts during netlist optimizations. The first 27 are displayed below.
     Info: Register "Registrador:B|Saida[0]" lost all its fanouts during netlist optimizations.
     Info: Register "Instr_Reg:Instruction_Register|Instr20_16[4]" lost all its fanouts during netlist optimizations.
     Info: Register "Instr_Reg:Instruction_Register|Instr20_16[3]" lost all its fanouts during netlist optimizations.
@@ -1652,12 +1608,6 @@ Info: 33 registers lost all their fanouts during netlist optimizations. The firs
     Info: Register "Instr_Reg:Instruction_Register|Instr25_21[0]" lost all its fanouts during netlist optimizations.
     Info: Register "Registrador:MemDataRegister|Saida[0]" lost all its fanouts during netlist optimizations.
     Info: Register "Registrador:ProgramCounter|Saida[0]" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.BEQ" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.BNE" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.LW" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.SW" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.LUI" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.J" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state~3" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state~4" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state~5" lost all its fanouts during netlist optimizations.
@@ -1667,26 +1617,26 @@ Info: 33 registers lost all their fanouts during netlist optimizations. The firs
     Info: Register "Control:comb_100|state~9" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state~10" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state.FETCH" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.DELAY1" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_100|state.DELAY2" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_100|state.MEM_DELAY1" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_100|state.MEM_DELAY2" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_100|state.DECODE" lost all its fanouts during netlist optimizations.
-Info: Generated suppressed messages file C:/Users/jraf/Documents/Mips/MIPS.map.smsg
+Info: Generated suppressed messages file C:/Users/aht/Desktop/Mips/MIPS.map.smsg
 Warning: Design contains 2 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "reset"
     Warning (15610): No output dependent on input pin "Clk"
 Info: Implemented 3 device resources after synthesis - the final resource count might be different
     Info: Implemented 2 input pins
     Info: Implemented 1 output pins
-Info: Quartus II Analysis & Synthesis was successful. 0 errors, 995 warnings
-    Info: Peak virtual memory: 247 megabytes
-    Info: Processing ended: Mon Sep 25 16:20:27 2017
-    Info: Elapsed time: 00:00:02
-    Info: Total CPU time (on all processors): 00:00:03
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 975 warnings
+    Info: Peak virtual memory: 338 megabytes
+    Info: Processing ended: Mon Sep 25 16:42:04 2017
+    Info: Elapsed time: 00:00:03
+    Info: Total CPU time (on all processors): 00:00:02
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/jraf/Documents/Mips/MIPS.map.smsg.
+The suppressed messages can be found in C:/Users/aht/Desktop/Mips/MIPS.map.smsg.
 
 
