@@ -37,10 +37,6 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	logic IR_reset;
 						
 	logic [04:0] WriteRegister; // Register to be overwrited
-	
-	logic BEQ_SHIFTLEFT_reset;
-	logic [2:0] BEQ_SHIFTLEFT_funct;
-	logic [4:0] BEQ_SHIFTLEFT_N;
 	/* End of Control Section */
 	
 	/* Begin of Data Section */
@@ -78,23 +74,21 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	logic [31:0] ReadData2;
 	
 	logic [31:0] JMP_address;
+	logic [31:0] BEQ_address;
 	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
 	// [15:11] field of instruction is used at reg write operations
-	assign Instr15_11 = Instr15_0[15:11];
+	assign Instr15_11[15:11] = Instr15_0[15:11];
 	
 	// concatenate [25-0] instruction's bits 
-	assign Instr25_0[25:21] = Instr25_21;
-	assign Instr25_0[20:16] = Instr20_16;
-	assign Instr25_0[15:00] = Instr15_0;	
+	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
 	
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
-	assign JMP_address[31:28] = PC[31:28];
-	assign JMP_address[27:23] = Instr25_21;
-	assign JMP_address[22:18] = Instr20_16;
-	assign JMP_address[17:02] = Instr15_0;
-	assign JMP_address[01:00] = 2'b00;
+	assign JMP_address[31:0] = { 2'b00, Instr25_21, Instr20_16, Instr15_0, PC[03:00] };
+	
+	SignExtend(Instr15_0, Instr15_0_EXTENDED);
+	assign BEQ_address[31:00] = { 2'b00, Instr15_0_EXTENDED[29:00] };
 	
 	// extract Funct field of instruction
 	assign Funct = Instr15_0[5:0];
@@ -158,20 +152,14 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 							 ReadData1, ReadData2
 						);
 			
-	SignExtend(Instr15_0, Instr15_0_EXTENDED);
-	
-	// The output of this 2bit shift left will be used at rhs of ALU
-	RegDesloc BEQ_SHIFTLEFT(Clk, BEQ_SHIFTLEFT_reset, 
-								  BEQ_SHIFTLEFT_shift, BEQ_SHIFTLEFT_N, 
-								  Instr15_0_EXTENDED, Reg_Desloc
-							);
+
 	
 	Registrador A(Clk, A_reset, A_load, ReadData1, Aout);
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
 	
 	// mux for lhs input of alu
 	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout, ALU_LHS);
-	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, Reg_Desloc, ALU_RHS);
+	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
 		
 	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);

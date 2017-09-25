@@ -43,10 +43,6 @@ module Control(
 				output logic IR_load,
 				output logic IR_reset,
 				
-				output logic BEQ_SHIFTLEFT_reset,
-				output logic [2:0] BEQ_SHIFTLEFT_funct,
-				output logic [4:0] BEQ_SHIFTLEFT_N	
-				
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
@@ -155,48 +151,79 @@ module Control(
 		end
 
 /*		APAGAR ISSO DEPOIS, ZE
+				PCWriteCond =  
+				PCWrite =  				// ativo em 1
+				
+				wr =  					// memory write/read control				
+				IRWrite = 				// Instruction register write
+				RegWrite = 				// write registers control
+				RegReset = 
+												
+				ALU_sel = 3'bxxx;
+				ALUOp = 2'bxx;
+				
+				MemtoReg = 1'bx;
+				PCSource = 2'bxx; 
+				ALUSrcA = 1'bx;
+				ALUSrcB = 2'bxx; 
+				IorD = 1'bx;
+				RegDst = 1'bx;
+				
+				A_load = 
+				A_reset = 		
+				B_load = 
+				B_reset = 
+				PC_load = 
+				PC_reset = 		
+				MDR_load = 
+				MDR_reset = 
+				ALUOut_load = 
+				ALUOut_reset = 
+				IR_load = 
+				IR_reset = 
 
 
-*/
-/*
-		
-		always_comb
+*//*
+	always_comb
 		begin
 			case (state)
 				FETCH:
 				begin
-
-					PCWriteCond = 0;	// Not conditional jump
-					PCWrite = 1;		// load pc + 4 result
-					wr = 0;				// read			  
-					IRWrite = 1;		// write at IR
+					
+					PCWriteCond = 0;
+					PCWrite = 1;
+					
+					wr = 0;
+					IRWrite = 1;
 					RegWrite = 0;
 					RegReset = 0;
+													
+					ALU_sel = 3'bxxx;
+					ALUOp = 2'bxx;
 					
-					ALUOp = 2'b00;		// perform an pc + 4 operation
-					
-					IorD = 1'bx;			
 					MemtoReg = 1'bx;
-					ALUSrcB = 2'b01;	// get +4 constant
-					ALUSrcA = 1'b0;		// get content of PC
-					PCSource = 2'b00;	// use pc + 4 result
+					PCSource = 2'bxx; 
+					ALUSrcA = 1'bx;
+					ALUSrcB = 2'bxx; 
+					IorD = 1'bx;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 0;
-					BEQ_SHIFTLEFT_funct = 3'bxxx; 
-					BEQ_SHIFTLEFT_N = 5'bxxxxx;
-									
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
+					A_load = 
+					A_reset = 		
+					B_load = 
+					B_reset = 
+					PC_load = 
+					PC_reset = 		
 					MDR_load = 1;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
+					MDR_reset = 
+					ALUOut_load = 
+					ALUOut_reset = 
 					IR_load = 1;
-					IR_reset = 0;	
+					IR_reset = 
+					
+					BEQ_SHIFTLEFT_reset = 
+					BEQ_SHIFTLEFT_funct = 3'bxxx;
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 				
 				end
 				

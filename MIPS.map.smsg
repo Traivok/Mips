@@ -1,1 +1,1 @@
-Info (10281): Verilog HDL Declaration information at MIPS.sv(57): object "Alu" differs only in case from object "ALU" in the same scope
+Info (10281): Verilog HDL Declaration information at MIPS.sv(53): object "Alu" differs only in case from object "ALU" in the same scope

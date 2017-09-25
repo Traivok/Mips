@@ -1028,9 +1028,6 @@ ON
 AUTO_ROM_RECOGNITION
 ON
 }
-# hierarchies {
-RegDesloc:BEQ_SHIFTLEFT
-}
 # lmf
 |altera|91sp2|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
@@ -1071,42 +1068,6 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
-Control
-# storage
-db|MIPS.(14).cnf
-db|MIPS.(14).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_sensitive
-# source_file
-control.sv
-2817c26b4d5db435b1e5bac93ce98fc
-9
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-IGNORE_VERILOG_INITIAL_CONSTRUCTS
-OFF
-VERILOG_CONSTANT_LOOP_LIMIT
-5000
-VERILOG_NON_CONSTANT_LOOP_LIMIT
-250
-}
-# hierarchies {
-Control:comb_72
-}
-# macro_sequence
-
-# end
-# entity
 SignExtend
 # storage
 db|MIPS.(16).cnf
@@ -1137,7 +1098,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-SignExtend:comb_73
+SignExtend:comb_61
 }
 # macro_sequence
 
@@ -1154,7 +1115,7 @@ ON
 # case_sensitive
 # source_file
 mips.sv
-d148eb79b486406d80805e9f56caeca3
+5e52b9edfd242b775410d110e0c2f8f0
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1174,6 +1135,42 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 }
 # hierarchies {
 |
+}
+# macro_sequence
+
+# end
+# entity
+Control
+# storage
+db|MIPS.(14).cnf
+db|MIPS.(14).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+control.sv
+18d02fdec88f98961fab33eec22dae76
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+Control:comb_100
 }
 # macro_sequence
 

@@ -1,5 +1,5 @@
 
-State Machine - |MIPS|Control:comb_72|state
+State Machine - |MIPS|Control:comb_100|state
 Name state.J state.LUI state.SW state.LW state.BNE state.BEQ state.DECODE state.DELAY2 state.DELAY1 state.FETCH 
 state.FETCH 0 0 0 0 0 0 0 0 0 0 
 state.DELAY1 0 0 0 0 0 0 0 0 1 1 
