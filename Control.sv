@@ -40,9 +40,9 @@ module Control(
 				output logic IR_load,
 				output logic IR_reset,
 				
-				output logic BEQ_SHIFTLEFT_reset, JMP_SHIFTLEFT_reset,
-				output logic [2:0] BEQ_SHIFTLEFT_funct, JMP_SHIFTLEFT_funct,
-				output logic [4:0] BEQ_SHIFTLEFT_N, JMP_SHIFTLEFT_N,			
+				output logic BEQ_SHIFTLEFT_reset,
+				output logic [2:0] BEQ_SHIFTLEFT_funct,
+				output logic [4:0] BEQ_SHIFTLEFT_N	
 				
 			  );
 				
@@ -50,7 +50,6 @@ module Control(
 
 		
 		logic [7:0] state;
-		logic [7:0] nextFunctState;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
 		assign PC_load = PCWrite | ( PCWriteCond & ALU_zero ); 
 	/* END OF DATA SECTION */
@@ -62,16 +61,25 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 8'h20, AND_FUNCT = 8'h24, SUB_FUNCT = 8'h22, XOR_FUNCT = 8'h26, BREAK_FUNCT = 8'hd, NOP_FUNCT = 8'h0 } FunctEnum;
 		
-		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J } StateEnum;
+		enum logic [7:0] { FETCH, DELAY1, DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
 		begin
 			state = FETCH;
 			
-			A_load = A_reset = B_load = B_reset = PC_load = PC_reset =		
-					 MDR_load = MDR_reset =	ALUOut_load = ALUOut_reset = IR_load =
-					 IR_reset = 0;		
+			A_load = 0;
+			A_reset = 0;
+			B_load = 0;
+			B_reset = 0;
+			PC_load = 0;
+			PC_reset = 0;
+			MDR_load = 0;
+			MDR_reset =	0;
+			ALUOut_load = 0;
+			ALUOut_reset = 0;
+			IR_load = 0;
+			IR_reset = 0;		
 			
 		end
 			
@@ -168,10 +176,6 @@ module Control(
 					BEQ_SHIFTLEFT_reset = 
 					BEQ_SHIFTLEFT_funct = 3'b 
 					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
 
 					A_load =
 					A_reset =		
@@ -209,13 +213,9 @@ module Control(
 					PCSource = 2'b00;	// use pc + 4 result
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'bxxx; 
+					BEQ_SHIFTLEFT_N = 5'bxxxxx;
 									
 					A_load = 0;
 					A_reset = 0;	
@@ -250,13 +250,9 @@ module Control(
 					PCSource = 2'bxx;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'bx;
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -291,13 +287,9 @@ module Control(
 					PCSource = 2'bxx;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'dx; 
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -332,13 +324,9 @@ module Control(
 					PCSource = 2'bxx;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'dx; 
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 1;				// store read1 at A
 					A_reset = 0;	
@@ -373,13 +361,9 @@ module Control(
 					PCSource = 2'bxx;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'dx; 
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -414,13 +398,9 @@ module Control(
 					PCSource = 2'b01;
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'dx;
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -454,13 +434,9 @@ module Control(
 					PCSource = 2'b10;	// PC = contentOf(25-0)*4
 					RegDst = 1'bx;
 					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-					
-					JMP_SHIFTLEFT_reset = 
-					JMP_SHIFTLEFT_funct = 3'b
-					JMP_SHIFTLEFT_N = 5'b
+					BEQ_SHIFTLEFT_reset = 0;
+					BEQ_SHIFTLEFT_funct = 3'dx;
+					BEQ_SHIFTLEFT_N = 5'dx;
 					
 					A_load = 0;
 					A_reset = 0;	
@@ -473,8 +449,9 @@ module Control(
 					ALUOut_reset = 0;
 					IR_load = 0;
 					IR_reset = 0;
+					
 				end
-				
+			endcase // state
 		end
 		
 	
