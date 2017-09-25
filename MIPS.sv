@@ -79,7 +79,7 @@ module MIPS(input logic Clk, input logic reset);
 	/* End of Data Section */
 	
 	// [15:11] field of instruction is used at reg write operations
-	assign Instr15_11[15:11] = Instr15_0[15:11];
+	assign Instr15_11[4:0] = Instr15_0[15:11];
 	
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};

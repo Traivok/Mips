@@ -3,7 +3,7 @@ Clk => Clk.IN9
 reset => reset.IN1
 
 
-|MIPS|SignExtend:comb_61
+|MIPS|SignExtend:comb_66
 in_vector[0] => out_vector[0].DATAIN
 in_vector[0] => out_vector[31].DATAIN
 in_vector[0] => out_vector[30].DATAIN
@@ -70,7 +70,7 @@ out_vector[30] <= in_vector[0].DB_MAX_OUTPUT_PORT_TYPE
 out_vector[31] <= in_vector[0].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|MIPS|Control:comb_100
+|MIPS|Control:comb_105
 Clk => StateOut[0]~reg0.CLK
 Clk => StateOut[1]~reg0.CLK
 Clk => StateOut[2]~reg0.CLK

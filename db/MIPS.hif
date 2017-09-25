@@ -50,7 +50,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-SignExtend:comb_61
+SignExtend:comb_66
 }
 # macro_sequence
 
@@ -86,7 +86,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-Control:comb_100
+Control:comb_105
 }
 # macro_sequence
 
@@ -1121,7 +1121,7 @@ ON
 # case_sensitive
 # source_file
 mips.sv
-1a26433bd2a4fcebeaf73eed3b3bf5
+dd764da216e5582c503e67f33220be
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
