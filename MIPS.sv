@@ -6,7 +6,7 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic IorD;
 	logic wr; 					// memory write/read control
 	logic MemtoReg; 
-	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instru�oes.
+	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruç˜oes.
 	logic [1:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
@@ -14,7 +14,15 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic RegWrite;				// write registers control
 	logic RegReset;				// reset all registers of 31-0
 	logic RegDst;				
-				
+	logic [2:0] ALU_sel;
+
+	logic ALU_zero;				// alu zero result flag
+	logic ALU_overflow;
+	logic ALU_neg;				// alu < 0 flag
+	logic ALU_eq;					// alu equal flag
+	logic ALU_gt;					// alu greater flag
+	logic ALU_lt;					// alu less flag
+
 	logic A_load;
 	logic A_reset;		
 	logic B_load;
@@ -30,11 +38,9 @@ module MIPS(output logic SO_PRA_COMPILAR);
 						
 	logic [04:0] WriteRegister; // Register to be overwrited
 	
-	logic BEQ_SHIFTLEFT_reset, JMP_SHIFTLEFT_reset;
-	logic [2:0] BEQ_SHIFTLEFT_funct, JMP_SHIFTLEFT_funct;
-	logic [4:0] BEQ_SHIFTLEFT_N, JMP_SHIFTLEFT_N;
-	
-	
+	logic BEQ_SHIFTLEFT_reset;
+	logic [2:0] BEQ_SHIFTLEFT_funct;
+	logic [4:0] BEQ_SHIFTLEFT_N;
 	/* End of Control Section */
 	
 	/* Begin of Data Section */
@@ -49,6 +55,8 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic [31:0] WriteDataMem;	// data to write at memory
 	logic [31:0] MDR;			// Memory Data Register content
 	logic [31:0] Alu;			// ALU result
+	logic [31:0] ALU_LHS;		// left operand of alu
+	logic [31:0] ALU_RHS;		// right operand of alu
 	logic [31:0] AluOut; 		// ALU out register content
 	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
 	
@@ -69,22 +77,23 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	logic [31:0] ReadData2;
 	
 	logic [31:0] JMP_address;
+	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
 	// extract [15-11] field of instruction to Instr15_11
 	assign Instr15_11 = { Instr15_0[15], Instr15_0[14], Instr15_0[13], Instr15_0[12], Instr15_0[11]};
 	// concatenate [25-0] instruction's bits 
-	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };
-	
-	Control(Clk, Reset, Instr31_26, nextFunctState, ALU_ZERO, Estado, 
-	
+	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
+	// DUVIDA AQUI, Concatenação correta:
+	assign JMP_address = { Instr25_21, Instr20_16, Instr15_0, 2'b00, PC[3], PC[2], PC[1], PC[0] }; 
+		
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Mux32bit_2x1 MemMux(IorD, PC, AluOut, Address);
 	Memoria Memory(Address, Clk, wr, WriteDataMem, MemData);
 	
 	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
-	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);
-	
+	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MDR);	
+
 	Mux5bit_2x1 WriteRegMux(RegDst, Instr25_21, Instr15_11, WriteRegister);
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
 	
@@ -103,17 +112,13 @@ module MIPS(output logic SO_PRA_COMPILAR);
 	Registrador A(Clk, A_reset, A_load, ReadData1, Aout);
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
 	
-	// muf for lhs input of alu
-	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout);
-	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, Reg_Desloc);
+	// mux for lhs input of alu
+	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout, ALU_LHS);
+	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, Reg_Desloc, ALU_RHS);
+
+	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
+	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
 	
-	/*
-	JMP_SHIFTLEFT RegDesloc(Clk, JMP_SHIFTLEFT_reset,
-								  JMP_SHIFTLEFT_shift, JMP_SHIFTLEFT_N, 
-								  Instr25_0, jmp 
-								  
-	JMP_ADDRESS HOW TO CONCAT							
-	*/
-	
+	Mux32bits_4x2 PC_MUX(PCSource, ALU_result, AluOut, JMP_address, NEW_PC);
 	
 endmodule : MIPS
