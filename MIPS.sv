@@ -69,9 +69,9 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	logic [4:0] Instr25_21;
 	logic [4:0] Instr20_16;
 	logic [15:0] Instr15_0;
-	logic [15:11] Instr15_11;
+	logic [4:0] Instr15_11;
 	logic [25:0] Instr25_0;
-	logic [31:0] Instr15_0_EXTENDED;
+	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
 	logic [5:0] Funct;
 		
 	logic [31:0] ReadData1;
@@ -81,14 +81,23 @@ module MIPS(input logic Clk, input logic reset, output logic SO_PRA_COMPILAR);
 	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
-	// DUVIDA AQUI extract [15-11] field of instruction to Instr15_11
-	assign Instr15_11 = { Instr15_0[15:11] };
+	// [15:11] field of instruction is used at reg write operations
+	assign Instr15_11 = Instr15_0[15:11];
+	
 	// concatenate [25-0] instruction's bits 
-	assign Instr25_0 = { Instr25_21, Instr20_16, Instr15_0 };	
-	// DUVIDA AQUI, Concatenação correta:
-	assign JMP_address = { PC[31-:4], Instr25_21, Instr20_16, Instr15_0, 2'b00}; 
+	assign Instr25_0[25:21] = Instr25_21;
+	assign Instr25_0[20:16] = Instr20_16;
+	assign Instr25_0[15:00] = Instr15_0;	
+	
+	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
+	assign JMP_address[31:28] = PC[31:28];
+	assign JMP_address[27:23] = Instr25_21;
+	assign JMP_address[22:18] = Instr20_16;
+	assign JMP_address[17:02] = Instr15_0;
+	assign JMP_address[01:00] = 2'b00;
+	
 	// extract Funct field of instruction
-	assign Funct = { Instr15_0[5-:5] };
+	assign Funct = Instr15_0[5:0];
 	
 	/* CONTROL SECTION BEGINS HERE */
 	Control (	

@@ -1038,42 +1038,6 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
-SignExtend
-# storage
-db|MIPS.(14).cnf
-db|MIPS.(14).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_sensitive
-# source_file
-signextend.sv
-219f158e5de9937a2f45bdf7d533f047
-9
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-IGNORE_VERILOG_INITIAL_CONSTRUCTS
-OFF
-VERILOG_CONSTANT_LOOP_LIMIT
-5000
-VERILOG_NON_CONSTANT_LOOP_LIMIT
-250
-}
-# hierarchies {
-SignExtend:comb_67
-}
-# macro_sequence
-
-# end
-# entity
 Ula32
 # storage
 db|MIPS.(15).cnf
@@ -1107,6 +1071,78 @@ a36c8ec425c8a2589af98b2d4daabc3
 
 # end
 # entity
+Control
+# storage
+db|MIPS.(14).cnf
+db|MIPS.(14).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+control.sv
+2817c26b4d5db435b1e5bac93ce98fc
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+Control:comb_72
+}
+# macro_sequence
+
+# end
+# entity
+SignExtend
+# storage
+db|MIPS.(16).cnf
+db|MIPS.(16).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+signextend.sv
+70c217332a18f45d5d9199ed2775680
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+SignExtend:comb_73
+}
+# macro_sequence
+
+# end
+# entity
 MIPS
 # storage
 db|MIPS.(0).cnf
@@ -1118,7 +1154,7 @@ ON
 # case_sensitive
 # source_file
 mips.sv
-628d3ef5e25b75a12b66323ac59e647d
+d148eb79b486406d80805e9f56caeca3
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1138,42 +1174,6 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 }
 # hierarchies {
 |
-}
-# macro_sequence
-
-# end
-# entity
-Control
-# storage
-db|MIPS.(16).cnf
-db|MIPS.(16).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_sensitive
-# source_file
-control.sv
-815341e48c6439f4955412fdcb756c4
-9
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-IGNORE_VERILOG_INITIAL_CONSTRUCTS
-OFF
-VERILOG_CONSTANT_LOOP_LIMIT
-5000
-VERILOG_NON_CONSTANT_LOOP_LIMIT
-250
-}
-# hierarchies {
-Control:comb_66
 }
 # macro_sequence
 

@@ -2,7 +2,7 @@ module Control(
 				input logic Clk,
 				input logic Reset,
 				input logic [5:0] Op,
-				input logic [7:0] nextFunctState, 	// in case of OP = 0x0
+				input logic [5:0] Funct, 			// in case of OP = 0x0
 				input logic ALU_zero,				// alu zero result flag
 				input logic ALU_overflow,
 				input logic ALU_neg,				// alu < 0 flag
@@ -14,18 +14,21 @@ module Control(
 				
 				output logic PCWriteCond, 
 				output logic PCWrite, 				// ativo em 1
-				output logic IorD,
-				output logic wr, 					// memory write/read control
-				output logic MemtoReg, 
-				output logic IRWrite, 				// Instruction register write controla a escrita no registrador de instruç˜oes.
-				output logic [1:0] PCSource,
-				output logic [1:0] ALUOp,
-				output logic [1:0] ALUSrcB,
-				output logic ALUSrcA,
+				
+				output logic wr, 					// memory write/read control				
+				output logic IRWrite,				// Instruction register write
 				output logic RegWrite,				// write registers control
 				output logic RegReset,
-				output logic RegDst,				
+												
 				output logic [2:0] ALU_sel,
+				output logic [1:0] ALUOp,
+				
+				output logic MemtoReg, 
+				output logic [1:0] PCSource,
+				output logic ALUSrcA,
+				output logic [1:0] ALUSrcB,
+				output logic IorD,
+				output logic RegDst,
 				
 				output logic A_load,
 				output logic A_reset,		
@@ -108,11 +111,7 @@ module Control(
 				begin
 			
 					case (Op)
-						FUNCT_OP:	// funct field
-						begin
-							state <= nextFunctState;						
-						end
-						
+					
 						BEQ_OP:
 						begin
 							state <= BEQ;
@@ -156,40 +155,43 @@ module Control(
 		end
 
 /*		APAGAR ISSO DEPOIS, ZE
+				PCWriteCond =  
+				PCWrite =  				// ativo em 1
+				
+				wr =  					// memory write/read control				
+				IRWrite = 				// Instruction register write
+				RegWrite = 				// write registers control
+				RegReset = 
+												
+				ALU_sel = 3'bxxx;
+				ALUOp = 2'bxx;
+				
+				MemtoReg = 1'bx;
+				PCSource = 2'bxx; 
+				ALUSrcA = 1'bx;
+				ALUSrcB = 2'bxx; 
+				IorD = 1'bx;
+				RegDst = 1'bx;
+				
+				A_load = 
+				A_reset = 		
+				B_load = 
+				B_reset = 
+				PC_load = 
+				PC_reset = 		
+				MDR_load = 
+				MDR_reset = 
+				ALUOut_load = 
+				ALUOut_reset = 
+				IR_load = 
+				IR_reset = 
+				
+				BEQ_SHIFTLEFT_reset = 
+				[2:0] BEQ_SHIFTLEFT_funct = 3'bxxx;
+				[4:0] BEQ_SHIFTLEFT_N = 5'bxxxxx;
 
-					PCWriteCond = 
-					PCWrite = 					
-					wr = 					  
-					IRWrite = 
-					RegWrite = 
-					RegReset = 
-						
-					ALUOp = 2'b
-					
-					IorD = 1'b				
-					MemtoReg = 1'b
-					ALUSrcB = 2'b
-					ALUSrcA = 1'b
-					PCSource = 2'b
-					RegDst = 1'b
-					
-					BEQ_SHIFTLEFT_reset = 
-					BEQ_SHIFTLEFT_funct = 3'b 
-					BEQ_SHIFTLEFT_N = 5'b
-
-					A_load =
-					A_reset =		
-					B_load =
-					B_reset =
-					PC_reset =		
-					MDR_load =
-					MDR_reset =
-					ALUOut_load =
-					ALUOut_reset =
-					IR_load =
-					IR_reset =
 */
-
+/*
 		
 		always_comb
 		begin
@@ -342,6 +344,6 @@ module Control(
 				end
 			endcase // state
 		end
-		
+	*/	
 	
 endmodule : Control
