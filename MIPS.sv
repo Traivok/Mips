@@ -1,4 +1,17 @@
-module MIPS(input logic Clk, input logic reset);
+module MIPS(input logic Clk, input logic reset
+			output logic [31:0] OUT_MemData,
+			output logic [31:0] OUT_Address,
+			output logic [31:0] OUT_WriteDataMem,
+			output logic [05:0] OUT_WriteDataReg,
+			output logic [31:0] OUT_MDR,
+			output logic [31:0] OUT_Alu,
+			output logic [31:0] OUT_AluOut,
+			output logic [31:0] OUT_PC,
+			output logic OUT_wr,
+			output logic [31:0] OUT_RegWrite,
+			output logic [31:0] OUT_IRWrite,
+			output logic [31:0] OUT_Estado
+	);
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 
@@ -75,6 +88,21 @@ module MIPS(input logic Clk, input logic reset);
 	logic [31:0] BEQ_address;
 	logic [31:0] ALU_result;
 	/* End of Data Section */
+	
+	/* Assignment Section */
+	
+	assign OUT_MemData <= MemData;
+	assign OUT_Address <= Address;
+	assign OUT_WriteDataMem <= WriteDataMem;
+	assign OUT_WriteDataReg <= WriteDataReg;
+	assign OUT_MDR <= MDR;
+	assign OUT_Alu <= ALU_result;
+	assign OUT_AluOut <= AluOut;
+	assign OUT_PC <= PC;
+	assign OUT_wr <= wr;
+	assign OUT_RegWrite <= RegWrite;
+	assign OUT_IRWrite <= IRWrite; 
+	assign OUT_Estado <= Estado;
 	
 	// [15:11] field of instruction is used at reg write operations
 	assign Instr15_11[4:0] = Instr15_0[15:11];
