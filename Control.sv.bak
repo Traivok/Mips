@@ -39,12 +39,11 @@ module Control(
 				output logic MDR_reset,
 				output logic ALUOut_load,
 				output logic ALUOut_reset,
-				output logic IR_load,
 				output logic IR_reset			
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
-
+		logic holdState;		// use it if the value of some state will be used
 		
 		logic [7:0] state;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
@@ -58,7 +57,7 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, MEM_DELAY1, MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
@@ -75,7 +74,7 @@ module Control(
 			MDR_reset =	0;
 			ALUOut_load = 0;
 			ALUOut_reset = 0;
-			IR_load = 0;
+			IRWrite = 0;
 			IR_reset = 0;		
 			
 		end
@@ -93,19 +92,20 @@ module Control(
 					RESET:
 					begin
 						state <= FETCH;
+						holdState <= RESET;
 					end
 				
 					FETCH:
 					begin
-						state <= MEM_DELAY1;
+						state <= FETCH_MEM_DELAY1;
 					end
 					
-					MEM_DELAY1:
+					FETCH_MEM_DELAY1:
 					begin
-						state <= MEM_DELAY2;
+						state <= FETCH_MEM_DELAY2;
 					end
 					
-					MEM_DELAY2:
+					FETCH_MEM_DELAY2:
 					begin
 						state <= DECODE;
 					end
@@ -187,7 +187,6 @@ module Control(
 				MDR_reset = 
 				ALUOut_load = 
 				ALUOut_reset = 
-				IR_load = 
 				IR_reset = 
 
 
@@ -225,17 +224,16 @@ module Control(
 					MDR_reset = 1;
 					ALUOut_load = 0;
 					ALUOut_reset = 1;
-					IR_load = 0;
 					IR_reset = 	1;			
 				end					
 			
 				FETCH:					// get content of pc, read it and send a memread signal
-				begin
+				begin					// the MDR and IR will be loaded with Memory content
 					PCWriteCond = 0;
 					PCWrite = 0;
 					
 					wr = 0;		
-					IRWrite = 1; 
+					IRWrite = 1;			// get the current instruction
 					RegWrite = 0;
 					RegReset = 0;
 													
@@ -258,7 +256,6 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;			
 				end
 				
@@ -291,11 +288,10 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;	
 				end
 				
-				MEM_DELAY2: 				// increment PC+4 and hold memread signals
+				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
 					PCWriteCond = 0;
 					PCWrite = 1;
@@ -324,13 +320,12 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;	
 				end
 				
-				DECODE:
-				begin
-					PCWriteCond = 0;
+				DECODE:					// store values read of 32 Mips registers at A,B;
+				begin					// add PC content with instruction offset field, uset if next OP is beq
+					PCWriteCond = 0;	// and store it's content at aluout
 					PCWrite = 0; 
 					
 					wr = 0;	
@@ -357,11 +352,9 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset = 0;
-					IR_load = 0;
 					IR_reset = 0;					
 				end
 			endcase // state
 		end //end always comb
-
 	
 endmodule : Control
