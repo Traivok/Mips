@@ -43,7 +43,7 @@ module Control(
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
-		logic holdState;		// use it if the value of some state will be used
+		logic [7:0] holdState;		// use it if the value of some state will be used
 		
 		logic [7:0] state;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
@@ -116,7 +116,6 @@ module Control(
 					DECODE:
 					begin
 					
-						//state <= state; // TIRAR ISSO, ta pra compilar	
 						case (Op)
 						
 							FUNCT_OP:
@@ -199,34 +198,34 @@ module Control(
 		end
 
 /*		APAGAR ISSO DEPOIS, ZE
-				PCWriteCond =  
-				PCWrite = 
+				PCWriteCond <=  
+				PCWrite <= 
 				
-				wr = 				
-				IRWrite = 
-				RegWrite = 
-				RegReset = 
+				wr <= 				
+				IRWrite <= 
+				RegWrite <= 
+				RegReset <= 
 												
-				ALU_sel = 3'bxxx;
+				ALU_sel <= 3'bxxx;
 				
-				MemtoReg = 1'bx;
-				PCSource = 2'bxx; 
+				MemtoReg <= 1'bx;
+				PCSource <= 2'bxx; 
 				
-				ALUSrcA = 1'bx;
-				ALUSrcB = 2'bxx; 
-				IorD = 1'bx;
-				RegDst = 1'bx;
+				ALUSrcA <= 1'bx;
+				ALUSrcB <= 2'bxx; 
+				IorD <= 1'bx;
+				RegDst <= 1'bx;
 				
-				A_load = 
-				A_reset = 		
-				B_load = 
-				B_reset = 
-				PC_reset = 		
-				MDR_load = 
-				MDR_reset = 
-				ALUOut_load = 
-				ALUOut_reset = 
-				IR_reset = 
+				A_load <= 
+				A_reset <= 		
+				B_load <= 
+				B_reset <= 
+				PC_reset <= 		
+				MDR_load <= 
+				MDR_reset <= 
+				ALUOut_load <= 
+				ALUOut_reset <= 
+				IR_reset <= 
 
 
 */
@@ -236,261 +235,292 @@ module Control(
 				
 				RESET:					// reset ALL registers
 				begin
-					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
 					
-					wr = 0;		
-					IRWrite = 0; 
-					RegWrite = 0;
-					RegReset = 1;
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 1;
 													
-					ALU_sel = 3'b000;
+					ALU_sel <= 3'b000;
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
-					IorD = 1'b0;
-					RegDst = 1'b0;
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 1;	
-					B_load = 0;
-					B_reset = 1;
+					A_load <= 0;
+					A_reset <= 1;	
+					B_load <= 0;
+					B_reset <= 1;
 
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 1;
-					ALUOut_load = 0;
-					ALUOut_reset = 1;
-					IR_reset = 	1;			
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 1;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 1;
+					IR_reset <= 	1;			
 				end					
 			
 				FETCH:					// get content of pc, read it and send a memread signal
 				begin					// the MDR and IR will be loaded with Memory content
-					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
 					
-					wr = 0;		
-					IRWrite = 1;			// get the current instruction
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;		
+					IRWrite <= 1;			// get the current instruction
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel <= 3'b000;
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b01; 
-					IorD = 1'b0;			// instruction set
-					RegDst = 1'b0;
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b01; 
+					IorD <= 1'b0;			// instruction set
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
 
-					PC_reset = 0;	
-					MDR_load = 1;			// store the content of address read 
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_reset = 	0;			
+					PC_reset <= 0;	
+					MDR_load <= 1;			// store the content of address read 
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 	0;			
 				end
 				
 				FETCH_MEM_DELAY1:					// just hold memread signal
 				begin
-					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
 					
-					wr = 0;		
-					IRWrite = 1; 
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;		
+					IRWrite <= 1; 
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel <= 3'b000;
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b01; 
-					IorD = 1'b0;			// instruction set
-					RegDst = 1'b0;
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b01; 
+					IorD <= 1'b0;			// instruction set
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
 
-					PC_reset = 0;	
-					MDR_load = 1;			// store the content of address read 
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_reset = 	0;	
+					PC_reset <= 0;	
+					MDR_load <= 1;			// store the content of address read 
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 	0;	
 				end
 				
 				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
-					PCWriteCond = 0;
-					PCWrite = 1;
+					PCWriteCond <= 0;
+					PCWrite <= 1;
 					
-					wr = 0;		
-					IRWrite = 1; 
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;		
+					IRWrite <= 1; 
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b001;		// 001 is the ADD code of ALU
+					ALU_sel <= 3'b001;		// 001 is the ADD code of ALU
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00;		// perform a sum of PC + 4 
-					ALUSrcA = 1'b0;			// get the PC value
-					ALUSrcB = 2'b01; 		// and +4
-					IorD = 1'b0;			// instruction set
-					RegDst = 1'b0;
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;		// perform a sum of PC + 4 
+					ALUSrcA <= 1'b0;			// get the PC value
+					ALUSrcB <= 2'b01; 		// and +4
+					IorD <= 1'b0;			// instruction set
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
 
-					PC_reset = 0;	
-					MDR_load = 1;			// store the content of address read 
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_reset = 	0;	
+					PC_reset <= 0;	
+					MDR_load <= 1;			// store the content of address read 
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 	0;	
 				end
 				
 				DECODE:					// store values read of 32 Mips registers at A,B;
 				begin					// add PC content with instruction offset field, uset if next OP is beq
-					PCWriteCond = 0;	// and store it's content at aluout
-					PCWrite = 0; 
+					PCWriteCond <= 0;	// and store it's content at aluout
+					PCWrite <= 0; 
 					
-					wr = 0;	
-					IRWrite = 0; 
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;	
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b001;	// perform an addition of PC and offset field
+					ALU_sel <= 3'b001;	// perform an addition of PC and offset field
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b11;	// get the [15-0] field of instruction extentend and multiplied by 4 
-					IorD = 1'b0;
-					RegDst = 1'b0;
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b11;	// get the [15-0] field of instruction extentend and multiplied by 4 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
 					
-					A_load = 1;			// load read1 at A
-					A_reset = 0;	
-					B_load = 1;			// load read2 at B
-					B_reset = 0;
+					A_load <= 1;			// load read1 at A
+					A_reset <= 0;	
+					B_load <= 1;			// load read2 at B
+					B_reset <= 0;
 
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
-					ALUOut_reset = 0;
-					IR_reset = 0;					
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;	// store the alu result at aluout, it may be needed for Branch operations
+					ALUOut_reset <= 0;
+					IR_reset <= 0;					
 				end
-				
+				/*
 				NOP:
 				begin
-					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
 					
-					wr = 0;				
-					IRWrite = 0; 
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel <= 3'b000;
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
 					
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
-					IorD = 1'b0;
-					RegDst = 1'b0;
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
 				end
 				
 				ADD: // dúvida - Gabi
 				begin
-					PCWriteCond = 0;
-					PCWrite = 0;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
 					
-					wr = 0;
-					IRWrite = 0;
-					RegWrite = 0;
-					RegReset = 0;
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
 													
-					ALU_sel = 3'b001;
+					ALU_sel <= 3'b001;
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
 					
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
-					IorD = 1'b0;
-					RegDst = 1'b0;
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 1; // dúvida
-					ALUOut_reset = 0;
-					IR_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; // dúvida
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
 				end
 				
 				J:
 				begin
-					PCWriteCond = 0; // Don't care?
-					PCWrite = 1;     // Write at PC
+					PCWriteCond <= 0; // Don't care?
+					PCWrite <= 1;     // Write at PC
 					
-					wr = 0;			 // Don't write
-					IRWrite = 1;     // Dúvida
-					RegWrite = 0;    // ?
-					RegReset = 0;	
+					wr <= 0;			 // Don't write
+					IRWrite <= 1;     // Dúvida
+					RegWrite <= 0;    // ?
+					RegReset <= 0;	
 													
-					ALU_sel = 3'b001; //sum
+					ALU_sel <= 3'b001; //sum
 					
-					MemtoReg = 1'b0;
-					PCSource = 2'b10;  // PC <= {PC[31:28],(IR[25:0], 2'b00)}
-					ALUSrcA = 1'b0; 
-					ALUSrcB = 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
-					IorD = 1'b1;
-					RegDst = 1'b0;     // Don't Care
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b10;  // PC <<= {PC[31:28],(IR[25:0], 2'b00)}
+					ALUSrcA <= 1'b0; 
+					ALUSrcB <= 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
+					IorD <= 1'b1;
+					RegDst <= 1'b0;     // Don't Care
 					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
 
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 1;
-					ALUOut_reset = 0;
-					IR_reset = 	0;
-				end
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end*/
 				
-			
+				default:
+				begin
+					PCWriteCond <= 0; 
+					PCWrite <= 0;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;		
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+							
 			endcase // state
 		end //end always comb
 	

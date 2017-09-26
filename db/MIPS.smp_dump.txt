@@ -1,8 +1,20 @@
 
 State Machine - |MIPS|Control:comb_137|state
-Name state.FETCH_MEM_DELAY2 state.FETCH_MEM_DELAY1 state.FETCH state.RESET state.DECODE 
-state.RESET 0 0 0 0 0 
-state.FETCH 0 0 1 1 0 
-state.FETCH_MEM_DELAY1 0 1 0 1 0 
-state.FETCH_MEM_DELAY2 1 0 0 1 0 
-state.DECODE 0 0 0 1 1 
+Name state.BREAK state.XOR state.SUB state.AND state.ADD state.NOP state.J state.LUI state.SW state.LW state.BNE state.BEQ state.DECODE state.FETCH_MEM_DELAY2 state.FETCH_MEM_DELAY1 state.FETCH state.RESET 
+state.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.FETCH 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.FETCH_MEM_DELAY1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.FETCH_MEM_DELAY2 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.DECODE 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.BEQ 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.BNE 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.LW 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.SW 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.LUI 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.J 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.NOP 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.ADD 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.AND 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.SUB 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.XOR 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.BREAK 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
