@@ -259,7 +259,7 @@ module Control(
 					IR_reset = 	0;			
 				end
 				
-				MEM_DELAY1:					// just hold memread signal
+				FETCH_MEM_DELAY1:					// just hold memread signal
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
