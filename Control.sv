@@ -39,7 +39,6 @@ module Control(
 				output logic MDR_reset,
 				output logic ALUOut_load,
 				output logic ALUOut_reset,
-				output logic IR_load,
 				output logic IR_reset			
 			  );
 				
@@ -75,7 +74,7 @@ module Control(
 			MDR_reset =	0;
 			ALUOut_load = 0;
 			ALUOut_reset = 0;
-			IR_load = 0;
+			IRWrite = 0;
 			IR_reset = 0;		
 			
 		end
@@ -188,7 +187,6 @@ module Control(
 				MDR_reset = 
 				ALUOut_load = 
 				ALUOut_reset = 
-				IR_load = 
 				IR_reset = 
 
 
@@ -226,7 +224,6 @@ module Control(
 					MDR_reset = 1;
 					ALUOut_load = 0;
 					ALUOut_reset = 1;
-					IR_load = 0;
 					IR_reset = 	1;			
 				end					
 			
@@ -236,7 +233,7 @@ module Control(
 					PCWrite = 0;
 					
 					wr = 0;		
-					IRWrite = 1; 
+					IRWrite = 1;			// get the current instruction
 					RegWrite = 0;
 					RegReset = 0;
 													
@@ -259,7 +256,6 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;			
 				end
 				
@@ -292,7 +288,6 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;	
 				end
 				
@@ -325,7 +320,6 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 1;			// get the current instruction
 					IR_reset = 	0;	
 				end
 				
@@ -358,7 +352,6 @@ module Control(
 					MDR_reset = 0;
 					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset = 0;
-					IR_load = 0;
 					IR_reset = 0;					
 				end
 			endcase // state

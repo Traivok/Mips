@@ -33,7 +33,6 @@ module MIPS(input logic Clk, input logic reset);
 	logic MDR_reset;
 	logic ALUOut_load;
 	logic ALUOut_reset;
-	logic IR_load;
 	logic IR_reset;
 						
 	logic [04:0] WriteRegister; // Register to be overwrited
@@ -127,7 +126,6 @@ module MIPS(input logic Clk, input logic reset);
 			.MDR_reset(MDR_reset),
 			.ALUOut_load(ALUOut_load),
 			.ALUOut_reset(ALUOut_reset),
-			.IR_load(IR_load),
 			.IR_reset(IR_reset),
 			.RegReset(RegReset),
 			.RegWrite(RegWrite)
@@ -143,7 +141,7 @@ module MIPS(input logic Clk, input logic reset);
 	Memoria Memory(.Address(Address), .Clock(Clk), 
 				   .wr(wr), .Datain(WriteDataMem), .Dataout(MemData));
 	
-	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
+	Instr_Reg Instruction_Register(Clk, IR_reset, IRWrite, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);	
 
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
