@@ -199,33 +199,33 @@ module Control(
 
 /*		APAGAR ISSO DEPOIS, ZE
 				PCWriteCond <=  
-				PCWrite <= 
-				
-				wr <= 				
-				IRWrite <= 
-				RegWrite <= 
-				RegReset <= 
-												
-				ALU_sel <= 3'bxxx;
-				
-				MemtoReg <= 1'bx;
-				PCSource <= 2'bxx; 
-				
-				ALUSrcA <= 1'bx;
-				ALUSrcB <= 2'bxx; 
-				IorD <= 1'bx;
-				RegDst <= 1'bx;
-				
-				A_load <= 
-				A_reset <= 		
-				B_load <= 
-				B_reset <= 
-				PC_reset <= 		
-				MDR_load <= 
-				MDR_reset <= 
-				ALUOut_load <= 
-				ALUOut_reset <= 
-				IR_reset <= 
+					PCWrite <= 
+					
+					wr <= 				
+					IRWrite <= 
+					RegWrite <= 
+					RegReset <= 
+													
+					ALU_sel <= 3'bxxx;
+					
+					MemtoReg <= 1'bx;
+					PCSource <= 2'bxx; 
+					
+					ALUSrcA <= 1'bx;
+					ALUSrcB <= 2'bxx; 
+					IorD <= 1'bx;
+					RegDst <= 1'bx;
+					
+					A_load <= 
+					A_reset <= 		
+					B_load <= 
+					B_reset <= 
+					PC_reset <= 		
+					MDR_load <= 
+					MDR_reset <= 
+					ALUOut_load <= 
+					ALUOut_reset <= 
+					IR_reset <= 
 
 
 */
@@ -376,7 +376,7 @@ module Control(
 					MemtoReg <= 1'b0;
 					PCSource <= 2'b00; 
 					ALUSrcA <= 1'b0;
-					ALUSrcB <= 2'b11;	// get the [15-0] field of instruction extentend and multiplied by 4 
+					ALUSrcB <= 2'b11;	// get the [15-0] field of instruction extended and multiplied by 4 
 					IorD <= 1'b0;
 					RegDst <= 1'b0;
 					
@@ -391,6 +391,37 @@ module Control(
 					ALUOut_load <= 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset <= 0;
 					IR_reset <= 0;					
+				end
+				
+				ADD:
+				begin
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b001;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
 				end
 				
 				NOP:
@@ -417,7 +448,7 @@ module Control(
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
-					PC_reset <= 0;	
+					PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -425,7 +456,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				ADD: // dúvida - Gabi
+				AND:
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -434,25 +465,148 @@ module Control(
 					IRWrite <= 0;
 					RegWrite <= 0;
 					RegReset <= 0;
-													
-					ALU_sel <= 3'b001;
+					
+					ALU_sel <= 3'b011;
 					
 					MemtoReg <= 1'b0;
-					PCSource <= 2'b00; 
-					
-					ALUSrcA <= 1'b0;
-					ALUSrcB <= 2'b00; 
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
 					IorD <= 1'b0;
 					RegDst <= 1'b0;
 					
 					A_load <= 0;
-					A_reset <= 0;	
+					A_reset <= 0;
 					B_load <= 0;
 					B_reset <= 0;
-					PC_reset <= 0;	
+					PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 1; // dúvida
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				SUB:
+				begin
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b010;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				XOR:
+				begin
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b110;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				NOT_A:
+				begin
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b101;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // don't care
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				INC:
+				begin
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b101;
+					
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // don't care
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
 				end

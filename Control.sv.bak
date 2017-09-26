@@ -392,7 +392,7 @@ module Control(
 					ALUOut_reset <= 0;
 					IR_reset <= 0;					
 				end
-				/*
+				
 				NOP:
 				begin
 					PCWriteCond <= 0;
@@ -425,26 +425,31 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				ADD: // dúvida - Gabi
+				ADD:
 				begin
-					PCWriteCond <= 0;
-					PCWrite <= 0;
+					/* DON'T CARE */
+					PCWriteCond <= 0;	
+					PCWrite <= 0;				 
 					
-					wr <= 0;
-					IRWrite <= 0;
-					RegWrite <= 0;
+					/* DON'T CARE */
+					wr <= 0;					 
+					IRWrite <= 0;				 
+					RegWrite <= 0;				
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001;
 					
+					/* DON'T CARE */
 					MemtoReg <= 1'b0;
-					PCSource <= 2'b00; 
+					PCSource <= 2'b00;
 					
+					/* DON'T CARE */
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
 					IorD <= 1'b0;
 					RegDst <= 1'b0;
 					
+					/* DON'T CARE */
 					A_load <= 0;
 					A_reset <= 0;	
 					B_load <= 0;
@@ -452,7 +457,130 @@ module Control(
 					PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 1; // dúvida
+					
+					ALUOut_load <= 1; 
+					
+					/* DON'T CARE */
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				AND:
+				begin
+					/* DON'T CARE */
+					PCWriteCond <= 0;			
+					PCWrite <= 0;				 
+					
+					/* DON'T CARE */
+					wr <= 0;					 
+					IRWrite <= 0;				 
+					RegWrite <= 0;				
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b011;
+					
+					/* DON'T CARE */
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					
+					/* DON'T CARE */
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					/* DON'T CARE */
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					
+					ALUOut_load <= 1; 
+					
+					/* DON'T CARE */
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				SUB:
+				begin
+					/* DON'T CARE */
+					PCWriteCond <= 0;			
+					PCWrite <= 0;				 
+					
+					/* DON'T CARE */
+					wr <= 0;					 
+					IRWrite <= 0;				 
+					RegWrite <= 0;				
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b010;
+					
+					/* DON'T CARE */
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					
+					/* DON'T CARE */
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					/* DON'T CARE */
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					
+					ALUOut_load <= 1; 
+					
+					/* DON'T CARE */
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				XOR:
+				begin
+					/* DON'T CARE */
+					PCWriteCond <= 0;			
+					PCWrite <= 0;				 
+					
+					/* DON'T CARE */
+					wr <= 0;					 
+					IRWrite <= 0;				 
+					RegWrite <= 0;				
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b110;
+					
+					/* DON'T CARE */
+					MemtoReg <= 1'b0;
+					PCSource <= 2'b00; 
+					
+					/* DON'T CARE */
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 1'b0;
+					
+					/* DON'T CARE */
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					
+					ALUOut_load <= 1; 
+					
+					/* DON'T CARE */
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
 				end
@@ -487,7 +615,7 @@ module Control(
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
-				end*/
+				end
 				
 				default:
 				begin
