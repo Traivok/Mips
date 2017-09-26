@@ -44,7 +44,7 @@ module Control(
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
-
+		logic holdState;		// use it if the value of some state will be used
 		
 		logic [7:0] state;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
