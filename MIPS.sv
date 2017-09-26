@@ -159,8 +159,8 @@ module MIPS(input logic Clk, input logic reset);
 	Registrador A(Clk, A_reset, A_load, ReadData1, Aout);
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
 		
-	Mux32bit_2x1 LHS_Mux(AluSrcA, PC, Aout, ALU_LHS);
-	Mux32bits_4x2 RHS_Mux(AluSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
+	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
+	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
 		
 	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
