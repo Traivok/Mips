@@ -425,6 +425,38 @@ module Control(
 					ALUOut_reset = 0;
 					IR_reset = 0;
 				end
+				
+				ADD: // dúvida - Gabi
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;
+					IRWrite = 0;
+					RegWrite = 0;
+					RegReset = 0;
+													
+					ALU_sel = 3'b001;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 1; // dúvida
+					ALUOut_reset = 0;
+					IR_reset = 0;
+				end
 			endcase // state
 		end //end always comb
 	
