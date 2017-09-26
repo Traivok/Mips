@@ -58,7 +58,7 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, MEM_DELAY1, MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
@@ -97,15 +97,15 @@ module Control(
 				
 					FETCH:
 					begin
-						state <= MEM_DELAY1;
+						state <= FETCH_MEM_DELAY1;
 					end
 					
-					MEM_DELAY1:
+					FETCH_MEM_DELAY1:
 					begin
-						state <= MEM_DELAY2;
+						state <= FETCH_MEM_DELAY2;
 					end
 					
-					MEM_DELAY2:
+					FETCH_MEM_DELAY2:
 					begin
 						state <= DECODE;
 					end
@@ -295,7 +295,7 @@ module Control(
 					IR_reset = 	0;	
 				end
 				
-				MEM_DELAY2: 				// increment PC+4 and hold memread signals
+				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
 					PCWriteCond = 0;
 					PCWrite = 1;
