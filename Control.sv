@@ -457,6 +457,39 @@ module Control(
 					ALUOut_reset = 0;
 					IR_reset = 0;
 				end
+				
+				J:
+				begin
+					PCWriteCond = 0; // Don't care?
+					PCWrite = 1;     // Write at PC
+					
+					wr = 0;			 // Don't write
+					IRWrite = 1;     // Dúvida
+					RegWrite = 0;    // ?
+					RegReset = 0;	
+													
+					ALU_sel = 3'b001; //sum
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b10;  // PC <= {PC[31:28],(IR[25:0], 2'b00)}
+					ALUSrcA = 1'b0; 
+					ALUSrcB = 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
+					IorD = 1'b1;
+					RegDst = 1'b0;     // Don't Care
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 1;
+					ALUOut_reset = 0;
+					IR_reset = 	0;
+				end
+							
 			endcase // state
 		end //end always comb
 	
