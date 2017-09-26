@@ -40,8 +40,7 @@ module Control(
 				output logic ALUOut_load,
 				output logic ALUOut_reset,
 				output logic IR_load,
-				output logic IR_reset
-				
+				output logic IR_reset			
 			  );
 				
 	/* BEGIN OF DATA SECTION */		
@@ -196,12 +195,12 @@ module Control(
 					RegWrite = 0;
 					RegReset = 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel = 3'b001;
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
+					ALUSrcB = 2'b01; 
 					IorD = 1'b0;
 					RegDst = 1'b0;
 					
