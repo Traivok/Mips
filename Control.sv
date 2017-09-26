@@ -58,7 +58,7 @@ module Control(
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
 		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
-							J, BEQ1, BEQ2, NOP, ADD, AND, SUB, XOR, BREAK } StateEnum;
+							J, BEQ_1, BEQ_2, BEQ_3, NOP, ADD, AND, SUB, XOR, BREAK, NOT_A, INC } StateEnum;
 							
 	/* END OF enum SECTION */
 		
@@ -157,7 +157,17 @@ module Control(
 							
 							BEQ_OP:
 							begin
-								state <= BEQ;
+								state <= BEQ_1;
+							end
+							
+							BEQ_1:
+							begin
+								state <= BEQ_2;
+							end
+							
+							BEQ_2:
+							begin
+								state <= BEQ_3;
 							end
 							
 							BNE_OP:
@@ -629,6 +639,104 @@ module Control(
 					ALUSrcB <= 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
 					IorD <= 1'b1;
 					RegDst <= 1'b0;     // Don't Care
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				BEQ_1://read A and B
+				begin
+					PCWriteCond <= 0; 
+					PCWrite <= 0;     
+					
+					wr <= 0;			  // read from memory
+					IRWrite <= 0;         //
+					RegWrite <= 0;        // 
+					RegReset <= 0;	
+													
+					ALU_sel <= 3'b000;   //?
+					
+					MemtoReg <= 1'b1;    // value comes from MDR
+					PCSource <= 2'b00;   // ???
+					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
+					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
+					IorD <= 1'b0;
+					RegDst <= 1'b0;     //
+					
+					A_load <= 1;
+					A_reset <= 0;	
+					B_load <= 1;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					MDR_load <= 1;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				
+				end
+				
+				BEQ_2://sub
+				begin
+					PCWriteCond <= 0; 
+					PCWrite <= 0;     
+					
+					wr <= 0;			  // read from memory
+					IRWrite <= 0;         //
+					RegWrite <= 0;        // 
+					RegReset <= 0;	
+													
+					ALU_sel <= 3'b010;   //sub
+					
+					MemtoReg <= 1'b1;    // value comes from MDR
+					PCSource <= 2'b00;   // ???
+					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
+					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
+					IorD <= 1'b0;
+					RegDst <= 1'b0;     //
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				
+				end
+				
+				BEQ_3://change adress
+				begin
+					PCWriteCond <= 1; 
+					PCWrite <= 1;     
+					
+					wr <= 1;			  // Write
+					IRWrite <= 1;         
+					RegWrite <= 0;        
+					RegReset <= 0;	
+													
+					ALU_sel <= 3'b010;   //sub
+					
+					MemtoReg <= 1'b0;    // value comes from MDR
+					PCSource = ALU_eq ? 2'b10 : 2'b00;
+					ALUSrcA <= 1'b0;     // The first ALU operend is the PC
+					ALUSrcB <= 2'b11;// The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
+					IorD <= 1'b1;
+					RegDst <= 1'b0;    
 					
 					A_load <= 0;
 					A_reset <= 0;	
