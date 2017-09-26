@@ -93,6 +93,7 @@ module Control(
 					RESET:
 					begin
 						state <= FETCH;
+						holdState <= RESET;
 					end
 				
 					FETCH:
