@@ -57,7 +57,9 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2, NOPE } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
+							J, BEQ1, BEQ2, NOP, ADD, AND, SUB, XOR, BREAK } StateEnum;
+							
 	/* END OF enum SECTION */
 		
 		initial
@@ -86,6 +88,7 @@ module Control(
 			
 			if (Reset_signal)
 				state <= RESET;
+				
 			else begin			
 				case (state)
 				
@@ -112,11 +115,47 @@ module Control(
 					
 					DECODE:
 					begin
-						
+					
 						//state <= state; // TIRAR ISSO, ta pra compilar	
-						/*
 						case (Op)
 						
+							FUNCT_OP:
+							begin
+								case (Funct)
+							
+									ADD_FUNCT:
+									begin
+										state <= ADD;
+									end
+									
+									AND_FUNCT:
+									begin
+										state <= AND;
+									end
+									
+									SUB_FUNCT:
+									begin
+										state <= SUB;
+									end
+									
+									XOR_FUNCT:
+									begin
+										state <= XOR;
+									end
+									
+									BREAK_FUNCT:
+									begin
+										state <= BREAK;
+									end
+									
+									NOP_FUNCT:
+									begin
+										state <= NOP;
+									end
+							
+								endcase // case funct
+							end
+							
 							BEQ_OP:
 							begin
 								state <= BEQ;
@@ -148,7 +187,7 @@ module Control(
 							end
 							
 						endcase // case OP		
-						*/
+						
 					end // DECODE
 					
 					default:
@@ -355,7 +394,7 @@ module Control(
 					IR_reset = 0;					
 				end
 				
-				NOPE:
+				NOP:
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;

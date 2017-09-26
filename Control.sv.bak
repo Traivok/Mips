@@ -57,7 +57,7 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2, NOPE } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
@@ -353,6 +353,38 @@ module Control(
 					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset = 0;
 					IR_reset = 0;					
+				end
+				
+				NOPE:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;				
+					IRWrite = 0; 
+					RegWrite = 0;
+					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_reset = 0;
 				end
 			endcase // state
 		end //end always comb
