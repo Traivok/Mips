@@ -17,7 +17,7 @@ module MIPS(input logic Clk, input logic reset
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
 	logic IorD;
-	logic wr; 					// memory write/read control
+	logic wr; 					//  memory write/read control
 	logic MemtoReg; 
 	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruç˜oes.
 	logic [1:0] PCSource;
