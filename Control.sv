@@ -1,6 +1,6 @@
 module Control( 
 				input logic Clk,
-				input logic Reset,
+				input logic Reset_signal,
 				input logic [5:0] Op,
 				input logic [5:0] Funct, 			// in case of OP = 0x0
 				input logic ALU_zero,				// alu zero result flag
@@ -58,12 +58,12 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { FETCH, MEM_DELAY1, MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
+		enum logic [7:0] { RESET, FETCH, MEM_DELAY1, MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, J, BEQ1, BEQ2 } StateEnum;
 	/* END OF enum SECTION */
 		
 		initial
 		begin
-			state = FETCH;
+			state = RESET;
 			
 			A_load = 0;
 			A_reset = 0;
@@ -85,69 +85,78 @@ module Control(
 			
 			StateOut <= state;	
 			
-			case (state)
-				FETCH:
-				begin
-					state <= MEM_DELAY1;
-				end
+			if (Reset_signal)
+				state <= RESET;
+			else begin			
+				case (state)
 				
-				MEM_DELAY1:
-				begin
-					state <= MEM_DELAY2;
-				end
+					RESET:
+					begin
+						state <= FETCH;
+					end
 				
-				MEM_DELAY2:
-				begin
-					state <= DECODE;
-				end
-				
-				DECODE:
-				begin
+					FETCH:
+					begin
+						state <= MEM_DELAY1;
+					end
 					
-					//state <= state; // TIRAR ISSO, ta pra compilar	
-					/*
-					case (Op)
+					MEM_DELAY1:
+					begin
+						state <= MEM_DELAY2;
+					end
 					
-						BEQ_OP:
-						begin
-							state <= BEQ;
-						end
+					MEM_DELAY2:
+					begin
+						state <= DECODE;
+					end
+					
+					DECODE:
+					begin
 						
-						BNE_OP:
-						begin
-							state <= BNE;
-						end
+						//state <= state; // TIRAR ISSO, ta pra compilar	
+						/*
+						case (Op)
 						
-						LW_OP:
-						begin
-							state <= LW;
-						end
-						
-						SW_OP:
-						begin
-							state <= SW;
-						end
-						
-						LUI_OP:
-						begin
-							state <= LUI;
-						end	
-						
-						J_OP:
-						begin
-							state <= J;
-						end
-						
-					endcase // case OP		
-					*/
-				end // DECODE
-				
-				default:
-				begin
-					state <= FETCH;
-				end
-		
-			endcase	// state
+							BEQ_OP:
+							begin
+								state <= BEQ;
+							end
+							
+							BNE_OP:
+							begin
+								state <= BNE;
+							end
+							
+							LW_OP:
+							begin
+								state <= LW;
+							end
+							
+							SW_OP:
+							begin
+								state <= SW;
+							end
+							
+							LUI_OP:
+							begin
+								state <= LUI;
+							end	
+							
+							J_OP:
+							begin
+								state <= J;
+							end
+							
+						endcase // case OP		
+						*/
+					end // DECODE
+					
+					default:
+					begin
+						state <= FETCH;
+					end
+				endcase	// state
+			end // RESET signal
 		end
 
 /*		APAGAR ISSO DEPOIS, ZE
@@ -163,6 +172,7 @@ module Control(
 				
 				MemtoReg = 1'bx;
 				PCSource = 2'bxx; 
+				
 				ALUSrcA = 1'bx;
 				ALUSrcB = 2'bxx; 
 				IorD = 1'bx;
@@ -185,7 +195,107 @@ module Control(
 	always_comb
 		begin
 			case (state)
+				
+				RESET:				// reset ALL registers
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;		
+					IRWrite = 0; 
+					RegWrite = 0;
+					RegReset = 1;
+													
+					ALU_sel = 3'b000;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b00; 
+					IorD = 1'b0;
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 1;	
+					B_load = 0;
+					B_reset = 1;
+
+					PC_reset = 0;	
+					MDR_load = 0;
+					MDR_reset = 1;
+					ALUOut_load = 0;
+					ALUOut_reset = 1;
+					IR_load = 0;
+					IR_reset = 	1;			
+				end					
+			
 				FETCH:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;		
+					IRWrite = 1; 
+					RegWrite = 0;
+					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b01; 
+					IorD = 1'b0;			// instruction set
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+
+					PC_reset = 0;	
+					MDR_load = 1;			// store the content of address read 
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 1;			// get the current instruction
+					IR_reset = 	0;			
+				end
+				
+				MEM_DELAY1:
+				begin
+					PCWriteCond = 0;
+					PCWrite = 0;
+					
+					wr = 0;		
+					IRWrite = 1; 
+					RegWrite = 0;
+					RegReset = 0;
+													
+					ALU_sel = 3'b000;
+					
+					MemtoReg = 1'b0;
+					PCSource = 2'b00; 
+					ALUSrcA = 1'b0;
+					ALUSrcB = 2'b01; 
+					IorD = 1'b0;			// instruction set
+					RegDst = 1'b0;
+					
+					A_load = 0;
+					A_reset = 0;	
+					B_load = 0;
+					B_reset = 0;
+
+					PC_reset = 0;	
+					MDR_load = 1;			// store the content of address read 
+					MDR_reset = 0;
+					ALUOut_load = 0;
+					ALUOut_reset = 0;
+					IR_load = 1;			// get the current instruction
+					IR_reset = 	0;	
+				end
+				
+				MEM_DELAY2:
 				begin
 					PCWriteCond = 0;
 					PCWrite = 1;
@@ -195,13 +305,13 @@ module Control(
 					RegWrite = 0;
 					RegReset = 0;
 													
-					ALU_sel = 3'b001;
+					ALU_sel = 3'b001;		// 001 is the ADD code of ALU
 					
 					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b01; 
-					IorD = 1'b0;
+					PCSource = 2'b00;		// perform a sum of PC + 4 
+					ALUSrcA = 1'b0;			// get the PC value
+					ALUSrcB = 2'b01; 		// and +4
+					IorD = 1'b0;			// instruction set
 					RegDst = 1'b0;
 					
 					A_load = 0;
@@ -210,78 +320,12 @@ module Control(
 					B_reset = 0;
 
 					PC_reset = 0;	
-					MDR_load = 0;
+					MDR_load = 1;			// store the content of address read 
 					MDR_reset = 0;
 					ALUOut_load = 0;
 					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 	0;			
-				end
-				
-				MEM_DELAY1:
-				begin
-					PCWriteCond = 0; 
-					PCWrite = 0;
-					
-					wr = 0;		
-					IRWrite = 0; 
-					RegWrite = 0;
-					RegReset = 0;
-													
-					ALU_sel = 3'b000;
-					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
-					IorD = 1'b0;
-					RegDst = 1'b0;
-					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 0;
-				end
-				
-				MEM_DELAY2:
-				begin
-					PCWriteCond = 0;
-					PCWrite = 0;
-					
-					wr = 0;		
-					IRWrite = 0; 
-					RegWrite = 0;
-					RegReset = 0;
-													
-					ALU_sel = 3'b000;
-					
-					MemtoReg = 1'b0;
-					PCSource = 2'b00; 
-					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
-					IorD = 1'b0;
-					RegDst = 1'b0;
-					
-					A_load = 0;
-					A_reset = 0;	
-					B_load = 0;
-					B_reset = 0;
-
-					PC_reset = 0;	
-					MDR_load = 0;
-					MDR_reset = 0;
-					ALUOut_load = 0;
-					ALUOut_reset = 0;
-					IR_load = 0;
-					IR_reset = 0;
+					IR_load = 1;			// get the current instruction
+					IR_reset = 	0;	
 				end
 				
 				DECODE:
@@ -294,27 +338,27 @@ module Control(
 					RegWrite = 0;
 					RegReset = 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel = 3'b001;	// perform an addition of PC and offset field
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
+					ALUSrcB = 2'b11;	// get the [15-0] field of instruction extentend and multiplied by 4 
 					IorD = 1'b0;
 					RegDst = 1'b0;
 					
-					A_load = 0;
+					A_load = 1;			// load read1 at A
 					A_reset = 0;	
-					B_load = 0;
+					B_load = 1;			// load read2 at B
 					B_reset = 0;
 
 					PC_reset = 0;	
 					MDR_load = 0;
 					MDR_reset = 0;
-					ALUOut_load = 0;
+					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset = 0;
 					IR_load = 0;
-					IR_reset = 0;
+					IR_reset = 0;					
 				end
 			endcase // state
 		end //end always comb

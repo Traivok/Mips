@@ -97,7 +97,7 @@ module MIPS(input logic Clk, input logic reset);
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
 			// control inputs
-			.Clk(Clk), .Reset(reset), .Op(Instr31_26), .Funct(Funct), 
+			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
 				

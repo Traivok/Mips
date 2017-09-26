@@ -1,7 +1,8 @@
 
-State Machine - |MIPS|Control:comb_105|state
-Name state.DECODE state.MEM_DELAY2 state.MEM_DELAY1 state.FETCH 
-state.FETCH 0 0 0 0 
-state.MEM_DELAY1 0 0 1 1 
-state.MEM_DELAY2 0 1 0 1 
-state.DECODE 1 0 0 1 
+State Machine - |MIPS|Control:comb_137|state
+Name state.MEM_DELAY2 state.MEM_DELAY1 state.FETCH state.RESET state.DECODE 
+state.RESET 0 0 0 0 0 
+state.FETCH 0 0 1 1 0 
+state.MEM_DELAY1 0 1 0 1 0 
+state.MEM_DELAY2 1 0 0 1 0 
+state.DECODE 0 0 0 1 1 
