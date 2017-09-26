@@ -196,7 +196,7 @@ module Control(
 		begin
 			case (state)
 				
-				RESET:				// reset ALL registers
+				RESET:					// reset ALL registers
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
@@ -229,8 +229,8 @@ module Control(
 					IR_reset = 	1;			
 				end					
 			
-				FETCH:
-				begin
+				FETCH:					// get content of pc, read it and send a memread signal
+				begin					// the MDR and IR will be loaded with Memory content
 					PCWriteCond = 0;
 					PCWrite = 0;
 					
@@ -262,7 +262,7 @@ module Control(
 					IR_reset = 	0;			
 				end
 				
-				MEM_DELAY1:
+				MEM_DELAY1:					// just hold memread signal
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
@@ -295,7 +295,7 @@ module Control(
 					IR_reset = 	0;	
 				end
 				
-				MEM_DELAY2:
+				MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
 					PCWriteCond = 0;
 					PCWrite = 1;
@@ -328,9 +328,9 @@ module Control(
 					IR_reset = 	0;	
 				end
 				
-				DECODE:
-				begin
-					PCWriteCond = 0;
+				DECODE:					// store values read of 32 Mips registers at A,B;
+				begin					// add PC content with instruction offset field, uset if next OP is beq
+					PCWriteCond = 0;	// and store it's content at aluout
 					PCWrite = 0; 
 					
 					wr = 0;	
@@ -362,6 +362,5 @@ module Control(
 				end
 			endcase // state
 		end //end always comb
-
 	
 endmodule : Control

@@ -196,7 +196,7 @@ module Control(
 		begin
 			case (state)
 				
-				RESET:				// reset ALL registers
+				RESET:					// reset ALL registers
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
@@ -229,7 +229,7 @@ module Control(
 					IR_reset = 	1;			
 				end					
 			
-				FETCH:
+				FETCH:					// get content of pc, read it and send a memread signal
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
@@ -262,7 +262,7 @@ module Control(
 					IR_reset = 	0;			
 				end
 				
-				MEM_DELAY1:
+				MEM_DELAY1:					// just hold memread signal
 				begin
 					PCWriteCond = 0;
 					PCWrite = 0;
@@ -295,7 +295,7 @@ module Control(
 					IR_reset = 	0;	
 				end
 				
-				MEM_DELAY2:
+				MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
 					PCWriteCond = 0;
 					PCWrite = 1;
@@ -338,24 +338,24 @@ module Control(
 					RegWrite = 0;
 					RegReset = 0;
 													
-					ALU_sel = 3'b000;
+					ALU_sel = 3'b001;	// perform an addition of PC and offset field
 					
 					MemtoReg = 1'b0;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
-					ALUSrcB = 2'b00; 
+					ALUSrcB = 2'b11;	// get the [15-0] field of instruction extentend and multiplied by 4 
 					IorD = 1'b0;
 					RegDst = 1'b0;
 					
-					A_load = 0;
+					A_load = 1;			// load read1 at A
 					A_reset = 0;	
-					B_load = 0;
+					B_load = 1;			// load read2 at B
 					B_reset = 0;
 
 					PC_reset = 0;	
 					MDR_load = 0;
 					MDR_reset = 0;
-					ALUOut_load = 0;
+					ALUOut_load = 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset = 0;
 					IR_load = 0;
 					IR_reset = 0;					
