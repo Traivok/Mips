@@ -58,7 +58,7 @@ module Control(
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
 		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
-							J, BEQ_1, BEQ_2, BEQ_3, NOP, ADD, ADD1, AND, SUB, XOR, BREAK, NOT_A, INC, BNE_1, BNE_2, BNE_3 } StateEnum;
+							J, BEQ_1, BEQ_2, BEQ_3, NOP, ADD, WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, BNE_1, BNE_2, BNE_3 } StateEnum;
 							
 	/* END OF enum SECTION */
 		
@@ -214,9 +214,9 @@ module Control(
 						state <= ADD1;
 					end
 					
-					ADD1:
+					WAIT:
 					begin
-						state <= DECODE;
+						state <= FETCH;
 					end
 					
 					AND:
@@ -474,7 +474,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				ADD1:
+				WAIT:
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -486,7 +486,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b1; //
+					MemtoReg <= 1'b0; //
 					PCSource <= 2'b00;
 					
 					ALUSrcA <= 1'b0;

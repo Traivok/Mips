@@ -211,7 +211,7 @@ module Control(
 					
 					ADD:
 					begin
-						state <= ADD1;
+						state <= WAIT;
 					end
 					
 					WAIT:
