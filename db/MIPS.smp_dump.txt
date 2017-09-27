@@ -1,20 +1,24 @@
 
-State Machine - |MIPS|Control:comb_137|state
-Name state.BREAK state.XOR state.SUB state.AND state.ADD state.NOP state.J state.LUI state.SW state.LW state.BNE state.BEQ state.DECODE state.FETCH_MEM_DELAY2 state.FETCH_MEM_DELAY1 state.FETCH state.RESET 
-state.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
-state.FETCH 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.FETCH_MEM_DELAY1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
-state.FETCH_MEM_DELAY2 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
-state.DECODE 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
-state.BEQ 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
-state.BNE 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
-state.LW 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
-state.SW 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
-state.LUI 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
-state.J 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
-state.NOP 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
-state.ADD 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
-state.AND 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.SUB 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.XOR 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
-state.BREAK 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+State Machine - |MIPS|Control:comb_401|state
+Name state.INC state.NOT_A state.BREAK state.XOR state.SUB state.AND state.ADD state.NOP state.BEQ_3 state.BEQ_2 state.BEQ_1 state.J state.LUI state.SW state.LW state.BNE state.DECODE state.FETCH_MEM_DELAY2 state.FETCH_MEM_DELAY1 state.FETCH state.RESET 
+state.RESET 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.FETCH 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.FETCH_MEM_DELAY1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.FETCH_MEM_DELAY2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.DECODE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.BNE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.LW 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.SW 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.LUI 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.J 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.BEQ_1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.BEQ_2 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.BEQ_3 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.NOP 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.ADD 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.AND 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.SUB 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.XOR 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.BREAK 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.NOT_A 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 
+state.INC 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 

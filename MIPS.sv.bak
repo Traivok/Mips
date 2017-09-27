@@ -1,10 +1,23 @@
-module MIPS(input logic Clk, input logic reset);
+module MIPS(input logic Clk, input logic reset,
+			output logic [31:0] OUT_MemData,
+			output logic [31:0] OUT_Address,
+			output logic [31:0] OUT_WriteDataMem,
+			output logic [31:0] OUT_WriteDataReg,
+			output logic [31:0] OUT_MDR,
+			output logic [31:0] OUT_Alu,
+			output logic [31:0] OUT_AluOut,
+			output logic [31:0] OUT_PC,
+			output logic OUT_wr,
+			output logic OUT_RegWrite,
+			output logic OUT_IRWrite,
+			output logic [7:0] Estado
+	);
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
 	logic IorD;
-	logic wr; 					// memory write/read control
+	logic wr; 					//  memory write/read control
 	logic MemtoReg; 
 	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruç˜oes.
 	logic [1:0] PCSource;
@@ -33,7 +46,6 @@ module MIPS(input logic Clk, input logic reset);
 	logic MDR_reset;
 	logic ALUOut_load;
 	logic ALUOut_reset;
-	logic IR_load;
 	logic IR_reset;
 						
 	logic [04:0] WriteRegister; // Register to be overwrited
@@ -77,6 +89,20 @@ module MIPS(input logic Clk, input logic reset);
 	logic [31:0] ALU_result;
 	/* End of Data Section */
 	
+	/* Assignment Section */
+	
+	assign OUT_MemData = MemData;
+	assign OUT_Address = Address;
+	assign OUT_WriteDataMem = WriteDataMem;
+	assign OUT_WriteDataReg = WriteDataReg;
+	assign OUT_MDR = MDR;
+	assign OUT_Alu = ALU_result;
+	assign OUT_AluOut = AluOut;
+	assign OUT_PC = PC;
+	assign OUT_wr = wr;
+	assign OUT_RegWrite = RegWrite;
+	assign OUT_IRWrite = IRWrite; 
+	
 	// [15:11] field of instruction is used at reg write operations
 	assign Instr15_11[4:0] = Instr15_0[15:11];
 		
@@ -97,7 +123,7 @@ module MIPS(input logic Clk, input logic reset);
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
 			// control inputs
-			.Clk(Clk), .Reset_siganl(reset), .Op(Instr31_26), .Funct(Funct), 
+			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
 				
@@ -127,7 +153,6 @@ module MIPS(input logic Clk, input logic reset);
 			.MDR_reset(MDR_reset),
 			.ALUOut_load(ALUOut_load),
 			.ALUOut_reset(ALUOut_reset),
-			.IR_load(IR_load),
 			.IR_reset(IR_reset),
 			.RegReset(RegReset),
 			.RegWrite(RegWrite)
@@ -143,7 +168,7 @@ module MIPS(input logic Clk, input logic reset);
 	Memoria Memory(.Address(Address), .Clock(Clk), 
 				   .wr(wr), .Datain(WriteDataMem), .Dataout(MemData));
 	
-	Instr_Reg Instruction_Register(Clk, IR_reset, IR_load, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
+	Instr_Reg Instruction_Register(Clk, IR_reset, IRWrite, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);	
 
 	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
