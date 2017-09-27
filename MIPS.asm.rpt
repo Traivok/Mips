@@ -1,5 +1,5 @@
 Assembler report for MIPS
-Wed Sep 27 09:41:32 2017
+Wed Sep 27 17:03:18 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -10,8 +10,8 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/jraf/Documents/Mips/MIPS.sof
-  6. Assembler Device Options: C:/Users/jraf/Documents/Mips/MIPS.pof
+  5. Assembler Device Options: C:/Users/dpc2/Desktop/Mips/MIPS.sof
+  6. Assembler Device Options: C:/Users/dpc2/Desktop/Mips/MIPS.pof
   7. Assembler Messages
 
 
@@ -38,7 +38,7 @@ applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Sep 27 09:41:32 2017 ;
+; Assembler Status      ; Successful - Wed Sep 27 17:03:18 2017 ;
 ; Revision Name         ; MIPS                                  ;
 ; Top-level Entity Name ; MIPS                                  ;
 ; Family                ; Cyclone II                            ;
@@ -78,37 +78,37 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------+----------+---------------+
 
 
-+---------------------------------------+
-; Assembler Generated Files             ;
-+---------------------------------------+
-; File Name                             ;
-+---------------------------------------+
-; C:/Users/jraf/Documents/Mips/MIPS.sof ;
-; C:/Users/jraf/Documents/Mips/MIPS.pof ;
-+---------------------------------------+
++-------------------------------------+
+; Assembler Generated Files           ;
++-------------------------------------+
+; File Name                           ;
++-------------------------------------+
+; C:/Users/dpc2/Desktop/Mips/MIPS.sof ;
+; C:/Users/dpc2/Desktop/Mips/MIPS.pof ;
++-------------------------------------+
 
 
-+-----------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jraf/Documents/Mips/MIPS.sof ;
-+----------------+------------------------------------------------+
-; Option         ; Setting                                        ;
-+----------------+------------------------------------------------+
-; Device         ; EP2C70F896C6                                   ;
-; JTAG usercode  ; 0xFFFFFFFF                                     ;
-; Checksum       ; 0x0068117E                                     ;
-+----------------+------------------------------------------------+
++---------------------------------------------------------------+
+; Assembler Device Options: C:/Users/dpc2/Desktop/Mips/MIPS.sof ;
++----------------+----------------------------------------------+
+; Option         ; Setting                                      ;
++----------------+----------------------------------------------+
+; Device         ; EP2C70F896C6                                 ;
+; JTAG usercode  ; 0xFFFFFFFF                                   ;
+; Checksum       ; 0x007E5A47                                   ;
++----------------+----------------------------------------------+
 
 
-+-----------------------------------------------------------------+
-; Assembler Device Options: C:/Users/jraf/Documents/Mips/MIPS.pof ;
-+--------------------+--------------------------------------------+
-; Option             ; Setting                                    ;
-+--------------------+--------------------------------------------+
-; Device             ; EPCS16                                     ;
-; JTAG usercode      ; 0x00000000                                 ;
-; Checksum           ; 0x1872EA9B                                 ;
-; Compression Ratio  ; 3                                          ;
-+--------------------+--------------------------------------------+
++---------------------------------------------------------------+
+; Assembler Device Options: C:/Users/dpc2/Desktop/Mips/MIPS.pof ;
++--------------------+------------------------------------------+
+; Option             ; Setting                                  ;
++--------------------+------------------------------------------+
+; Device             ; EPCS16                                   ;
+; JTAG usercode      ; 0x00000000                               ;
+; Checksum           ; 0x1847774D                               ;
+; Compression Ratio  ; 3                                        ;
++--------------------+------------------------------------------+
 
 
 +--------------------+
@@ -117,14 +117,14 @@ applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II Assembler
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Wed Sep 27 09:41:29 2017
+    Info: Processing started: Wed Sep 27 17:03:15 2017
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off MIPS -c MIPS
 Info: Writing out detailed assembly data for power analysis
 Info: Assembler is generating device programming files
 Info: Quartus II Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 337 megabytes
-    Info: Processing ended: Wed Sep 27 09:41:32 2017
-    Info: Elapsed time: 00:00:03
+    Info: Peak virtual memory: 341 megabytes
+    Info: Processing ended: Wed Sep 27 17:03:19 2017
+    Info: Elapsed time: 00:00:04
     Info: Total CPU time (on all processors): 00:00:03
 
 

@@ -5,9 +5,9 @@ Timing Analyzer Summary
 Type           : Worst-case tsu
 Slack          : N/A
 Required Time  : None
-Actual Time    : 2.863 ns
+Actual Time    : 3.109 ns
 From           : reset
-To             : Control:comb_401|state.AND
+To             : Control:comb_433|state.ADD
 From Clock     : --
 To Clock       : Clk
 Failed Paths   : 0
@@ -15,9 +15,9 @@ Failed Paths   : 0
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 27.607 ns
-From           : Control:comb_401|state.ADD
-To             : OUT_Alu[31]
+Actual Time    : 29.669 ns
+From           : Control:comb_433|state.FETCH_MEM_DELAY2
+To             : OUT_Alu[27]
 From Clock     : Clk
 To Clock       : --
 Failed Paths   : 0
@@ -25,9 +25,9 @@ Failed Paths   : 0
 Type           : Worst-case th
 Slack          : N/A
 Required Time  : None
-Actual Time    : 0.288 ns
+Actual Time    : -0.219 ns
 From           : reset
-To             : Control:comb_401|state.RESET
+To             : Control:comb_433|state.RESET
 From Clock     : --
 To Clock       : Clk
 Failed Paths   : 0
@@ -35,9 +35,9 @@ Failed Paths   : 0
 Type           : Clock Setup: 'Clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 51.07 MHz ( period = 19.580 ns )
-From           : Control:comb_401|state.ADD
-To             : Registrador:ProgramCounter|Saida[16]
+Actual Time    : 40.64 MHz ( period = 24.606 ns )
+From           : Control:comb_433|state.FETCH_MEM_DELAY2
+To             : Registrador:ProgramCounter|Saida[18]
 From Clock     : Clk
 To Clock       : Clk
 Failed Paths   : 0

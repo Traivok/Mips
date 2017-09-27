@@ -1,2 +1,2 @@
-Warning (10268): Verilog HDL information at Control.sv(244): always construct contains both blocking and non-blocking assignments
+Warning (10268): Verilog HDL information at Control.sv(298): always construct contains both blocking and non-blocking assignments
 Info (10281): Verilog HDL Declaration information at MIPS.sv(65): object "Alu" differs only in case from object "ALU" in the same scope

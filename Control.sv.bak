@@ -22,7 +22,7 @@ module Control(
 												
 				output logic [2:0] ALU_sel,
 				
-				output logic MemtoReg, 
+				output logic [1:0] MemtoReg, 
 				output logic [1:0] PCSource,
 				output logic ALUSrcA,
 				output logic [1:0] ALUSrcB,
@@ -47,7 +47,8 @@ module Control(
 		
 		logic [7:0] state;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
-		assign PC_load = PCWrite | ( PCWriteCond & ALU_zero ); 
+		assign PC_load = PCWrite | ( PCWriteCond & ALU_zero );
+		assign StateOut = state;	 
 	/* END OF DATA SECTION */
 	
 		
@@ -57,8 +58,8 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
-							J, BEQ_1, BEQ_2, BEQ_3, NOP, ADD, WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, BNE_1, BNE_2, BNE_3 } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI_1, 
+							J, BEQ_1, BEQ_2, BEQ_3, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, BNE_1, BNE_2, BNE_3, LUI_2 } StateEnum;
 							
 	/* END OF enum SECTION */
 		
@@ -83,9 +84,7 @@ module Control(
 			
 		always_ff@(posedge Clk)
 		begin
-			
-			StateOut <= state;	
-			
+					
 			if (Reset_signal)
 				state <= RESET;
 				
@@ -158,31 +157,11 @@ module Control(
 							BEQ_OP:
 							begin
 								state <= BEQ_1;
-							end
-							
-							BEQ_1:
-							begin
-								state <= BEQ_2;
-							end
-							
-							BEQ_2:
-							begin
-								state <= BEQ_3;
-							end
+							end							
 							
 							BNE_OP:
 							begin
 								state <= BNE_1;
-							end
-							
-							BNE_1:
-							begin
-								state <= BNE_2;
-							end
-							
-							BNE_2:
-							begin
-								state <= BNE_3;
 							end
 							
 							LW_OP:
@@ -197,7 +176,7 @@ module Control(
 							
 							LUI_OP:
 							begin
-								state <= LUI;
+								state <= LUI_1;
 							end	
 							
 							J_OP:
@@ -211,32 +190,77 @@ module Control(
 					
 					ADD:
 					begin
-						state <= WAIT;
+						state <= R_WAIT;
 					end
 					
-					WAIT:
+					R_WAIT:
 					begin
 						state <= FETCH;
 					end
 					
 					AND:
 					begin
-						state <= WAIT;
+						state <= R_WAIT;
 					end
 					
 					SUB:
 					begin
-						state <= WAIT;
+						state <= R_WAIT;
 					end
 					
 					XOR:
 					begin
-						state <= WAIT;
+						state <= R_WAIT;
 					end
 					
 					BREAK:
 					begin
 						state <= BREAK;
+					end
+					
+					BEQ_1:
+					begin
+						state <= BEQ_2;
+					end
+							
+					BEQ_2:
+					begin
+						state <= BEQ_3;
+					end
+					
+					BEQ_3:
+					begin
+						state <= FETCH;
+					end
+							
+					BNE_1:
+					begin
+						state <= BNE_2;
+					end
+							
+					BNE_2:
+					begin
+						state <= BNE_3;
+					end
+					
+					BNE_3:
+					begin
+						state <= FETCH;
+					end
+					
+					J:
+					begin
+						state <= FETCH;
+					end
+					
+					LUI_1:
+					begin
+						state <= LUI_2;
+					end
+					
+					LUI_2:
+					begin
+						state <= FETCH;
 					end
 					
 					default:
@@ -258,7 +282,7 @@ module Control(
 													
 					ALU_sel <= 3'bxxx;
 					
-					MemtoReg <= 1'bx;
+					MemtoReg <= 2'bx;
 					PCSource <= 2'bxx; 
 					
 					ALUSrcA <= 1'bx;
@@ -295,7 +319,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
@@ -327,7 +351,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b01; 
@@ -359,7 +383,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b01; 
@@ -391,7 +415,7 @@ module Control(
 													
 					ALU_sel <= 3'b001;		// 001 is the ADD code of ALU
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;		// perform a sum of PC + 4 
 					ALUSrcA <= 1'b0;			// get the PC value
 					ALUSrcB <= 2'b01; 		// and +4
@@ -423,7 +447,7 @@ module Control(
 													
 					ALU_sel <= 3'b001;	// perform an addition of PC and offset field
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b11;	// get the [15-0] field of instruction extended and multiplied by 4 
@@ -455,7 +479,7 @@ module Control(
 					
 					ALU_sel <= 3'b001;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
@@ -474,7 +498,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				WAIT:
+				R_WAIT:
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -486,7 +510,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0; //
+					MemtoReg <= 2'b00; //
 					PCSource <= 2'b00;
 					
 					ALUSrcA <= 1'b0;
@@ -518,7 +542,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					
 					ALUSrcA <= 1'b0;
@@ -550,7 +574,7 @@ module Control(
 					
 					ALU_sel <= 3'b011;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
@@ -581,7 +605,7 @@ module Control(
 					
 					ALU_sel <= 3'b010;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
@@ -612,7 +636,7 @@ module Control(
 					
 					ALU_sel <= 3'b110;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
@@ -643,7 +667,7 @@ module Control(
 					
 					ALU_sel <= 3'b101;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // don't care
@@ -674,7 +698,7 @@ module Control(
 					
 					ALU_sel <= 3'b101;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // don't care
@@ -705,7 +729,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					
 					ALUSrcA <= 1'b0;
@@ -731,13 +755,13 @@ module Control(
 					PCWrite <= 1;     // Write at PC
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 1;     // Dúvida
+					IRWrite <= 1;     // DÃºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
 					ALU_sel <= 3'b001; //sum
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b10;  // PC <<= {PC[31:28],(IR[25:0], 2'b00)}
 					ALUSrcA <= 1'b0; 
 					ALUSrcB <= 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
@@ -769,7 +793,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;   //?
 					
-					MemtoReg <= 1'b1;    // value comes from MDR
+					MemtoReg <= 2'b01;    // value comes from MDR
 					PCSource <= 2'b00;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
@@ -802,7 +826,7 @@ module Control(
 													
 					ALU_sel <= 3'b010;   //sub
 					
-					MemtoReg <= 1'b1;    // value comes from MDR
+					MemtoReg <= 2'b01;    // value comes from MDR
 					PCSource <= 2'b00;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
@@ -835,7 +859,7 @@ module Control(
 													
 					ALU_sel <= 3'b010;   //sub
 					
-					MemtoReg <= 1'b0;    // value comes from MDR
+					MemtoReg <= 2'b00;    // value comes from MDR
 					PCSource = ALU_eq ? 2'b10 : 2'b00;
 					ALUSrcA <= 1'b0;     // The first ALU operend is the PC
 					ALUSrcB <= 2'b11;// The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
@@ -867,7 +891,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;   //?
 					
-					MemtoReg <= 1'b1;    // value comes from MDR
+					MemtoReg <= 2'b01;    // value comes from MDR
 					PCSource <= 2'b00;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
@@ -900,7 +924,7 @@ module Control(
 													
 					ALU_sel <= 3'b010;   //sub
 					
-					MemtoReg <= 1'b1;    // value comes from MDR
+					MemtoReg <= 2'b01;    // value comes from MDR
 					PCSource <= 2'b00;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
@@ -933,7 +957,7 @@ module Control(
 													
 					ALU_sel <= 3'b010;   //sub
 					
-					MemtoReg <= 1'b0;    // value comes from MDR
+					MemtoReg <= 2'b00;
 					PCSource = ALU_eq ? 2'b00 : 2'b10;
 					ALUSrcA <= 1'b0;     // The first ALU operend is the PC
 					ALUSrcB <= 2'b11;// The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
@@ -965,7 +989,7 @@ module Control(
 													
 					ALU_sel <= 3'b000;
 					
-					MemtoReg <= 1'b0;
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b00; 
 					
 					ALUSrcA <= 1'b0;
