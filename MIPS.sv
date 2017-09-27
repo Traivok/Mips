@@ -19,8 +19,8 @@ module MIPS(input logic Clk, input logic reset,
 	logic PCWrite; 				// ativo em 1
 	logic IorD;
 	logic wr; 					//  memory write/read control
-	logic MemtoReg; 
-	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruç˜oes.
+	logic [1:0] MemtoReg; 
+	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruÃ§Ëœoes.
 	logic [1:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
@@ -81,6 +81,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [25:0] Instr25_0;
 	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
 	logic [5:0] Funct;
+	logic [31:0] UPPER_IMMEDIATE; 	// used in LUI instruction 15-0 field at MSD and 0 at LSD
 		
 	logic [31:0] ReadData1;
 	logic [31:0] ReadData2;
@@ -119,7 +120,10 @@ module MIPS(input logic Clk, input logic reset,
 		
 	// extract Funct field of instruction
 	assign Funct = Instr15_0[5:0];
-		
+	
+	// extend 15-0 field
+	assign UPPER_IMMEDIATE[31:00] = { 16'd0, Instr15_0[15:00] };
+	
 	assign WriteDataMem = Bout;
 	
 	/* CONTROL SECTION BEGINS HERE */
@@ -173,7 +177,7 @@ module MIPS(input logic Clk, input logic reset,
 	Instr_Reg Instruction_Register(Clk, IR_reset, IRWrite, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);	
 
-	Mux32bit_2x1 WriteDataMux(MemtoReg, AluOut, MDR, WriteDataReg);
+	Mux32bits_4x2 WriteDataMux(MemtoReg, AluOut, MDR, UPPER_IMMEDIATE, 32'd0, WriteDataReg);
 	Mux5bit_2x1 WriteRegMux(RegDst, Instr20_16, Instr15_11, WriteRegister);
 	
 	
