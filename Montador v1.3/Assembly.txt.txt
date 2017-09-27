@@ -1,4 +1,0 @@
-3
-sllv 3 4 1
-srav 4 8 2
-addi 1 2 3

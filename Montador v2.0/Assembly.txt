@@ -1,7 +1,6 @@
-6
+5
+lui 16 32
+add 17 16 0
 nop
 nop
-nop
-nop
-nop
-nop
+break
