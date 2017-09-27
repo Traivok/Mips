@@ -1,0 +1,16 @@
+Os dois executáveis abaixo fazem a mesma coisa. A diferença é que o arquivo que tem a extensão .jar necessita do java
+instalado na máquina para funcionar, enquanto o .exe não necessita do java mas necessita do java instalado e funciona
+nos PC's do CIn independente deles terem ou não o JAVA instalado
+
+Link para tutorial de configuração da memória e uso do montador:
+https://docs.google.com/document/d/1EwvbpNryvONlVZRe7ENlwCnVsXgHkTS2Al1KCAHGPJ0/edit?usp=sharing
+
+
+VERSIONAMENTO DO MONTADOR:
+Versão 1.1: Alteração para instrução xor que não funcionava
+Versão 1.2: Correção das instruções sllv e srav cujos valores de rs e rt estavam trocados
+Versão 1.3: Correção de bugs nas instruções subu, addu e xor, opcode rte
+Versão 2.0: Constante nas instruções do tipo I com números negativos
+
+Autor:
+lea@cin.ufpe.br
