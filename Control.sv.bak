@@ -172,12 +172,12 @@ module Control(
 							
 							LW_OP:
 							begin
-								state <= LW;
+								state <= LW_ADDRESS_COMP;
 							end
 							
 							SW_OP:
 							begin
-								state <= SW;
+								state <= SW_ADDRESS_COMP;
 							end
 							
 							LUI_OP:
@@ -244,6 +244,41 @@ module Control(
 						state <= FETCH;
 					end
 					
+					LW_ADDRESS_COMP:
+					begin
+						state <= LW;
+					end
+					
+					LW:
+					begin
+						state <= LW_DELAY1;
+					end
+					
+					LW_DELAY1:
+					begin
+						state <= LW_DELAY2;
+					end
+					
+					LW_DELAY2:
+					begin
+						state <= FETCH;
+					end
+					
+					SW_ADDRESS_COMP:
+					begin
+						state <= SW;
+					end
+					
+					SW:
+					begin
+						state <= SW_DELAY;
+					end
+					
+					SW_DELAY:
+					begin
+						state <= FETCH;
+					end
+										
 					default:
 					begin
 						state <= FETCH;
