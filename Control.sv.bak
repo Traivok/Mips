@@ -201,12 +201,12 @@ module Control(
 					
 					ADD:
 					begin
-						status <= ADD1;
+						state <= ADD1;
 					end
 					
 					ADD1:
 					begin
-						status <= DECODE;
+						state <= DECODE;
 					end
 					
 					AND:
