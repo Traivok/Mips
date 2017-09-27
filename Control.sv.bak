@@ -211,7 +211,7 @@ module Control(
 					
 					ADD:
 					begin
-						state <= ADD1;
+						state <= WAIT;
 					end
 					
 					WAIT:
@@ -221,17 +221,17 @@ module Control(
 					
 					AND:
 					begin
-						
+						state <= WAIT;
 					end
 					
 					SUB:
 					begin
-						
+						state <= WAIT;
 					end
 					
 					XOR:
 					begin
-						
+						state <= WAIT;
 					end
 					
 					BREAK:
