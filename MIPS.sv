@@ -11,8 +11,18 @@ module MIPS(input logic Clk, input logic reset,
 			output logic OUT_wr,
 			output logic OUT_RegWrite,
 			output logic OUT_IRWrite,
-			output logic [7:0] Estado
+			output logic [7:0] Estado,
+	
+			output logic [31:0] SIGNEXDEBUG,
+			output logic [31:0] SHFDEBUG,
+			output logic [31:0] LUIDEBUG,
+			output logic [31:0] JMPDEBUG
 	);
+	
+	assign SIGNEXDEBUG = Instr15_0_EXTENDED;
+	assign SHFDEBUG = BEQ_address;
+	assign LUIDEBUG = UPPER_IMMEDIATE;
+	assign JMPDEBUG = JMP_address;
 	
 	/* Begin of Control Section */
 	logic PCWriteCond; 
@@ -20,7 +30,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic IorD;
 	logic wr; 					//  memory write/read control
 	logic [1:0] MemtoReg; 
-	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruÃ§Ëœoes.
+	logic IRWrite; 				// Instruction register write controla a escrita no registrador de instruÃƒÂ§Ã‹Å“oes.
 	logic [1:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
@@ -113,16 +123,16 @@ module MIPS(input logic Clk, input logic reset,
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
 		
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
-	assign JMP_address[31:0] = { 2'b00, Instr25_21, Instr20_16, Instr15_0, PC[03:00] };
+	assign JMP_address[31:0] = { PC[31:28], Instr25_0, 2'b00 };
 	
 	SignExtend(Instr15_0, Instr15_0_EXTENDED);	
-	assign BEQ_address[31:00] = { 2'b00, Instr15_0_EXTENDED[29:00] };
+	assign BEQ_address[31:00] = { Instr15_0_EXTENDED[29:00], 2'b00 };
 		
 	// extract Funct field of instruction
 	assign Funct = Instr15_0[5:0];
 	
 	// extend 15-0 field
-	assign UPPER_IMMEDIATE[31:00] = { 16'd0, Instr15_0[15:00] };
+	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
 	assign WriteDataMem = Bout;
 	
