@@ -1,6 +1,10 @@
-5
-lui 16 32
-add 17 16 0
-nop
-nop
-break
+9
+lui 4 5
+lui 3 4
+lui 5 16
+sw 6 0 4
+lw 7 0 3
+add 6 7 4
+sub 6 6 4
+add 4 4 5
+sub 4 4 5
