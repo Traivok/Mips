@@ -263,6 +263,11 @@ module Control(
 					
 					LW_DELAY2:
 					begin
+						state <= WRITE_BACK;
+					end
+					
+					WRITE_BACK:
+					begin
 						state <= FETCH;
 					end
 					
@@ -912,7 +917,7 @@ module Control(
 												
 					ALU_sel = 3'b001;	// add the Aout to Offset
 						
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b1;		// get the content of the A register
 					ALUSrcB = 2'b10; 	// and the sign extended of offset
@@ -944,7 +949,7 @@ module Control(
 													
 					ALU_sel = 3'b000;
 						
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
 					ALUSrcB = 2'b00;
@@ -976,7 +981,7 @@ module Control(
 													
 					ALU_sel = 3'b000;
 						
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
 					ALUSrcB = 2'b00;
@@ -1008,7 +1013,7 @@ module Control(
 												
 					ALU_sel = 3'b001;	// add the Aout to Offset
 						
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b1;		// get the content of the A register
 					ALUSrcB = 2'b10; 	// and the sign extended of offset
@@ -1040,7 +1045,7 @@ module Control(
 														
 					ALU_sel = 3'b000;
 						
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
 					ALUSrcB = 2'b00;
@@ -1072,7 +1077,7 @@ module Control(
 													
 					ALU_sel = 3'b000;
 					
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
 					ALUSrcB = 2'b00;
@@ -1104,7 +1109,7 @@ module Control(
 														
 					ALU_sel = 3'b000;
 					
-					MemtoReg = 1'b0;
+					MemtoReg = 2'b00;
 					PCSource = 2'b00; 
 					ALUSrcA = 1'b0;
 					ALUSrcB = 2'b00;
@@ -1123,7 +1128,7 @@ module Control(
 					ALUOut_reset = 0;
 					IR_reset = 	0;			
 				end
-				
+			
 				WRITE_BACK:
 				begin
 					PCWriteCond = 0; 
@@ -1136,7 +1141,7 @@ module Control(
 													
 					ALU_sel = 3'b000;
 					
-					MemtoReg = 1'b1;		// write content of MDR
+					MemtoReg = 2'b01;		// Write the content of MDR at WriteReg
 					PCSource = 2'b00; 
 					
 					ALUSrcA = 1'b0;
