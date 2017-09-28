@@ -282,7 +282,7 @@ module Control(
 										
 					default:
 					begin
-						state <= FETCH;
+						state <= RESET;
 					end
 				endcase	// state
 			end // RESET signal
