@@ -64,9 +64,10 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
-							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, LW_ADDRESS_COMP, SW_ADDRESS_COMP,
-							WRITE_BACK, LW_DELAY1, LW_DELAY2, SW_DELAY } StateEnum;
+		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 09
+							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 19
+							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, SW_DELAY			// 25
+						 } StateEnum;
 							
 	/* END OF enum SECTION */
 		
@@ -276,6 +277,11 @@ module Control(
 					end
 					
 					SW_DELAY:
+					begin
+						state <= FETCH;
+					end
+					
+					NOP:
 					begin
 						state <= FETCH;
 					end
@@ -772,7 +778,7 @@ module Control(
 					PCWrite <= 1;     // Write at PC
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // Dúvida
+					IRWrite <= 0;     // DÃºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
