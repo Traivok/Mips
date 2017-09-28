@@ -309,42 +309,6 @@ SignExtend:comb_330
 
 # end
 # entity
-Control
-# storage
-db|MIPS.(2).cnf
-db|MIPS.(2).cnf
-# logic_option {
-AUTO_RAM_RECOGNITION
-ON
-}
-# case_sensitive
-# source_file
-control.sv
-607d106186644beba61d08e60b73be0
-9
-# internal_option {
-HDL_INITIAL_FANOUT_LIMIT
-OFF
-AUTO_RESOURCE_SHARING
-OFF
-AUTO_RAM_RECOGNITION
-ON
-AUTO_ROM_RECOGNITION
-ON
-IGNORE_VERILOG_INITIAL_CONSTRUCTS
-OFF
-VERILOG_CONSTANT_LOOP_LIMIT
-5000
-VERILOG_NON_CONSTANT_LOOP_LIMIT
-250
-}
-# hierarchies {
-Control:comb_433
-}
-# macro_sequence
-
-# end
-# entity
 Registrador
 # storage
 db|MIPS.(3).cnf
@@ -1142,6 +1106,42 @@ Ula32:ALU
 # lmf
 |users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+Control
+# storage
+db|MIPS.(2).cnf
+db|MIPS.(2).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+control.sv
+a4b48aaab7bd64db46e1233888f61b
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+Control:comb_433
+}
 # macro_sequence
 
 # end

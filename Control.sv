@@ -46,8 +46,14 @@ module Control(
 		logic [7:0] holdState;		// use it if the value of some state will be used
 		
 		logic [7:0] state;
-		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero 
-		assign PC_load = PCWrite | ( PCWriteCond & ALU_zero );
+		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero
+		
+		always_comb
+		begin
+			if (state == BNE) PC_load <= PCWrite | ( PCWriteCond & (~ALU_zero) );
+			else PC_load <= PCWrite | ( PCWriteCond & ALU_zero );
+		end
+		
 		assign StateOut = state;	 
 	/* END OF DATA SECTION */
 	
@@ -59,7 +65,7 @@ module Control(
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
 		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 
-							J, BEQ_1, BEQ_2, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, BNE_1, BNE_2 } StateEnum;
+							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC } StateEnum;
 							
 	/* END OF enum SECTION */
 		
@@ -800,7 +806,7 @@ module Control(
 													
 					ALU_sel <= 3'b010;   //sub
 					
-					MemtoReg <= 2'b00
+					MemtoReg <= 2'b00;
 					PCSource <= 2'b01;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
