@@ -672,7 +672,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				NOT_A:
+				/*NOT_A:
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -732,7 +732,7 @@ module Control(
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
-				end
+				end*/
 				
 				BREAK:
 				begin
