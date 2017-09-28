@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MIPS
-Wed Sep 27 17:02:56 2017
+Wed Sep 27 21:09:27 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -57,15 +57,15 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Sep 27 17:02:56 2017        ;
+; Analysis & Synthesis Status        ; Successful - Wed Sep 27 21:09:26 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
 ; Family                             ; Cyclone II                                   ;
-; Total logic elements               ; 2,980                                        ;
-;     Total combinational functions  ; 1,894                                        ;
-;     Dedicated logic registers      ; 1,237                                        ;
-; Total registers                    ; 1237                                         ;
+; Total logic elements               ; 2,997                                        ;
+;     Total combinational functions  ; 1,911                                        ;
+;     Dedicated logic registers      ; 1,236                                        ;
+; Total registers                    ; 1236                                         ;
 ; Total pins                         ; 274                                          ;
 ; Total virtual pins                 ; 0                                            ;
 ; Total memory bits                  ; 8,192                                        ;
@@ -153,43 +153,37 @@ applicable agreement for further details.
 +----------------------------------------------------------------------------+--------------------+--------------------+
 
 
-+------------------------------------------+
-; Parallel Compilation                     ;
-+----------------------------+-------------+
-; Processors                 ; Number      ;
-+----------------------------+-------------+
-; Number detected on machine ; 4           ;
-; Maximum allowed            ; 4           ;
-;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
-;                            ;             ;
-; Usage by Processor         ; % Time Used ;
-;     1 processor            ; 100.0%      ;
-;     2-4 processors         ;   0.0%      ;
-+----------------------------+-------------+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 2      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                   ;
-+----------------------------------+-----------------+------------------------------------+----------------------------------------------------------------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                   ;
-+----------------------------------+-----------------+------------------------------------+----------------------------------------------------------------+
-; instrucoes.mif                   ; yes             ; User Memory Initialization File    ; C:/Users/dpc2/Desktop/Mips/instrucoes.mif                      ;
-; Control.sv                       ; yes             ; User SystemVerilog HDL File        ; C:/Users/dpc2/Desktop/Mips/Control.sv                          ;
-; Banco_reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/dpc2/Desktop/Mips/Banco_reg.vhd                       ;
-; Instr_Reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/dpc2/Desktop/Mips/Instr_Reg.vhd                       ;
-; Memoria.vhd                      ; yes             ; User VHDL File                     ; C:/Users/dpc2/Desktop/Mips/Memoria.vhd                         ;
-; Registrador.vhd                  ; yes             ; User VHDL File                     ; C:/Users/dpc2/Desktop/Mips/Registrador.vhd                     ;
-; ula32.vhd                        ; yes             ; User VHDL File                     ; C:/Users/dpc2/Desktop/Mips/ula32.vhd                           ;
-; MIPS.sv                          ; yes             ; User SystemVerilog HDL File        ; C:/Users/dpc2/Desktop/Mips/MIPS.sv                             ;
-; MUX.sv                           ; yes             ; User SystemVerilog HDL File        ; C:/Users/dpc2/Desktop/Mips/MUX.sv                              ;
-; signextend.sv                    ; yes             ; Auto-Found SystemVerilog HDL File  ; C:/Users/dpc2/Desktop/Mips/signextend.sv                       ;
-; lpm_ram_dq.tdf                   ; yes             ; Megafunction                       ; c:/altera/91sp2/quartus/libraries/megafunctions/lpm_ram_dq.tdf ;
-; altram.tdf                       ; yes             ; Megafunction                       ; c:/altera/91sp2/quartus/libraries/megafunctions/altram.tdf     ;
-; altsyncram.tdf                   ; yes             ; Megafunction                       ; c:/altera/91sp2/quartus/libraries/megafunctions/altsyncram.tdf ;
-; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction        ; C:/Users/dpc2/Desktop/Mips/db/altsyncram_e1a1.tdf              ;
-+----------------------------------+-----------------+------------------------------------+----------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                    ;
++----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                                                    ;
++----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
+; instrucoes.mif                   ; yes             ; User Memory Initialization File    ; C:/Users/José/Documents/Mips/instrucoes.mif                                                     ;
+; Control.sv                       ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/Control.sv                                                         ;
+; Banco_reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Banco_reg.vhd                                                      ;
+; Instr_Reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Instr_Reg.vhd                                                      ;
+; Memoria.vhd                      ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Memoria.vhd                                                        ;
+; Registrador.vhd                  ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Registrador.vhd                                                    ;
+; ula32.vhd                        ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/ula32.vhd                                                          ;
+; MIPS.sv                          ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/MIPS.sv                                                            ;
+; MUX.sv                           ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/MUX.sv                                                             ;
+; signextend.sv                    ; yes             ; Auto-Found SystemVerilog HDL File  ; C:/Users/José/Documents/Mips/signextend.sv                                                      ;
+; lpm_ram_dq.tdf                   ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/lpm_ram_dq.tdf ;
+; altram.tdf                       ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altram.tdf     ;
+; altsyncram.tdf                   ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altsyncram.tdf ;
+; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction        ; C:/Users/José/Documents/Mips/db/altsyncram_e1a1.tdf                                             ;
++----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -197,28 +191,28 @@ applicable agreement for further details.
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Estimated Total logic elements              ; 2,980 ;
+; Estimated Total logic elements              ; 2,997 ;
 ;                                             ;       ;
-; Total combinational functions               ; 1894  ;
+; Total combinational functions               ; 1911  ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 1613  ;
-;     -- 3 input functions                    ; 244   ;
-;     -- <=2 input functions                  ; 37    ;
+;     -- 4 input functions                    ; 1647  ;
+;     -- 3 input functions                    ; 225   ;
+;     -- <=2 input functions                  ; 39    ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 1874  ;
+;     -- normal mode                          ; 1891  ;
 ;     -- arithmetic mode                      ; 20    ;
 ;                                             ;       ;
-; Total registers                             ; 1237  ;
-;     -- Dedicated logic registers            ; 1237  ;
+; Total registers                             ; 1236  ;
+;     -- Dedicated logic registers            ; 1236  ;
 ;     -- I/O registers                        ; 0     ;
 ;                                             ;       ;
 ; I/O pins                                    ; 274   ;
 ; Total memory bits                           ; 8192  ;
 ; Maximum fan-out node                        ; Clk   ;
-; Maximum fan-out                             ; 1269  ;
-; Total fan-out                               ; 12801 ;
-; Average fan-out                             ; 3.72  ;
+; Maximum fan-out                             ; 1268  ;
+; Total fan-out                               ; 12882 ;
+; Average fan-out                             ; 3.73  ;
 +---------------------------------------------+-------+
 
 
@@ -227,37 +221,37 @@ applicable agreement for further details.
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                      ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                            ; Library Name ;
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
-; |MIPS                                           ; 1894 (0)          ; 1237 (0)     ; 8192        ; 0            ; 0       ; 0         ; 274  ; 0            ; |MIPS                                                                                                          ; work         ;
+; |MIPS                                           ; 1911 (0)          ; 1236 (0)     ; 8192        ; 0            ; 0       ; 0         ; 274  ; 0            ; |MIPS                                                                                                          ; work         ;
 ;    |Banco_reg:Registers|                        ; 1392 (1392)       ; 1024 (1024)  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Banco_reg:Registers                                                                                      ; work         ;
-;    |Control:comb_433|                           ; 72 (72)           ; 21 (21)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Control:comb_433                                                                                         ;              ;
-;    |Instr_Reg:Instruction_Register|             ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Instr_Reg:Instruction_Register                                                                           ; work         ;
+;    |Control:comb_433|                           ; 73 (73)           ; 20 (20)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Control:comb_433                                                                                         ; work         ;
+;    |Instr_Reg:Instruction_Register|             ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Instr_Reg:Instruction_Register                                                                           ;              ;
 ;    |Memoria:Memory|                             ; 23 (23)           ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory                                                                                           ; work         ;
 ;       |lpm_ram_dq:MEM_plus_One|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One                                                                   ; work         ;
-;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram                                                       ; work         ;
+;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram                                                       ;              ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block                                  ; work         ;
-;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ; work         ;
+;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ;              ;
 ;       |lpm_ram_dq:MEM_plus_Three|               ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three                                                                 ;              ;
 ;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram                                                     ;              ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block                                ;              ;
 ;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated ;              ;
-;       |lpm_ram_dq:MEM_plus_Two|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two                                                                   ;              ;
+;       |lpm_ram_dq:MEM_plus_Two|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two                                                                   ; work         ;
 ;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram                                                       ;              ;
-;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block                                  ;              ;
+;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block                                  ; work         ;
 ;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ;              ;
 ;       |lpm_ram_dq:MEM|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM                                                                            ;              ;
 ;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram                                                                ; work         ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block                                           ; work         ;
-;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated            ; work         ;
+;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated            ;              ;
 ;    |Mux32bit_2x1:LHS_Mux|                       ; 33 (33)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_2x1:LHS_Mux                                                                                     ; work         ;
 ;    |Mux32bit_2x1:MemMux|                        ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_2x1:MemMux                                                                                      ;              ;
 ;    |Mux32bits_4x2:PC_MUX|                       ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:PC_MUX                                                                                     ; work         ;
 ;    |Mux32bits_4x2:RHS_Mux|                      ; 30 (30)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:RHS_Mux                                                                                    ; work         ;
-;    |Mux32bits_4x2:WriteDataMux|                 ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:WriteDataMux                                                                               ; work         ;
+;    |Mux32bits_4x2:WriteDataMux|                 ; 48 (48)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:WriteDataMux                                                                               ;              ;
 ;    |Mux5bit_2x1:WriteRegMux|                    ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux5bit_2x1:WriteRegMux                                                                                  ; work         ;
 ;    |Registrador:ALUOut_Reg|                     ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:ALUOut_Reg                                                                                   ; work         ;
 ;    |Registrador:A|                              ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:A                                                                                            ; work         ;
 ;    |Registrador:B|                              ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:B                                                                                            ; work         ;
-;    |Registrador:MemDataRegister|                ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:MemDataRegister                                                                              ; work         ;
+;    |Registrador:MemDataRegister|                ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:MemDataRegister                                                                              ;              ;
 ;    |Registrador:ProgramCounter|                 ; 28 (28)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:ProgramCounter                                                                               ; work         ;
 ;    |Ula32:ALU|                                  ; 243 (243)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Ula32:ALU                                                                                                ; work         ;
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
@@ -277,35 +271,34 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |MIPS|Control:comb_433|state                                                                                                                                                                                                                                                                                                               ;
-+------------------------+-------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-------------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
-; Name                   ; state.LUI_2 ; state.BNE_2 ; state.BNE_1 ; state.INC ; state.NOT_A ; state.BREAK ; state.XOR ; state.SUB ; state.AND ; state.R_WAIT ; state.ADD ; state.NOP ; state.BEQ_2 ; state.BEQ_1 ; state.J ; state.LUI_1 ; state.SW ; state.LW ; state.DECODE ; state.FETCH_MEM_DELAY2 ; state.FETCH_MEM_DELAY1 ; state.FETCH ; state.RESET ;
-+------------------------+-------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-------------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
-; state.RESET            ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 0           ;
-; state.FETCH            ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 1           ; 1           ;
-; state.FETCH_MEM_DELAY1 ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 1                      ; 0           ; 1           ;
-; state.FETCH_MEM_DELAY2 ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 1                      ; 0                      ; 0           ; 1           ;
-; state.DECODE           ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 1            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LW               ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 1        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SW               ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 1        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LUI_1            ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 1           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.J                ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 1       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BEQ_1            ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 1           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BEQ_2            ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 1           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.NOP              ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 1         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.ADD              ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 1         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.R_WAIT           ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 1            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.AND              ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 1         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SUB              ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 1         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.XOR              ; 0           ; 0           ; 0           ; 0         ; 0           ; 0           ; 1         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BREAK            ; 0           ; 0           ; 0           ; 0         ; 0           ; 1           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.NOT_A            ; 0           ; 0           ; 0           ; 0         ; 1           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.INC              ; 0           ; 0           ; 0           ; 1         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BNE_1            ; 0           ; 0           ; 1           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BNE_2            ; 0           ; 1           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LUI_2            ; 1           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0           ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-+------------------------+-------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-------------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |MIPS|Control:comb_433|state                                                                                                                                                                                                                                                                                               ;
++------------------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-----------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
+; Name                   ; state.BNE_2 ; state.BNE_1 ; state.INC ; state.NOT_A ; state.BREAK ; state.XOR ; state.SUB ; state.AND ; state.R_WAIT ; state.ADD ; state.NOP ; state.BEQ_2 ; state.BEQ_1 ; state.J ; state.LUI ; state.SW ; state.LW ; state.DECODE ; state.FETCH_MEM_DELAY2 ; state.FETCH_MEM_DELAY1 ; state.FETCH ; state.RESET ;
++------------------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-----------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
+; state.RESET            ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 0           ;
+; state.FETCH            ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 1           ; 1           ;
+; state.FETCH_MEM_DELAY1 ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 1                      ; 0           ; 1           ;
+; state.FETCH_MEM_DELAY2 ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 1                      ; 0                      ; 0           ; 1           ;
+; state.DECODE           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 1            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.LW               ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 1        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.SW               ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 1        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.LUI              ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 1         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.J                ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 1       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.BEQ_1            ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 1           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.BEQ_2            ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 1           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.NOP              ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 1         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.ADD              ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 1         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.R_WAIT           ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 1            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.AND              ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 1         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.SUB              ; 0           ; 0           ; 0         ; 0           ; 0           ; 0         ; 1         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.XOR              ; 0           ; 0           ; 0         ; 0           ; 0           ; 1         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.BREAK            ; 0           ; 0           ; 0         ; 0           ; 1           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.NOT_A            ; 0           ; 0           ; 0         ; 1           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.INC              ; 0           ; 0           ; 1         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.BNE_1            ; 0           ; 1           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
+; state.BNE_2            ; 1           ; 0           ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0           ; 0           ; 0       ; 0         ; 0        ; 0        ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
++------------------------+-------------+-------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+-------------+-------------+---------+-----------+----------+----------+--------------+------------------------+------------------------+-------------+-------------+
 
 
 +-------------------------------------------------------------+
@@ -315,7 +308,6 @@ Encoding Type:  One-Hot
 +----------------------------------------+--------------------+
 ; Control:comb_433|state.NOT_A           ; Lost fanout        ;
 ; Control:comb_433|state.INC             ; Lost fanout        ;
-; Control:comb_433|state~2               ; Lost fanout        ;
 ; Control:comb_433|state~3               ; Lost fanout        ;
 ; Control:comb_433|state~4               ; Lost fanout        ;
 ; Control:comb_433|state~5               ; Lost fanout        ;
@@ -323,6 +315,7 @@ Encoding Type:  One-Hot
 ; Control:comb_433|state~7               ; Lost fanout        ;
 ; Control:comb_433|state~8               ; Lost fanout        ;
 ; Control:comb_433|state~9               ; Lost fanout        ;
+; Control:comb_433|state~10              ; Lost fanout        ;
 ; Total Number of Removed Registers = 10 ;                    ;
 +----------------------------------------+--------------------+
 
@@ -332,7 +325,7 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1237  ;
+; Total registers                              ; 1236  ;
 ; Number of registers using Synchronous Clear  ; 0     ;
 ; Number of registers using Synchronous Load   ; 26    ;
 ; Number of registers using Asynchronous Clear ; 1184  ;
@@ -342,22 +335,24 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                  ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output        ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:B|Saida[31]     ;
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:A|Saida[11]     ;
-; 3:1                ; 17 bits   ; 34 LEs        ; 34 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux31 ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux0  ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux12 ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 64 LEs               ; 96 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux32             ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 96 LEs               ; 64 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux21             ;
-; 65:1               ; 8 bits    ; 344 LEs       ; 8 LEs                ; 336 LEs                ; No         ; |MIPS|Control:comb_433|Selector28 ;
-; 67:1               ; 9 bits    ; 396 LEs       ; 54 LEs               ; 342 LEs                ; No         ; |MIPS|Control:comb_433|state      ;
-; 129:1              ; 5 bits    ; 430 LEs       ; 40 LEs               ; 390 LEs                ; No         ; |MIPS|Control:comb_433|state      ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                       ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output             ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
+; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:B|Saida[31]          ;
+; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:A|Saida[9]           ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:WriteDataMux|Mux5  ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:WriteDataMux|Mux21 ;
+; 3:1                ; 17 bits   ; 34 LEs        ; 34 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux25      ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux0       ;
+; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux11      ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 64 LEs               ; 96 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux63                  ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 96 LEs               ; 64 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux12                  ;
+; 65:1               ; 7 bits    ; 301 LEs       ; 7 LEs                ; 294 LEs                ; No         ; |MIPS|Control:comb_433|Selector19      ;
+; 67:1               ; 9 bits    ; 396 LEs       ; 54 LEs               ; 342 LEs                ; No         ; |MIPS|Control:comb_433|state           ;
+; 129:1              ; 5 bits    ; 430 LEs       ; 40 LEs               ; 390 LEs                ; No         ; |MIPS|Control:comb_433|state           ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------------------------+
@@ -542,9 +537,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Wed Sep 27 17:02:46 2017
+    Info: Processing started: Wed Sep 27 21:09:06 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
-Info: Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info: Found 1 design units, including 1 entities, in source file control.sv
     Info: Found entity 1: Control
 Info: Found 2 design units, including 1 entities, in source file banco_reg.vhd
@@ -587,7 +581,7 @@ Info: Elaborating entity "SignExtend" for hierarchy "SignExtend:comb_330"
 Info: Elaborating entity "Control" for hierarchy "Control:comb_433"
 Warning (10036): Verilog HDL or VHDL warning at Control.sv(46): object "holdState" assigned a value but never read
 Info (10264): Verilog HDL Case Statement information at Control.sv(92): all case item expressions in this case statement are onehot
-Info (10264): Verilog HDL Case Statement information at Control.sv(298): all case item expressions in this case statement are onehot
+Info (10264): Verilog HDL Case Statement information at Control.sv(293): all case item expressions in this case statement are onehot
 Info: Elaborating entity "Registrador" for hierarchy "Registrador:ProgramCounter"
 Info: Elaborating entity "Mux32bit_2x1" for hierarchy "Mux32bit_2x1:MemMux"
 Info: Elaborating entity "Memoria" for hierarchy "Memoria:Memory"
@@ -626,7 +620,6 @@ Warning: Output pins are stuck at VCC or GND
 Info: 10 registers lost all their fanouts during netlist optimizations. The first 10 are displayed below.
     Info: Register "Control:comb_433|state.NOT_A" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state.INC" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~2" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state~3" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state~4" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state~5" lost all its fanouts during netlist optimizations.
@@ -634,22 +627,23 @@ Info: 10 registers lost all their fanouts during netlist optimizations. The firs
     Info: Register "Control:comb_433|state~7" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state~8" lost all its fanouts during netlist optimizations.
     Info: Register "Control:comb_433|state~9" lost all its fanouts during netlist optimizations.
-Info: Generated suppressed messages file C:/Users/dpc2/Desktop/Mips/MIPS.map.smsg
-Info: Implemented 3350 device resources after synthesis - the final resource count might be different
+    Info: Register "Control:comb_433|state~10" lost all its fanouts during netlist optimizations.
+Info: Generated suppressed messages file C:/Users/José/Documents/Mips/MIPS.map.smsg
+Info: Implemented 3367 device resources after synthesis - the final resource count might be different
     Info: Implemented 2 input pins
     Info: Implemented 272 output pins
-    Info: Implemented 3044 logic cells
+    Info: Implemented 3061 logic cells
     Info: Implemented 32 RAM segments
 Info: Quartus II Analysis & Synthesis was successful. 0 errors, 14 warnings
-    Info: Peak virtual memory: 267 megabytes
-    Info: Processing ended: Wed Sep 27 17:02:56 2017
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:07
+    Info: Peak virtual memory: 289 megabytes
+    Info: Processing ended: Wed Sep 27 21:09:27 2017
+    Info: Elapsed time: 00:00:21
+    Info: Total CPU time (on all processors): 00:00:14
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/dpc2/Desktop/Mips/MIPS.map.smsg.
+The suppressed messages can be found in C:/Users/José/Documents/Mips/MIPS.map.smsg.
 
 
