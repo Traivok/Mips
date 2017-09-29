@@ -359,12 +359,12 @@ module Control(
 					B_load <= 0;
 					B_reset <= 1;
 
-					PC_reset <= 0;	
+					PC_reset <= 1;	
 					MDR_load <= 0;
 					MDR_reset <= 1;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 1;
-					IR_reset <= 	1;			
+					IR_reset <= 1;			
 				end					
 			
 				FETCH:					// get content of pc, read it and send a memread signal
