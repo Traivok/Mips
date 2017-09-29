@@ -90,7 +90,7 @@ module Control(
 			
 		end
 			
-		always_ff@(posedge Clk)
+	always_ff@(posedge Clk or posedge Reset_signal)
 		begin
 					
 			if (Reset_signal)
