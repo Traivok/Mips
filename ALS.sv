@@ -1,5 +1,4 @@
-module ALS( input logic operation, // se quer usar alu ou shift
-			/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
+module ALS(		/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
 			input logic [31:0] oper_A, oper_B, input logic [2:0] ALU_sel,
 			output logic [31:0] ALU_result,	output logic overflow, 
 			negative, zero, equal, greater, lesser,
