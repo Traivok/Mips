@@ -31,6 +31,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic RegReset;				// reset all registers of 31-0
   logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
+  logic [1:0] MemDataSize;
 
 	logic ALU_zero;				// alu zero result flag
 	logic ALU_overflow;
@@ -211,7 +212,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
   Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, 
-                      	32'd0, 32'd0,
+                      	32'd0, Aout,
                      		NEW_PC
                      );
 
