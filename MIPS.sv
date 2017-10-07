@@ -159,7 +159,8 @@ module MIPS(input logic Clk, input logic reset,
 			.ALUSrcA(ALUSrcA),
 			.RegDst(RegDst),
 			.ALU_sel(ALU_sel),
-					
+	    .MemDataSize(MemDataSize),  
+    
 			// registers load and reset signals
 			.A_load(A_load),
 			.A_reset(A_reset),		
