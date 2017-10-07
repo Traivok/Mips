@@ -2,42 +2,22 @@
 Timing Analyzer Summary
 --------------------------------------------------------------------------------------
 
-Type           : Worst-case tsu
-Slack          : N/A
-Required Time  : None
-Actual Time    : 2.605 ns
-From           : reset
-To             : Control:comb_433|state.J
-From Clock     : --
-To Clock       : Clk
-Failed Paths   : 0
-
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 29.936 ns
-From           : Control:comb_433|state.FETCH
-To             : OUT_Alu[30]
+Actual Time    : 12.903 ns
+From           : Control:comb_270|state.BEQ
+To             : Estado[1]
 From Clock     : Clk
 To Clock       : --
-Failed Paths   : 0
-
-Type           : Worst-case th
-Slack          : N/A
-Required Time  : None
-Actual Time    : 0.236 ns
-From           : reset
-To             : Control:comb_433|state.FETCH_MEM_DELAY1
-From Clock     : --
-To Clock       : Clk
 Failed Paths   : 0
 
 Type           : Clock Setup: 'Clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 43.57 MHz ( period = 22.954 ns )
-From           : Control:comb_433|state.FETCH
-To             : Registrador:ProgramCounter|Saida[4]
+Actual Time    : 44.36 MHz ( period = 22.545 ns )
+From           : Control:comb_270|state.AND
+To             : Registrador:ProgramCounter|Saida[24]
 From Clock     : Clk
 To Clock       : Clk
 Failed Paths   : 0

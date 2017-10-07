@@ -21,7 +21,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic PCWrite; 				// ativo em 1
 	logic [1:0] IorD;
 	logic DP_wr; 					//  memory write/read control
-	logic [1:0] MemtoReg; 
+	logic [2:0] MemtoReg; 
 	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instrucoes.
 	logic [2:0] PCSource;
 	logic [1:0] ALUOp;
@@ -128,7 +128,7 @@ module MIPS(input logic Clk, input logic reset,
 	// extend 15-0 field
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
-	assign SetLessThan [31:0] = { 32{ALU_lt} };
+	assign SetLessThan [31:0] = { 31'd0, ALU_lt };
 	  
 	assign OVERFLOW_EXCEPTION = 32'd255;
 	assign INVALIDCODE_EXCEPTION = 32'd254;

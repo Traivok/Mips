@@ -1,5 +1,5 @@
 Classic Timing Analyzer report for MIPS
-Wed Sep 27 20:11:57 2017
+Sat Oct 07 19:44:17 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -12,10 +12,8 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
   4. Clock Settings Summary
   5. Parallel Compilation
   6. Clock Setup: 'Clk'
-  7. tsu
-  8. tco
-  9. th
- 10. Timing Analyzer Messages
+  7. tco
+  8. Timing Analyzer Messages
 
 
 
@@ -38,17 +36,15 @@ applicable agreement for further details.
 
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Timing Analyzer Summary                                                                                                                                                                                 ;
-+------------------------------+-------+---------------+----------------------------------+------------------------------+-----------------------------------------+------------+----------+--------------+
-; Type                         ; Slack ; Required Time ; Actual Time                      ; From                         ; To                                      ; From Clock ; To Clock ; Failed Paths ;
-+------------------------------+-------+---------------+----------------------------------+------------------------------+-----------------------------------------+------------+----------+--------------+
-; Worst-case tsu               ; N/A   ; None          ; 2.605 ns                         ; reset                        ; Control:comb_433|state.J                ; --         ; Clk      ; 0            ;
-; Worst-case tco               ; N/A   ; None          ; 29.936 ns                        ; Control:comb_433|state.FETCH ; OUT_Alu[30]                             ; Clk        ; --       ; 0            ;
-; Worst-case th                ; N/A   ; None          ; 0.236 ns                         ; reset                        ; Control:comb_433|state.FETCH_MEM_DELAY1 ; --         ; Clk      ; 0            ;
-; Clock Setup: 'Clk'           ; N/A   ; None          ; 43.57 MHz ( period = 22.954 ns ) ; Control:comb_433|state.FETCH ; Registrador:ProgramCounter|Saida[4]     ; Clk        ; Clk      ; 0            ;
-; Total number of failed paths ;       ;               ;                                  ;                              ;                                         ;            ;          ; 0            ;
-+------------------------------+-------+---------------+----------------------------------+------------------------------+-----------------------------------------+------------+----------+--------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                                                                                                                                            ;
++------------------------------+-------+---------------+----------------------------------+----------------------------+--------------------------------------+------------+----------+--------------+
+; Type                         ; Slack ; Required Time ; Actual Time                      ; From                       ; To                                   ; From Clock ; To Clock ; Failed Paths ;
++------------------------------+-------+---------------+----------------------------------+----------------------------+--------------------------------------+------------+----------+--------------+
+; Worst-case tco               ; N/A   ; None          ; 12.903 ns                        ; Control:comb_270|state.BEQ ; Estado[1]                            ; Clk        ; --       ; 0            ;
+; Clock Setup: 'Clk'           ; N/A   ; None          ; 44.36 MHz ( period = 22.545 ns ) ; Control:comb_270|state.AND ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; 0            ;
+; Total number of failed paths ;       ;               ;                                  ;                            ;                                      ;            ;          ; 0            ;
++------------------------------+-------+---------------+----------------------------------+----------------------------+--------------------------------------+------------+----------+--------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -110,479 +106,268 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
 ; Slack                                   ; Actual fmax (period)                                ; From                                    ; To                                   ; From Clock ; To Clock ; Required Setup Relationship ; Required Longest P2P Time ; Actual Longest P2P Time ;
 +-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
-; N/A                                     ; 43.57 MHz ( period = 22.954 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.741 ns               ;
-; N/A                                     ; 43.64 MHz ( period = 22.914 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.701 ns               ;
-; N/A                                     ; 43.73 MHz ( period = 22.866 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.653 ns               ;
-; N/A                                     ; 43.90 MHz ( period = 22.779 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.566 ns               ;
-; N/A                                     ; 43.96 MHz ( period = 22.749 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.533 ns               ;
-; N/A                                     ; 43.96 MHz ( period = 22.749 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.533 ns               ;
-; N/A                                     ; 43.96 MHz ( period = 22.746 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.514 ns               ;
-; N/A                                     ; 43.97 MHz ( period = 22.743 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.512 ns               ;
-; N/A                                     ; 43.97 MHz ( period = 22.743 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.512 ns               ;
-; N/A                                     ; 43.98 MHz ( period = 22.736 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.519 ns               ;
-; N/A                                     ; 43.98 MHz ( period = 22.736 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.519 ns               ;
-; N/A                                     ; 43.98 MHz ( period = 22.736 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.519 ns               ;
-; N/A                                     ; 43.99 MHz ( period = 22.735 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.502 ns               ;
-; N/A                                     ; 43.99 MHz ( period = 22.731 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.513 ns               ;
-; N/A                                     ; 43.99 MHz ( period = 22.731 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.513 ns               ;
-; N/A                                     ; 43.99 MHz ( period = 22.731 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.513 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.709 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.493 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.709 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.493 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.707 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.491 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.706 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.474 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.705 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.512 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.705 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.486 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.705 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.486 ns               ;
-; N/A                                     ; 44.04 MHz ( period = 22.705 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.486 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.703 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.472 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.703 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.472 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.699 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.504 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.699 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.504 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.699 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.504 ns               ;
-; N/A                                     ; 44.05 MHz ( period = 22.699 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.504 ns               ;
-; N/A                                     ; 44.06 MHz ( period = 22.696 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.479 ns               ;
-; N/A                                     ; 44.06 MHz ( period = 22.696 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.479 ns               ;
-; N/A                                     ; 44.06 MHz ( period = 22.696 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.479 ns               ;
-; N/A                                     ; 44.06 MHz ( period = 22.695 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.482 ns               ;
-; N/A                                     ; 44.06 MHz ( period = 22.695 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.462 ns               ;
-; N/A                                     ; 44.07 MHz ( period = 22.691 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.473 ns               ;
-; N/A                                     ; 44.07 MHz ( period = 22.691 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.473 ns               ;
-; N/A                                     ; 44.07 MHz ( period = 22.691 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.473 ns               ;
-; N/A                                     ; 44.09 MHz ( period = 22.683 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.470 ns               ;
-; N/A                                     ; 44.12 MHz ( period = 22.667 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.451 ns               ;
-; N/A                                     ; 44.12 MHz ( period = 22.665 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.472 ns               ;
-; N/A                                     ; 44.12 MHz ( period = 22.665 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.446 ns               ;
-; N/A                                     ; 44.12 MHz ( period = 22.665 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.446 ns               ;
-; N/A                                     ; 44.12 MHz ( period = 22.665 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.446 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.661 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.445 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.661 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.445 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.659 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.464 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.659 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.464 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.659 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.464 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.659 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.464 ns               ;
-; N/A                                     ; 44.13 MHz ( period = 22.658 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.426 ns               ;
-; N/A                                     ; 44.14 MHz ( period = 22.655 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.424 ns               ;
-; N/A                                     ; 44.14 MHz ( period = 22.655 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.424 ns               ;
-; N/A                                     ; 44.15 MHz ( period = 22.648 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.431 ns               ;
-; N/A                                     ; 44.15 MHz ( period = 22.648 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.431 ns               ;
-; N/A                                     ; 44.15 MHz ( period = 22.648 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.431 ns               ;
-; N/A                                     ; 44.16 MHz ( period = 22.647 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.414 ns               ;
-; N/A                                     ; 44.16 MHz ( period = 22.643 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.425 ns               ;
-; N/A                                     ; 44.16 MHz ( period = 22.643 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.425 ns               ;
-; N/A                                     ; 44.16 MHz ( period = 22.643 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.425 ns               ;
-; N/A                                     ; 44.19 MHz ( period = 22.632 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.430 ns               ;
-; N/A                                     ; 44.19 MHz ( period = 22.632 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.430 ns               ;
-; N/A                                     ; 44.21 MHz ( period = 22.619 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.403 ns               ;
-; N/A                                     ; 44.21 MHz ( period = 22.617 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.424 ns               ;
-; N/A                                     ; 44.21 MHz ( period = 22.617 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.398 ns               ;
-; N/A                                     ; 44.21 MHz ( period = 22.617 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.398 ns               ;
-; N/A                                     ; 44.21 MHz ( period = 22.617 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.398 ns               ;
-; N/A                                     ; 44.23 MHz ( period = 22.611 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.416 ns               ;
-; N/A                                     ; 44.23 MHz ( period = 22.611 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.416 ns               ;
-; N/A                                     ; 44.23 MHz ( period = 22.611 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.416 ns               ;
-; N/A                                     ; 44.23 MHz ( period = 22.611 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.416 ns               ;
-; N/A                                     ; 44.26 MHz ( period = 22.592 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.390 ns               ;
-; N/A                                     ; 44.26 MHz ( period = 22.592 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.390 ns               ;
-; N/A                                     ; 44.27 MHz ( period = 22.589 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.378 ns               ;
-; N/A                                     ; 44.27 MHz ( period = 22.587 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.374 ns               ;
-; N/A                                     ; 44.30 MHz ( period = 22.574 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.358 ns               ;
-; N/A                                     ; 44.30 MHz ( period = 22.574 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.358 ns               ;
-; N/A                                     ; 44.30 MHz ( period = 22.571 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.339 ns               ;
-; N/A                                     ; 44.31 MHz ( period = 22.568 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.337 ns               ;
-; N/A                                     ; 44.31 MHz ( period = 22.568 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.337 ns               ;
-; N/A                                     ; 44.32 MHz ( period = 22.565 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.352 ns               ;
-; N/A                                     ; 44.32 MHz ( period = 22.561 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.344 ns               ;
-; N/A                                     ; 44.32 MHz ( period = 22.561 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.344 ns               ;
-; N/A                                     ; 44.32 MHz ( period = 22.561 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.344 ns               ;
-; N/A                                     ; 44.33 MHz ( period = 22.560 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.327 ns               ;
-; N/A                                     ; 44.33 MHz ( period = 22.556 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.338 ns               ;
-; N/A                                     ; 44.33 MHz ( period = 22.556 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.338 ns               ;
-; N/A                                     ; 44.33 MHz ( period = 22.556 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.338 ns               ;
-; N/A                                     ; 44.35 MHz ( period = 22.547 ns )                    ; Control:comb_433|state.AND              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.336 ns               ;
-; N/A                                     ; 44.36 MHz ( period = 22.544 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.342 ns               ;
-; N/A                                     ; 44.36 MHz ( period = 22.544 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.342 ns               ;
-; N/A                                     ; 44.38 MHz ( period = 22.532 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.316 ns               ;
-; N/A                                     ; 44.39 MHz ( period = 22.530 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.337 ns               ;
-; N/A                                     ; 44.39 MHz ( period = 22.530 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.311 ns               ;
-; N/A                                     ; 44.39 MHz ( period = 22.530 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.311 ns               ;
-; N/A                                     ; 44.39 MHz ( period = 22.530 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.311 ns               ;
-; N/A                                     ; 44.40 MHz ( period = 22.524 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.329 ns               ;
-; N/A                                     ; 44.40 MHz ( period = 22.524 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.329 ns               ;
-; N/A                                     ; 44.40 MHz ( period = 22.524 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.329 ns               ;
-; N/A                                     ; 44.40 MHz ( period = 22.524 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.329 ns               ;
-; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.274 ns               ;
-; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.274 ns               ;
-; N/A                                     ; 44.47 MHz ( period = 22.487 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.255 ns               ;
-; N/A                                     ; 44.48 MHz ( period = 22.484 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.253 ns               ;
-; N/A                                     ; 44.48 MHz ( period = 22.484 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.253 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.478 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.262 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.478 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.262 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.477 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.260 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.477 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.260 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.477 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.260 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.476 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.243 ns               ;
-; N/A                                     ; 44.49 MHz ( period = 22.475 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.243 ns               ;
-; N/A                                     ; 44.50 MHz ( period = 22.472 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.241 ns               ;
-; N/A                                     ; 44.50 MHz ( period = 22.472 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.241 ns               ;
-; N/A                                     ; 44.50 MHz ( period = 22.472 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.254 ns               ;
-; N/A                                     ; 44.50 MHz ( period = 22.472 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.254 ns               ;
-; N/A                                     ; 44.50 MHz ( period = 22.472 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.254 ns               ;
-; N/A                                     ; 44.51 MHz ( period = 22.465 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.248 ns               ;
-; N/A                                     ; 44.51 MHz ( period = 22.465 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.248 ns               ;
-; N/A                                     ; 44.51 MHz ( period = 22.465 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.248 ns               ;
-; N/A                                     ; 44.52 MHz ( period = 22.464 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.231 ns               ;
-; N/A                                     ; 44.52 MHz ( period = 22.463 ns )                    ; Control:comb_433|state.BEQ              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.252 ns               ;
-; N/A                                     ; 44.52 MHz ( period = 22.460 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.242 ns               ;
-; N/A                                     ; 44.52 MHz ( period = 22.460 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.242 ns               ;
-; N/A                                     ; 44.52 MHz ( period = 22.460 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.242 ns               ;
-; N/A                                     ; 44.53 MHz ( period = 22.457 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.255 ns               ;
-; N/A                                     ; 44.53 MHz ( period = 22.457 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.255 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.448 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.232 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.447 ns )                    ; Control:comb_433|state.XOR              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.212 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.446 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.253 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.446 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.227 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.446 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.227 ns               ;
-; N/A                                     ; 44.55 MHz ( period = 22.446 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.227 ns               ;
-; N/A                                     ; 44.56 MHz ( period = 22.443 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 22.236 ns               ;
-; N/A                                     ; 44.56 MHz ( period = 22.440 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.245 ns               ;
-; N/A                                     ; 44.56 MHz ( period = 22.440 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.245 ns               ;
-; N/A                                     ; 44.56 MHz ( period = 22.440 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.245 ns               ;
-; N/A                                     ; 44.56 MHz ( period = 22.440 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.245 ns               ;
-; N/A                                     ; 44.57 MHz ( period = 22.436 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.220 ns               ;
-; N/A                                     ; 44.58 MHz ( period = 22.434 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.241 ns               ;
-; N/A                                     ; 44.58 MHz ( period = 22.434 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.215 ns               ;
-; N/A                                     ; 44.58 MHz ( period = 22.434 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.215 ns               ;
-; N/A                                     ; 44.58 MHz ( period = 22.434 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.215 ns               ;
-; N/A                                     ; 44.59 MHz ( period = 22.428 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.233 ns               ;
-; N/A                                     ; 44.59 MHz ( period = 22.428 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.233 ns               ;
-; N/A                                     ; 44.59 MHz ( period = 22.428 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.233 ns               ;
-; N/A                                     ; 44.59 MHz ( period = 22.428 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.233 ns               ;
-; N/A                                     ; 44.64 MHz ( period = 22.403 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 22.196 ns               ;
-; N/A                                     ; 44.65 MHz ( period = 22.397 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 22.193 ns               ;
-; N/A                                     ; 44.65 MHz ( period = 22.397 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 22.193 ns               ;
-; N/A                                     ; 44.65 MHz ( period = 22.397 ns )                    ; Control:comb_433|state.FETCH            ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 22.193 ns               ;
-; N/A                                     ; 44.67 MHz ( period = 22.384 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.170 ns               ;
-; N/A                                     ; 44.67 MHz ( period = 22.384 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.170 ns               ;
-; N/A                                     ; 44.68 MHz ( period = 22.382 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.166 ns               ;
-; N/A                                     ; 44.68 MHz ( period = 22.382 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.166 ns               ;
-; N/A                                     ; 44.68 MHz ( period = 22.381 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.151 ns               ;
-; N/A                                     ; 44.68 MHz ( period = 22.379 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.147 ns               ;
-; N/A                                     ; 44.69 MHz ( period = 22.378 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.149 ns               ;
-; N/A                                     ; 44.69 MHz ( period = 22.378 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.149 ns               ;
-; N/A                                     ; 44.69 MHz ( period = 22.376 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.145 ns               ;
-; N/A                                     ; 44.69 MHz ( period = 22.376 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.145 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.373 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.171 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.373 ns )                    ; Control:comb_433|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.171 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.371 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.156 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.371 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.156 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.371 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.156 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.370 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.139 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.369 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.152 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.369 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.152 ns               ;
-; N/A                                     ; 44.70 MHz ( period = 22.369 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.152 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.368 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.135 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.366 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.150 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.366 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.150 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.366 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.150 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.364 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.146 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.364 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.146 ns               ;
-; N/A                                     ; 44.71 MHz ( period = 22.364 ns )                    ; Control:comb_433|state.LW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.146 ns               ;
-; N/A                                     ; 44.72 MHz ( period = 22.361 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 22.159 ns               ;
-; N/A                                     ; 44.72 MHz ( period = 22.361 ns )                    ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.159 ns               ;
-; N/A                                     ; 44.72 MHz ( period = 22.360 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.144 ns               ;
-; N/A                                     ; 44.72 MHz ( period = 22.360 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.144 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.357 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.125 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.357 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 22.153 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.357 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 22.153 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.357 ns )                    ; Control:comb_433|state.DECODE           ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 22.153 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.355 ns )                    ; Control:comb_433|state.J                ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 22.148 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.354 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.123 ns               ;
-; N/A                                     ; 44.73 MHz ( period = 22.354 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.123 ns               ;
-; N/A                                     ; 44.75 MHz ( period = 22.347 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.130 ns               ;
-; N/A                                     ; 44.75 MHz ( period = 22.347 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.130 ns               ;
-; N/A                                     ; 44.75 MHz ( period = 22.347 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.130 ns               ;
-; N/A                                     ; 44.75 MHz ( period = 22.346 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.113 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.124 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.124 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.ADD              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.124 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 22.128 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.AND              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.128 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.342 ns )                    ; Control:comb_433|state.AND              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.128 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.340 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.123 ns               ;
-; N/A                                     ; 44.76 MHz ( period = 22.340 ns )                    ; Control:comb_433|state.BNE              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.123 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.36 MHz ( period = 22.545 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 22.317 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 22.306 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 22.308 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 22.308 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 22.306 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 22.308 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 22.306 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 22.306 ns               ;
+; N/A                                     ; 44.38 MHz ( period = 22.531 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 22.308 ns               ;
+; N/A                                     ; 44.44 MHz ( period = 22.500 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 22.278 ns               ;
+; N/A                                     ; 44.44 MHz ( period = 22.500 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 22.278 ns               ;
+; N/A                                     ; 44.44 MHz ( period = 22.500 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 22.278 ns               ;
+; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 22.274 ns               ;
+; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 22.274 ns               ;
+; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 22.271 ns               ;
+; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 22.271 ns               ;
+; N/A                                     ; 44.46 MHz ( period = 22.490 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 22.271 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.48 MHz ( period = 22.483 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 22.261 ns               ;
+; N/A                                     ; 44.61 MHz ( period = 22.416 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 22.200 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.00 MHz ( period = 22.223 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.995 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 21.985 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.984 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.986 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.986 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.984 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.986 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.984 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.984 ns               ;
+; N/A                                     ; 45.03 MHz ( period = 22.209 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.986 ns               ;
+; N/A                                     ; 45.06 MHz ( period = 22.194 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 21.976 ns               ;
+; N/A                                     ; 45.09 MHz ( period = 22.178 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 21.956 ns               ;
+; N/A                                     ; 45.09 MHz ( period = 22.178 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 21.956 ns               ;
+; N/A                                     ; 45.09 MHz ( period = 22.178 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 21.956 ns               ;
+; N/A                                     ; 45.11 MHz ( period = 22.168 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 21.952 ns               ;
+; N/A                                     ; 45.11 MHz ( period = 22.168 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 21.952 ns               ;
+; N/A                                     ; 45.11 MHz ( period = 22.168 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 21.949 ns               ;
+; N/A                                     ; 45.11 MHz ( period = 22.168 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 21.949 ns               ;
+; N/A                                     ; 45.11 MHz ( period = 22.168 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 21.949 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.12 MHz ( period = 22.161 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 21.939 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.15 MHz ( period = 22.147 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.921 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.910 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.912 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.912 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.910 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.912 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.910 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.910 ns               ;
+; N/A                                     ; 45.18 MHz ( period = 22.133 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.912 ns               ;
+; N/A                                     ; 45.24 MHz ( period = 22.102 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 21.882 ns               ;
+; N/A                                     ; 45.24 MHz ( period = 22.102 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 21.882 ns               ;
+; N/A                                     ; 45.24 MHz ( period = 22.102 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 21.882 ns               ;
+; N/A                                     ; 45.26 MHz ( period = 22.094 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 21.878 ns               ;
+; N/A                                     ; 45.27 MHz ( period = 22.092 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 21.878 ns               ;
+; N/A                                     ; 45.27 MHz ( period = 22.092 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 21.878 ns               ;
+; N/A                                     ; 45.27 MHz ( period = 22.092 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 21.875 ns               ;
+; N/A                                     ; 45.27 MHz ( period = 22.092 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 21.875 ns               ;
+; N/A                                     ; 45.27 MHz ( period = 22.092 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 21.875 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.28 MHz ( period = 22.085 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 21.865 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.30 MHz ( period = 22.076 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.848 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.837 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.839 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.839 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.837 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.839 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.837 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.837 ns               ;
+; N/A                                     ; 45.33 MHz ( period = 22.062 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.839 ns               ;
+; N/A                                     ; 45.39 MHz ( period = 22.031 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 21.809 ns               ;
+; N/A                                     ; 45.39 MHz ( period = 22.031 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 21.809 ns               ;
+; N/A                                     ; 45.39 MHz ( period = 22.031 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 21.809 ns               ;
+; N/A                                     ; 45.41 MHz ( period = 22.021 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 21.805 ns               ;
+; N/A                                     ; 45.41 MHz ( period = 22.021 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 21.805 ns               ;
+; N/A                                     ; 45.41 MHz ( period = 22.021 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 21.802 ns               ;
+; N/A                                     ; 45.41 MHz ( period = 22.021 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 21.802 ns               ;
+; N/A                                     ; 45.41 MHz ( period = 22.021 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 21.802 ns               ;
+; N/A                                     ; 45.42 MHz ( period = 22.018 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 21.804 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.43 MHz ( period = 22.014 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 21.792 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.AND              ; Registrador:ProgramCounter|Saida[31] ; Clk        ; Clk      ; None                        ; None                      ; 21.788 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.44 MHz ( period = 22.009 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.781 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.770 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.772 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.772 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.770 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.772 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.770 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.770 ns               ;
+; N/A                                     ; 45.46 MHz ( period = 21.995 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.772 ns               ;
+; N/A                                     ; 45.53 MHz ( period = 21.964 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 21.742 ns               ;
+; N/A                                     ; 45.53 MHz ( period = 21.964 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 21.742 ns               ;
+; N/A                                     ; 45.53 MHz ( period = 21.964 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 21.742 ns               ;
+; N/A                                     ; 45.55 MHz ( period = 21.954 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 21.738 ns               ;
+; N/A                                     ; 45.55 MHz ( period = 21.954 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 21.738 ns               ;
+; N/A                                     ; 45.55 MHz ( period = 21.954 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 21.735 ns               ;
+; N/A                                     ; 45.55 MHz ( period = 21.954 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 21.735 ns               ;
+; N/A                                     ; 45.55 MHz ( period = 21.954 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 21.735 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 21.725 ns               ;
+; N/A                                     ; 45.56 MHz ( period = 21.947 ns )                    ; Control:comb_270|state.SUB              ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 21.731 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.60 MHz ( period = 21.928 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.704 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.693 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.695 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.695 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.693 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.695 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.693 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.693 ns               ;
+; N/A                                     ; 45.63 MHz ( period = 21.914 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.695 ns               ;
+; N/A                                     ; 45.69 MHz ( period = 21.887 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 21.663 ns               ;
+; N/A                                     ; 45.70 MHz ( period = 21.883 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[20] ; Clk        ; Clk      ; None                        ; None                      ; 21.665 ns               ;
+; N/A                                     ; 45.70 MHz ( period = 21.883 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[14] ; Clk        ; Clk      ; None                        ; None                      ; 21.665 ns               ;
+; N/A                                     ; 45.70 MHz ( period = 21.883 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[21] ; Clk        ; Clk      ; None                        ; None                      ; 21.665 ns               ;
+; N/A                                     ; 45.70 MHz ( period = 21.880 ns )                    ; Control:comb_270|state.ADD              ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 21.664 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.873 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[0]  ; Clk        ; Clk      ; None                        ; None                      ; 21.661 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.873 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[1]  ; Clk        ; Clk      ; None                        ; None                      ; 21.661 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.873 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[17] ; Clk        ; Clk      ; None                        ; None                      ; 21.658 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.873 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[18] ; Clk        ; Clk      ; None                        ; None                      ; 21.658 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.873 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[19] ; Clk        ; Clk      ; None                        ; None                      ; 21.658 ns               ;
+; N/A                                     ; 45.72 MHz ( period = 21.872 ns )                    ; Control:comb_270|state.XOR              ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 21.654 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[2]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[3]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[4]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[5]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[6]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.73 MHz ( period = 21.866 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[7]  ; Clk        ; Clk      ; None                        ; None                      ; 21.648 ns               ;
+; N/A                                     ; 45.85 MHz ( period = 21.811 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[28] ; Clk        ; Clk      ; None                        ; None                      ; 21.589 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.SW_ADDRESS_COMP  ; Registrador:ProgramCounter|Saida[30] ; Clk        ; Clk      ; None                        ; None                      ; 21.587 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.87 MHz ( period = 21.799 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[24] ; Clk        ; Clk      ; None                        ; None                      ; 21.571 ns               ;
+; N/A                                     ; 45.88 MHz ( period = 21.796 ns )                    ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Registrador:ProgramCounter|Saida[29] ; Clk        ; Clk      ; None                        ; None                      ; 21.580 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[27] ; Clk        ; Clk      ; None                        ; None                      ; 21.560 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[22] ; Clk        ; Clk      ; None                        ; None                      ; 21.562 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[9]  ; Clk        ; Clk      ; None                        ; None                      ; 21.562 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[26] ; Clk        ; Clk      ; None                        ; None                      ; 21.560 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[25] ; Clk        ; Clk      ; None                        ; None                      ; 21.562 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[10] ; Clk        ; Clk      ; None                        ; None                      ; 21.560 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[8]  ; Clk        ; Clk      ; None                        ; None                      ; 21.560 ns               ;
+; N/A                                     ; 45.90 MHz ( period = 21.785 ns )                    ; Control:comb_270|state.BNE              ; Registrador:ProgramCounter|Saida[23] ; Clk        ; Clk      ; None                        ; None                      ; 21.562 ns               ;
+; N/A                                     ; 45.93 MHz ( period = 21.770 ns )                    ; Control:comb_270|state.BEQ              ; Registrador:ProgramCounter|Saida[11] ; Clk        ; Clk      ; None                        ; None                      ; 21.542 ns               ;
+; N/A                                     ; 45.93 MHz ( period = 21.770 ns )                    ; Control:comb_270|state.BEQ              ; Registrador:ProgramCounter|Saida[12] ; Clk        ; Clk      ; None                        ; None                      ; 21.542 ns               ;
+; N/A                                     ; 45.93 MHz ( period = 21.770 ns )                    ; Control:comb_270|state.BEQ              ; Registrador:ProgramCounter|Saida[13] ; Clk        ; Clk      ; None                        ; None                      ; 21.542 ns               ;
+; N/A                                     ; 45.93 MHz ( period = 21.770 ns )                    ; Control:comb_270|state.BEQ              ; Registrador:ProgramCounter|Saida[16] ; Clk        ; Clk      ; None                        ; None                      ; 21.542 ns               ;
+; N/A                                     ; 45.93 MHz ( period = 21.770 ns )                    ; Control:comb_270|state.BEQ              ; Registrador:ProgramCounter|Saida[15] ; Clk        ; Clk      ; None                        ; None                      ; 21.542 ns               ;
 ; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;                                         ;                                      ;            ;          ;                             ;                           ;                         ;
 +-----------------------------------------+-----------------------------------------------------+-----------------------------------------+--------------------------------------+------------+----------+-----------------------------+---------------------------+-------------------------+
 
 
-+------------------------------------------------------------------------------------------------+
-; tsu                                                                                            ;
-+-------+--------------+------------+-------+-----------------------------------------+----------+
-; Slack ; Required tsu ; Actual tsu ; From  ; To                                      ; To Clock ;
-+-------+--------------+------------+-------+-----------------------------------------+----------+
-; N/A   ; None         ; 2.605 ns   ; reset ; Control:comb_433|state.J                ; Clk      ;
-; N/A   ; None         ; 2.604 ns   ; reset ; Control:comb_433|state.BEQ              ; Clk      ;
-; N/A   ; None         ; 1.917 ns   ; reset ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Clk      ;
-; N/A   ; None         ; 1.814 ns   ; reset ; Control:comb_433|state.SW_ADDRESS_COMP  ; Clk      ;
-; N/A   ; None         ; 1.794 ns   ; reset ; Control:comb_433|state.LW_ADDRESS_COMP  ; Clk      ;
-; N/A   ; None         ; 1.789 ns   ; reset ; Control:comb_433|state.BNE              ; Clk      ;
-; N/A   ; None         ; 1.569 ns   ; reset ; Control:comb_433|state.SUB              ; Clk      ;
-; N/A   ; None         ; 1.567 ns   ; reset ; Control:comb_433|state.AND              ; Clk      ;
-; N/A   ; None         ; 1.407 ns   ; reset ; Control:comb_433|state.ADD              ; Clk      ;
-; N/A   ; None         ; 1.402 ns   ; reset ; Control:comb_433|state.XOR              ; Clk      ;
-; N/A   ; None         ; 1.399 ns   ; reset ; Control:comb_433|state.NOP              ; Clk      ;
-; N/A   ; None         ; 0.766 ns   ; reset ; Control:comb_433|state.LUI              ; Clk      ;
-; N/A   ; None         ; 0.559 ns   ; reset ; Control:comb_433|state.LW_DELAY1        ; Clk      ;
-; N/A   ; None         ; 0.558 ns   ; reset ; Control:comb_433|state.LW_DELAY2        ; Clk      ;
-; N/A   ; None         ; 0.558 ns   ; reset ; Control:comb_433|state.R_WAIT           ; Clk      ;
-; N/A   ; None         ; 0.530 ns   ; reset ; Control:comb_433|state.LW               ; Clk      ;
-; N/A   ; None         ; 0.526 ns   ; reset ; Control:comb_433|state.RESET            ; Clk      ;
-; N/A   ; None         ; 0.359 ns   ; reset ; Control:comb_433|state.BREAK            ; Clk      ;
-; N/A   ; None         ; 0.355 ns   ; reset ; Control:comb_433|state.SW               ; Clk      ;
-; N/A   ; None         ; 0.263 ns   ; reset ; Control:comb_433|state.SW_DELAY         ; Clk      ;
-; N/A   ; None         ; -0.006 ns  ; reset ; Control:comb_433|state.DECODE           ; Clk      ;
-; N/A   ; None         ; -0.006 ns  ; reset ; Control:comb_433|state.FETCH            ; Clk      ;
-; N/A   ; None         ; -0.006 ns  ; reset ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Clk      ;
-+-------+--------------+------------+-------+-----------------------------------------+----------+
-
-
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; tco                                                                                                                                                                                 ;
-+-----------------------------------------+-----------------------------------------------------+------------+---------------------------------------------+-------------+------------+
-; Slack                                   ; Required tco                                        ; Actual tco ; From                                        ; To          ; From Clock ;
-+-----------------------------------------+-----------------------------------------------------+------------+---------------------------------------------+-------------+------------+
-; N/A                                     ; None                                                ; 29.936 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.896 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.848 ns  ; Control:comb_433|state.J                    ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.761 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.677 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.665 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.571 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.569 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.547 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.529 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.445 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.429 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.304 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 29.120 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.847 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.821 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.704 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.484 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.356 ns  ; Registrador:A|Saida[0]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.145 ns  ; Registrador:ProgramCounter|Saida[2]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.138 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 28.098 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 28.094 ns  ; Registrador:B|Saida[2]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 28.050 ns  ; Control:comb_433|state.J                    ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.981 ns  ; Registrador:B|Saida[1]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.963 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.879 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.867 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.782 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.773 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.771 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.754 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.749 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.742 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.731 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.714 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.694 ns  ; Control:comb_433|state.J                    ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.685 ns  ; Registrador:ProgramCounter|Saida[4]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.670 ns  ; Registrador:A|Saida[1]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.666 ns  ; Control:comb_433|state.J                    ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.647 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.631 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.607 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.579 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.526 ns  ; Registrador:ProgramCounter|Saida[3]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.523 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.511 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.506 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.495 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.483 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.417 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.415 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.393 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.389 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.387 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.375 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.365 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.347 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.322 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.291 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.275 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.263 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.258 ns  ; Registrador:B|Saida[5]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.249 ns  ; Registrador:B|Saida[4]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 27.247 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.150 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 27.129 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 27.122 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 27.089 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 27.049 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.041 ns  ; Control:comb_433|state.J                    ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 27.023 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 27.015 ns  ; Registrador:A|Saida[2]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.966 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.954 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.938 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.906 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.870 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.858 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.764 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.762 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.740 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.722 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.693 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.686 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.667 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.665 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.639 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.638 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.622 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.595 ns  ; Registrador:B|Saida[6]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.591 ns  ; Registrador:A|Saida[3]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.558 ns  ; Registrador:A|Saida[0]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.550 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.546 ns  ; Registrador:A|Saida[4]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.522 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.497 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.347 ns  ; Registrador:ProgramCounter|Saida[2]         ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.344 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.330 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.313 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.304 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.302 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.296 ns  ; Registrador:B|Saida[2]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.256 ns  ; Control:comb_433|state.J                    ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.217 ns  ; Registrador:ProgramCounter|Saida[5]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.202 ns  ; Registrador:A|Saida[0]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 26.183 ns  ; Registrador:B|Saida[1]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 26.174 ns  ; Registrador:A|Saida[0]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 26.169 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.085 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.076 ns  ; Registrador:B|Saida[7]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 26.073 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 26.040 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 26.014 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.991 ns  ; Registrador:ProgramCounter|Saida[2]         ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.979 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.977 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.963 ns  ; Registrador:ProgramCounter|Saida[2]         ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.955 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.940 ns  ; Registrador:B|Saida[2]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.937 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.912 ns  ; Registrador:B|Saida[2]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.906 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.897 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.887 ns  ; Registrador:ProgramCounter|Saida[4]         ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.875 ns  ; Registrador:A|Saida[5]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.872 ns  ; Registrador:A|Saida[1]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.866 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.853 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.837 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.827 ns  ; Registrador:B|Saida[1]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.818 ns  ; Control:comb_433|state.J                    ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.799 ns  ; Registrador:B|Saida[1]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.760 ns  ; Control:comb_433|state.FETCH                ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.731 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.728 ns  ; Registrador:ProgramCounter|Saida[3]         ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.720 ns  ; Control:comb_433|state.DECODE               ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.712 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.677 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.672 ns  ; Control:comb_433|state.J                    ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.647 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.635 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.585 ns  ; Control:comb_433|state.FETCH_MEM_DELAY1     ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.549 ns  ; Registrador:A|Saida[0]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.541 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.539 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.531 ns  ; Registrador:ProgramCounter|Saida[4]         ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.528 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.517 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.516 ns  ; Registrador:A|Saida[1]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.503 ns  ; Registrador:ProgramCounter|Saida[4]         ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.501 ns  ; Control:comb_433|state.SW_ADDRESS_COMP      ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.499 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.489 ns  ; Control:comb_433|state.FETCH_MEM_DELAY2     ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.488 ns  ; Registrador:A|Saida[1]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.460 ns  ; Registrador:B|Saida[5]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.451 ns  ; Registrador:B|Saida[4]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.446 ns  ; Registrador:ProgramCounter|Saida[7]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.415 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.410 ns  ; Registrador:ProgramCounter|Saida[6]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.399 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.395 ns  ; Control:comb_433|state.BNE                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.393 ns  ; Control:comb_433|state.LW_ADDRESS_COMP      ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.372 ns  ; Registrador:ProgramCounter|Saida[3]         ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.371 ns  ; Control:comb_433|state.ADD                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.353 ns  ; Control:comb_433|state.AND                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.344 ns  ; Registrador:ProgramCounter|Saida[3]         ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.338 ns  ; Registrador:ProgramCounter|Saida[2]         ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.306 ns  ; Registrador:B|Saida[8]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.287 ns  ; Registrador:B|Saida[2]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.274 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.269 ns  ; Control:comb_433|state.BEQ                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.255 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.253 ns  ; Control:comb_433|state.XOR                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.229 ns  ; Registrador:B|Saida[0]                      ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.217 ns  ; Registrador:A|Saida[2]                      ; OUT_Alu[31] ; Clk        ;
-; N/A                                     ; None                                                ; 25.175 ns  ; Registrador:A|Saida[9]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.174 ns  ; Registrador:B|Saida[1]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 25.128 ns  ; Instr_Reg:Instruction_Register|Instr15_0[0] ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 25.112 ns  ; Registrador:ProgramCounter|Saida[0]         ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 25.104 ns  ; Registrador:B|Saida[5]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.095 ns  ; Registrador:B|Saida[4]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 25.091 ns  ; Registrador:B|Saida[9]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 25.090 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 25.076 ns  ; Registrador:B|Saida[5]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.067 ns  ; Registrador:B|Saida[4]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 25.042 ns  ; Registrador:A|Saida[7]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 24.953 ns  ; Registrador:ProgramCounter|Saida[8]         ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 24.944 ns  ; Control:comb_433|state.SUB                  ; OUT_Alu[25] ; Clk        ;
-; N/A                                     ; None                                                ; 24.892 ns  ; Registrador:B|Saida[3]                      ; OUT_Alu[27] ; Clk        ;
-; N/A                                     ; None                                                ; 24.878 ns  ; Registrador:ProgramCounter|Saida[4]         ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 24.866 ns  ; Registrador:B|Saida[10]                     ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 24.863 ns  ; Registrador:A|Saida[1]                      ; OUT_Alu[26] ; Clk        ;
-; N/A                                     ; None                                                ; 24.861 ns  ; Registrador:A|Saida[2]                      ; OUT_Alu[29] ; Clk        ;
-; N/A                                     ; None                                                ; 24.857 ns  ; Registrador:A|Saida[6]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 24.833 ns  ; Registrador:A|Saida[2]                      ; OUT_Alu[28] ; Clk        ;
-; N/A                                     ; None                                                ; 24.819 ns  ; Registrador:A|Saida[8]                      ; OUT_Alu[30] ; Clk        ;
-; N/A                                     ; None                                                ; 24.817 ns  ; Registrador:ProgramCounter|Saida[1]         ; OUT_Alu[23] ; Clk        ;
-; N/A                                     ; None                                                ; 24.797 ns  ; Registrador:B|Saida[6]                      ; OUT_Alu[31] ; Clk        ;
-; Timing analysis restricted to 200 rows. ; To change the limit use Settings (Assignments menu) ;            ;                                             ;             ;            ;
-+-----------------------------------------+-----------------------------------------------------+------------+---------------------------------------------+-------------+------------+
-
-
 +------------------------------------------------------------------------------------------------------+
-; th                                                                                                   ;
-+---------------+-------------+-----------+-------+-----------------------------------------+----------+
-; Minimum Slack ; Required th ; Actual th ; From  ; To                                      ; To Clock ;
-+---------------+-------------+-----------+-------+-----------------------------------------+----------+
-; N/A           ; None        ; 0.236 ns  ; reset ; Control:comb_433|state.DECODE           ; Clk      ;
-; N/A           ; None        ; 0.236 ns  ; reset ; Control:comb_433|state.FETCH            ; Clk      ;
-; N/A           ; None        ; 0.236 ns  ; reset ; Control:comb_433|state.FETCH_MEM_DELAY1 ; Clk      ;
-; N/A           ; None        ; -0.033 ns ; reset ; Control:comb_433|state.SW_DELAY         ; Clk      ;
-; N/A           ; None        ; -0.125 ns ; reset ; Control:comb_433|state.SW               ; Clk      ;
-; N/A           ; None        ; -0.129 ns ; reset ; Control:comb_433|state.BREAK            ; Clk      ;
-; N/A           ; None        ; -0.296 ns ; reset ; Control:comb_433|state.RESET            ; Clk      ;
-; N/A           ; None        ; -0.300 ns ; reset ; Control:comb_433|state.LW               ; Clk      ;
-; N/A           ; None        ; -0.328 ns ; reset ; Control:comb_433|state.LW_DELAY2        ; Clk      ;
-; N/A           ; None        ; -0.328 ns ; reset ; Control:comb_433|state.R_WAIT           ; Clk      ;
-; N/A           ; None        ; -0.329 ns ; reset ; Control:comb_433|state.LW_DELAY1        ; Clk      ;
-; N/A           ; None        ; -0.536 ns ; reset ; Control:comb_433|state.LUI              ; Clk      ;
-; N/A           ; None        ; -1.169 ns ; reset ; Control:comb_433|state.NOP              ; Clk      ;
-; N/A           ; None        ; -1.172 ns ; reset ; Control:comb_433|state.XOR              ; Clk      ;
-; N/A           ; None        ; -1.177 ns ; reset ; Control:comb_433|state.ADD              ; Clk      ;
-; N/A           ; None        ; -1.337 ns ; reset ; Control:comb_433|state.AND              ; Clk      ;
-; N/A           ; None        ; -1.339 ns ; reset ; Control:comb_433|state.SUB              ; Clk      ;
-; N/A           ; None        ; -1.559 ns ; reset ; Control:comb_433|state.BNE              ; Clk      ;
-; N/A           ; None        ; -1.564 ns ; reset ; Control:comb_433|state.LW_ADDRESS_COMP  ; Clk      ;
-; N/A           ; None        ; -1.584 ns ; reset ; Control:comb_433|state.SW_ADDRESS_COMP  ; Clk      ;
-; N/A           ; None        ; -1.687 ns ; reset ; Control:comb_433|state.FETCH_MEM_DELAY2 ; Clk      ;
-; N/A           ; None        ; -2.374 ns ; reset ; Control:comb_433|state.BEQ              ; Clk      ;
-; N/A           ; None        ; -2.375 ns ; reset ; Control:comb_433|state.J                ; Clk      ;
-+---------------+-------------+-----------+-------+-----------------------------------------+----------+
+; tco                                                                                                  ;
++-------+--------------+------------+-----------------------------------------+-----------+------------+
+; Slack ; Required tco ; Actual tco ; From                                    ; To        ; From Clock ;
++-------+--------------+------------+-----------------------------------------+-----------+------------+
+; N/A   ; None         ; 12.903 ns  ; Control:comb_270|state.BEQ              ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.759 ns  ; Control:comb_270|state.LUI              ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.531 ns  ; Control:comb_270|state.R_WAIT           ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.511 ns  ; Control:comb_270|state.BNE              ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.382 ns  ; Control:comb_270|state.BREAK            ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.334 ns  ; Control:comb_270|state.FETCH            ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 12.095 ns  ; Control:comb_270|state.SW_ADDRESS_COMP  ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 11.901 ns  ; Control:comb_270|state.J                ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 11.773 ns  ; Control:comb_270|state.AND              ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 11.549 ns  ; Control:comb_270|state.WRITE_BACK       ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 11.450 ns  ; Control:comb_270|state.FETCH_MEM_DELAY1 ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 11.237 ns  ; Control:comb_270|state.ADD              ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 11.156 ns  ; Control:comb_270|state.SW_ADDRESS_COMP  ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 11.025 ns  ; Control:comb_270|state.RESET            ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 11.002 ns  ; Control:comb_270|state.LUI              ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.911 ns  ; Control:comb_270|state.J                ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 10.897 ns  ; Control:comb_270|state.LUI              ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 10.848 ns  ; Control:comb_270|state.BREAK            ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 10.652 ns  ; Control:comb_270|state.FETCH_MEM_DELAY2 ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.625 ns  ; Control:comb_270|state.FETCH_MEM_DELAY2 ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.623 ns  ; Control:comb_270|state.NOP              ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.606 ns  ; Control:comb_270|state.AND              ; Estado[1] ; Clk        ;
+; N/A   ; None         ; 10.605 ns  ; Control:comb_270|state.LW_ADDRESS_COMP  ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 10.596 ns  ; Control:comb_270|state.LW_ADDRESS_COMP  ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.548 ns  ; Control:comb_270|state.BEQ              ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.528 ns  ; Control:comb_270|state.BEQ              ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.518 ns  ; Control:comb_270|state.NOP              ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 10.437 ns  ; Control:comb_270|state.SUB              ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.383 ns  ; Control:comb_270|state.LW_DELAY1        ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 10.380 ns  ; Control:comb_270|state.R_WAIT           ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 10.275 ns  ; Control:comb_270|state.R_WAIT           ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 10.275 ns  ; Control:comb_270|state.NOP              ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.242 ns  ; Control:comb_270|state.WRITE_BACK       ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 10.156 ns  ; Control:comb_270|state.R_WAIT           ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.136 ns  ; Control:comb_270|state.BNE              ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 10.027 ns  ; Control:comb_270|state.DECODE           ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 9.967 ns   ; Control:comb_270|state.SW_ADDRESS_COMP  ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 9.918 ns   ; Control:comb_270|state.LW_DELAY2        ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 9.911 ns   ; Control:comb_270|state.LW_DELAY1        ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 9.863 ns   ; Control:comb_270|state.LW_DELAY2        ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 9.732 ns   ; Control:comb_270|state.FETCH            ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 9.706 ns   ; Control:comb_270|state.BREAK            ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 9.664 ns   ; Control:comb_270|state.SW_ADDRESS_COMP  ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 9.629 ns   ; Control:comb_270|state.LW               ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 9.598 ns   ; Control:comb_270|state.XOR              ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 9.489 ns   ; Control:comb_270|state.SW               ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 9.451 ns   ; Control:comb_270|state.SUB              ; Estado[4] ; Clk        ;
+; N/A   ; None         ; 9.289 ns   ; Control:comb_270|state.LW               ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 9.174 ns   ; Control:comb_270|state.WRITE_BACK       ; Estado[2] ; Clk        ;
+; N/A   ; None         ; 9.149 ns   ; Control:comb_270|state.LW_DELAY1        ; Estado[0] ; Clk        ;
+; N/A   ; None         ; 8.964 ns   ; Control:comb_270|state.ADD              ; Estado[3] ; Clk        ;
+; N/A   ; None         ; 8.761 ns   ; Control:comb_270|state.AND              ; Estado[3] ; Clk        ;
++-------+--------------+------------+-----------------------------------------+-----------+------------+
 
 
 +--------------------------+
@@ -591,149 +376,87 @@ Parallel compilation was disabled, but you have multiple processors available. E
 Info: *******************************************************************
 Info: Running Quartus II Classic Timing Analyzer
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Wed Sep 27 20:11:55 2017
+    Info: Processing started: Sat Oct 07 19:44:16 2017
 Info: Command: quartus_tan --read_settings_files=off --write_settings_files=off MIPS -c MIPS --timing_analysis_only
 Warning: Found pins functioning as undefined clocks and/or memory enables
     Info: Assuming node "Clk" is an undefined clock
-Info: Clock "Clk" has Internal fmax of 43.57 MHz between source register "Control:comb_433|state.FETCH" and destination register "Registrador:ProgramCounter|Saida[4]" (period= 22.954 ns)
-    Info: + Longest register to register delay is 22.741 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X61_Y37_N19; Fanout = 2; REG Node = 'Control:comb_433|state.FETCH'
-        Info: 2: + IC(0.320 ns) + CELL(0.420 ns) = 0.740 ns; Loc. = LCCOMB_X61_Y37_N30; Fanout = 36; COMB Node = 'Control:comb_433|WideOr34~0'
-        Info: 3: + IC(0.448 ns) + CELL(0.275 ns) = 1.463 ns; Loc. = LCCOMB_X62_Y37_N6; Fanout = 29; COMB Node = 'Mux32bits_4x2:RHS_Mux|Mux2~0'
-        Info: 4: + IC(0.278 ns) + CELL(0.150 ns) = 1.891 ns; Loc. = LCCOMB_X62_Y37_N24; Fanout = 4; COMB Node = 'Mux32bits_4x2:RHS_Mux|Mux31~0'
-        Info: 5: + IC(0.693 ns) + CELL(0.419 ns) = 3.003 ns; Loc. = LCCOMB_X59_Y37_N0; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[0]~26'
-        Info: 6: + IC(0.460 ns) + CELL(0.271 ns) = 3.734 ns; Loc. = LCCOMB_X59_Y37_N10; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[1]~27'
-        Info: 7: + IC(0.261 ns) + CELL(0.150 ns) = 4.145 ns; Loc. = LCCOMB_X59_Y37_N12; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[3]~28'
-        Info: 8: + IC(0.257 ns) + CELL(0.150 ns) = 4.552 ns; Loc. = LCCOMB_X59_Y37_N6; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[3]~29'
-        Info: 9: + IC(0.268 ns) + CELL(0.150 ns) = 4.970 ns; Loc. = LCCOMB_X59_Y37_N16; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[4]~30'
-        Info: 10: + IC(0.266 ns) + CELL(0.275 ns) = 5.511 ns; Loc. = LCCOMB_X59_Y37_N2; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[6]~33'
-        Info: 11: + IC(0.726 ns) + CELL(0.150 ns) = 6.387 ns; Loc. = LCCOMB_X59_Y38_N6; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[6]~34'
-        Info: 12: + IC(0.271 ns) + CELL(0.150 ns) = 6.808 ns; Loc. = LCCOMB_X59_Y38_N28; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[8]~37'
-        Info: 13: + IC(0.440 ns) + CELL(0.150 ns) = 7.398 ns; Loc. = LCCOMB_X58_Y38_N20; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[8]~38'
-        Info: 14: + IC(0.268 ns) + CELL(0.275 ns) = 7.941 ns; Loc. = LCCOMB_X58_Y38_N10; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[10]~41'
-        Info: 15: + IC(0.681 ns) + CELL(0.150 ns) = 8.772 ns; Loc. = LCCOMB_X61_Y38_N8; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[10]~42'
-        Info: 16: + IC(0.262 ns) + CELL(0.275 ns) = 9.309 ns; Loc. = LCCOMB_X61_Y38_N2; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[12]~45'
-        Info: 17: + IC(0.664 ns) + CELL(0.150 ns) = 10.123 ns; Loc. = LCCOMB_X58_Y38_N30; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[14]~84'
-        Info: 18: + IC(0.432 ns) + CELL(0.150 ns) = 10.705 ns; Loc. = LCCOMB_X57_Y38_N24; Fanout = 4; COMB Node = 'Ula32:ALU|carry_temp[14]~48'
-        Info: 19: + IC(0.681 ns) + CELL(0.150 ns) = 11.536 ns; Loc. = LCCOMB_X61_Y38_N28; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[16]~53'
-        Info: 20: + IC(0.264 ns) + CELL(0.150 ns) = 11.950 ns; Loc. = LCCOMB_X61_Y38_N14; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[16]~54'
-        Info: 21: + IC(0.262 ns) + CELL(0.275 ns) = 12.487 ns; Loc. = LCCOMB_X61_Y38_N26; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[18]~57'
-        Info: 22: + IC(0.265 ns) + CELL(0.150 ns) = 12.902 ns; Loc. = LCCOMB_X61_Y38_N4; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[18]~58'
-        Info: 23: + IC(0.261 ns) + CELL(0.275 ns) = 13.438 ns; Loc. = LCCOMB_X61_Y38_N6; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[20]~61'
-        Info: 24: + IC(0.257 ns) + CELL(0.150 ns) = 13.845 ns; Loc. = LCCOMB_X61_Y38_N16; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[20]~62'
-        Info: 25: + IC(0.774 ns) + CELL(0.275 ns) = 14.894 ns; Loc. = LCCOMB_X60_Y36_N20; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[22]~65'
-        Info: 26: + IC(0.268 ns) + CELL(0.271 ns) = 15.433 ns; Loc. = LCCOMB_X60_Y36_N14; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[22]~66'
-        Info: 27: + IC(0.259 ns) + CELL(0.275 ns) = 15.967 ns; Loc. = LCCOMB_X60_Y36_N26; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[24]~69'
-        Info: 28: + IC(0.253 ns) + CELL(0.150 ns) = 16.370 ns; Loc. = LCCOMB_X60_Y36_N28; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[24]~70'
-        Info: 29: + IC(0.257 ns) + CELL(0.150 ns) = 16.777 ns; Loc. = LCCOMB_X60_Y36_N24; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[26]~73'
-        Info: 30: + IC(0.262 ns) + CELL(0.275 ns) = 17.314 ns; Loc. = LCCOMB_X60_Y36_N18; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[26]~74'
-        Info: 31: + IC(0.265 ns) + CELL(0.150 ns) = 17.729 ns; Loc. = LCCOMB_X60_Y36_N4; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[29]~76'
-        Info: 32: + IC(0.252 ns) + CELL(0.271 ns) = 18.252 ns; Loc. = LCCOMB_X60_Y36_N30; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[29]~77'
-        Info: 33: + IC(0.251 ns) + CELL(0.150 ns) = 18.653 ns; Loc. = LCCOMB_X60_Y36_N8; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[29]~78'
-        Info: 34: + IC(0.689 ns) + CELL(0.150 ns) = 19.492 ns; Loc. = LCCOMB_X58_Y36_N28; Fanout = 2; COMB Node = 'Ula32:ALU|soma_temp[31]'
-        Info: 35: + IC(0.254 ns) + CELL(0.150 ns) = 19.896 ns; Loc. = LCCOMB_X58_Y36_N18; Fanout = 1; COMB Node = 'Ula32:ALU|Equal0~6'
-        Info: 36: + IC(0.240 ns) + CELL(0.150 ns) = 20.286 ns; Loc. = LCCOMB_X58_Y36_N12; Fanout = 1; COMB Node = 'Ula32:ALU|Equal0~7'
-        Info: 37: + IC(0.243 ns) + CELL(0.150 ns) = 20.679 ns; Loc. = LCCOMB_X58_Y36_N0; Fanout = 2; COMB Node = 'Control:comb_433|PC_load~5'
-        Info: 38: + IC(0.261 ns) + CELL(0.150 ns) = 21.090 ns; Loc. = LCCOMB_X58_Y36_N6; Fanout = 28; COMB Node = 'Control:comb_433|PC_load~6'
-        Info: 39: + IC(0.991 ns) + CELL(0.660 ns) = 22.741 ns; Loc. = LCFF_X62_Y37_N9; Fanout = 3; REG Node = 'Registrador:ProgramCounter|Saida[4]'
-        Info: Total cell delay = 8.237 ns ( 36.22 % )
-        Info: Total interconnect delay = 14.504 ns ( 63.78 % )
-    Info: - Smallest clock skew is 0.001 ns
-        Info: + Shortest clock path from clock "Clk" to destination register is 2.829 ns
+Info: Clock "Clk" has Internal fmax of 44.36 MHz between source register "Control:comb_270|state.AND" and destination register "Registrador:ProgramCounter|Saida[11]" (period= 22.545 ns)
+    Info: + Longest register to register delay is 22.317 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X53_Y25_N13; Fanout = 5; REG Node = 'Control:comb_270|state.AND'
+        Info: 2: + IC(1.096 ns) + CELL(0.398 ns) = 1.494 ns; Loc. = LCCOMB_X52_Y27_N4; Fanout = 5; COMB Node = 'Control:comb_270|WideOr2~2'
+        Info: 3: + IC(0.280 ns) + CELL(0.275 ns) = 2.049 ns; Loc. = LCCOMB_X52_Y27_N22; Fanout = 34; COMB Node = 'Control:comb_270|WideOr38'
+        Info: 4: + IC(0.788 ns) + CELL(0.150 ns) = 2.987 ns; Loc. = LCCOMB_X51_Y31_N20; Fanout = 3; COMB Node = 'Mux32bit_2x1:LHS_Mux|out[2]~26'
+        Info: 5: + IC(1.509 ns) + CELL(0.419 ns) = 4.915 ns; Loc. = LCCOMB_X52_Y27_N0; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[3]~31'
+        Info: 6: + IC(0.248 ns) + CELL(0.150 ns) = 5.313 ns; Loc. = LCCOMB_X52_Y27_N12; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[3]~47'
+        Info: 7: + IC(0.251 ns) + CELL(0.150 ns) = 5.714 ns; Loc. = LCCOMB_X52_Y27_N18; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[5]~32'
+        Info: 8: + IC(0.250 ns) + CELL(0.150 ns) = 6.114 ns; Loc. = LCCOMB_X52_Y27_N6; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[5]~48'
+        Info: 9: + IC(0.762 ns) + CELL(0.150 ns) = 7.026 ns; Loc. = LCCOMB_X52_Y24_N24; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[7]~33'
+        Info: 10: + IC(0.497 ns) + CELL(0.150 ns) = 7.673 ns; Loc. = LCCOMB_X51_Y24_N10; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[7]~49'
+        Info: 11: + IC(0.259 ns) + CELL(0.150 ns) = 8.082 ns; Loc. = LCCOMB_X51_Y24_N8; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[9]~34'
+        Info: 12: + IC(0.248 ns) + CELL(0.275 ns) = 8.605 ns; Loc. = LCCOMB_X51_Y24_N20; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[9]~50'
+        Info: 13: + IC(0.258 ns) + CELL(0.275 ns) = 9.138 ns; Loc. = LCCOMB_X51_Y24_N26; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[11]~35'
+        Info: 14: + IC(0.246 ns) + CELL(0.150 ns) = 9.534 ns; Loc. = LCCOMB_X51_Y24_N30; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[11]~51'
+        Info: 15: + IC(0.254 ns) + CELL(0.150 ns) = 9.938 ns; Loc. = LCCOMB_X51_Y24_N12; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[13]~36'
+        Info: 16: + IC(0.252 ns) + CELL(0.150 ns) = 10.340 ns; Loc. = LCCOMB_X51_Y24_N16; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[13]~52'
+        Info: 17: + IC(0.261 ns) + CELL(0.271 ns) = 10.872 ns; Loc. = LCCOMB_X51_Y24_N6; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[15]~37'
+        Info: 18: + IC(0.253 ns) + CELL(0.150 ns) = 11.275 ns; Loc. = LCCOMB_X51_Y24_N18; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[15]~53'
+        Info: 19: + IC(0.257 ns) + CELL(0.150 ns) = 11.682 ns; Loc. = LCCOMB_X51_Y24_N0; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[17]~38'
+        Info: 20: + IC(0.241 ns) + CELL(0.150 ns) = 12.073 ns; Loc. = LCCOMB_X51_Y24_N28; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[17]~54'
+        Info: 21: + IC(0.256 ns) + CELL(0.150 ns) = 12.479 ns; Loc. = LCCOMB_X51_Y24_N2; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[19]~39'
+        Info: 22: + IC(0.249 ns) + CELL(0.150 ns) = 12.878 ns; Loc. = LCCOMB_X51_Y24_N22; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[19]~55'
+        Info: 23: + IC(0.264 ns) + CELL(0.150 ns) = 13.292 ns; Loc. = LCCOMB_X51_Y24_N4; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[21]~40'
+        Info: 24: + IC(0.761 ns) + CELL(0.150 ns) = 14.203 ns; Loc. = LCCOMB_X50_Y27_N12; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[21]~56'
+        Info: 25: + IC(0.250 ns) + CELL(0.150 ns) = 14.603 ns; Loc. = LCCOMB_X50_Y27_N0; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[23]~41'
+        Info: 26: + IC(0.255 ns) + CELL(0.150 ns) = 15.008 ns; Loc. = LCCOMB_X50_Y27_N22; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[23]~57'
+        Info: 27: + IC(0.259 ns) + CELL(0.150 ns) = 15.417 ns; Loc. = LCCOMB_X50_Y27_N18; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[25]~42'
+        Info: 28: + IC(0.253 ns) + CELL(0.150 ns) = 15.820 ns; Loc. = LCCOMB_X50_Y27_N16; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[25]~58'
+        Info: 29: + IC(0.267 ns) + CELL(0.275 ns) = 16.362 ns; Loc. = LCCOMB_X50_Y27_N26; Fanout = 2; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[26]~59'
+        Info: 30: + IC(0.750 ns) + CELL(0.275 ns) = 17.387 ns; Loc. = LCCOMB_X51_Y26_N28; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[27]~44'
+        Info: 31: + IC(0.262 ns) + CELL(0.150 ns) = 17.799 ns; Loc. = LCCOMB_X51_Y26_N14; Fanout = 2; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[28]~45'
+        Info: 32: + IC(0.264 ns) + CELL(0.275 ns) = 18.338 ns; Loc. = LCCOMB_X51_Y26_N16; Fanout = 2; COMB Node = 'ALS:ALU|Ula32:ALU|carry_temp[29]~46'
+        Info: 33: + IC(0.258 ns) + CELL(0.275 ns) = 18.871 ns; Loc. = LCCOMB_X51_Y26_N8; Fanout = 1; COMB Node = 'ALS:ALU|Ula32:ALU|Mux1~0'
+        Info: 34: + IC(0.256 ns) + CELL(0.275 ns) = 19.402 ns; Loc. = LCCOMB_X51_Y26_N26; Fanout = 3; COMB Node = 'ALS:ALU|Ula32:ALU|Mux1~1'
+        Info: 35: + IC(0.268 ns) + CELL(0.420 ns) = 20.090 ns; Loc. = LCCOMB_X51_Y26_N6; Fanout = 1; COMB Node = 'Control:comb_270|PC_load~4'
+        Info: 36: + IC(0.246 ns) + CELL(0.150 ns) = 20.486 ns; Loc. = LCCOMB_X51_Y26_N0; Fanout = 2; COMB Node = 'Control:comb_270|PC_load~5'
+        Info: 37: + IC(0.249 ns) + CELL(0.150 ns) = 20.885 ns; Loc. = LCCOMB_X51_Y26_N18; Fanout = 28; COMB Node = 'Control:comb_270|PC_load~6'
+        Info: 38: + IC(0.772 ns) + CELL(0.660 ns) = 22.317 ns; Loc. = LCFF_X50_Y28_N27; Fanout = 1; REG Node = 'Registrador:ProgramCounter|Saida[11]'
+        Info: Total cell delay = 7.968 ns ( 35.70 % )
+        Info: Total interconnect delay = 14.349 ns ( 64.30 % )
+    Info: - Smallest clock skew is -0.014 ns
+        Info: + Shortest clock path from clock "Clk" to destination register is 2.868 ns
             Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_T2; Fanout = 1; CLK Node = 'Clk'
-            Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1371; COMB Node = 'Clk~clkctrl'
-            Info: 3: + IC(1.189 ns) + CELL(0.537 ns) = 2.829 ns; Loc. = LCFF_X62_Y37_N9; Fanout = 3; REG Node = 'Registrador:ProgramCounter|Saida[4]'
-            Info: Total cell delay = 1.526 ns ( 53.94 % )
-            Info: Total interconnect delay = 1.303 ns ( 46.06 % )
-        Info: - Longest clock path from clock "Clk" to source register is 2.828 ns
+            Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1372; COMB Node = 'Clk~clkctrl'
+            Info: 3: + IC(1.228 ns) + CELL(0.537 ns) = 2.868 ns; Loc. = LCFF_X50_Y28_N27; Fanout = 1; REG Node = 'Registrador:ProgramCounter|Saida[11]'
+            Info: Total cell delay = 1.526 ns ( 53.21 % )
+            Info: Total interconnect delay = 1.342 ns ( 46.79 % )
+        Info: - Longest clock path from clock "Clk" to source register is 2.882 ns
             Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_T2; Fanout = 1; CLK Node = 'Clk'
-            Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1371; COMB Node = 'Clk~clkctrl'
-            Info: 3: + IC(1.188 ns) + CELL(0.537 ns) = 2.828 ns; Loc. = LCFF_X61_Y37_N19; Fanout = 2; REG Node = 'Control:comb_433|state.FETCH'
-            Info: Total cell delay = 1.526 ns ( 53.96 % )
-            Info: Total interconnect delay = 1.302 ns ( 46.04 % )
+            Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1372; COMB Node = 'Clk~clkctrl'
+            Info: 3: + IC(1.242 ns) + CELL(0.537 ns) = 2.882 ns; Loc. = LCFF_X53_Y25_N13; Fanout = 5; REG Node = 'Control:comb_270|state.AND'
+            Info: Total cell delay = 1.526 ns ( 52.95 % )
+            Info: Total interconnect delay = 1.356 ns ( 47.05 % )
     Info: + Micro clock to output delay of source is 0.250 ns
     Info: + Micro setup delay of destination is -0.036 ns
-Info: tsu for register "Control:comb_433|state.J" (data pin = "reset", clock pin = "Clk") is 2.605 ns
-    Info: + Longest pin to register delay is 5.469 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.959 ns) = 0.959 ns; Loc. = PIN_G15; Fanout = 14; PIN Node = 'reset'
-        Info: 2: + IC(1.788 ns) + CELL(0.398 ns) = 3.145 ns; Loc. = LCCOMB_X62_Y39_N10; Fanout = 5; COMB Node = 'Control:comb_433|state~77'
-        Info: 3: + IC(1.005 ns) + CELL(0.275 ns) = 4.425 ns; Loc. = LCCOMB_X61_Y37_N12; Fanout = 2; COMB Node = 'Control:comb_433|state~45'
-        Info: 4: + IC(0.685 ns) + CELL(0.275 ns) = 5.385 ns; Loc. = LCCOMB_X61_Y37_N0; Fanout = 1; COMB Node = 'Control:comb_433|state~46'
-        Info: 5: + IC(0.000 ns) + CELL(0.084 ns) = 5.469 ns; Loc. = LCFF_X61_Y37_N1; Fanout = 42; REG Node = 'Control:comb_433|state.J'
-        Info: Total cell delay = 1.991 ns ( 36.41 % )
-        Info: Total interconnect delay = 3.478 ns ( 63.59 % )
-    Info: + Micro setup delay of destination is -0.036 ns
-    Info: - Shortest clock path from clock "Clk" to destination register is 2.828 ns
+Info: tco from clock "Clk" to destination pin "Estado[1]" through register "Control:comb_270|state.BEQ" is 12.903 ns
+    Info: + Longest clock path from clock "Clk" to source register is 2.882 ns
         Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_T2; Fanout = 1; CLK Node = 'Clk'
-        Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1371; COMB Node = 'Clk~clkctrl'
-        Info: 3: + IC(1.188 ns) + CELL(0.537 ns) = 2.828 ns; Loc. = LCFF_X61_Y37_N1; Fanout = 42; REG Node = 'Control:comb_433|state.J'
-        Info: Total cell delay = 1.526 ns ( 53.96 % )
-        Info: Total interconnect delay = 1.302 ns ( 46.04 % )
-Info: tco from clock "Clk" to destination pin "OUT_Alu[30]" through register "Control:comb_433|state.FETCH" is 29.936 ns
-    Info: + Longest clock path from clock "Clk" to source register is 2.828 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_T2; Fanout = 1; CLK Node = 'Clk'
-        Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1371; COMB Node = 'Clk~clkctrl'
-        Info: 3: + IC(1.188 ns) + CELL(0.537 ns) = 2.828 ns; Loc. = LCFF_X61_Y37_N19; Fanout = 2; REG Node = 'Control:comb_433|state.FETCH'
-        Info: Total cell delay = 1.526 ns ( 53.96 % )
-        Info: Total interconnect delay = 1.302 ns ( 46.04 % )
+        Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1372; COMB Node = 'Clk~clkctrl'
+        Info: 3: + IC(1.242 ns) + CELL(0.537 ns) = 2.882 ns; Loc. = LCFF_X53_Y25_N9; Fanout = 12; REG Node = 'Control:comb_270|state.BEQ'
+        Info: Total cell delay = 1.526 ns ( 52.95 % )
+        Info: Total interconnect delay = 1.356 ns ( 47.05 % )
     Info: + Micro clock to output delay of source is 0.250 ns
-    Info: + Longest register to pin delay is 26.858 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X61_Y37_N19; Fanout = 2; REG Node = 'Control:comb_433|state.FETCH'
-        Info: 2: + IC(0.320 ns) + CELL(0.420 ns) = 0.740 ns; Loc. = LCCOMB_X61_Y37_N30; Fanout = 36; COMB Node = 'Control:comb_433|WideOr34~0'
-        Info: 3: + IC(0.448 ns) + CELL(0.275 ns) = 1.463 ns; Loc. = LCCOMB_X62_Y37_N6; Fanout = 29; COMB Node = 'Mux32bits_4x2:RHS_Mux|Mux2~0'
-        Info: 4: + IC(0.278 ns) + CELL(0.150 ns) = 1.891 ns; Loc. = LCCOMB_X62_Y37_N24; Fanout = 4; COMB Node = 'Mux32bits_4x2:RHS_Mux|Mux31~0'
-        Info: 5: + IC(0.693 ns) + CELL(0.419 ns) = 3.003 ns; Loc. = LCCOMB_X59_Y37_N0; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[0]~26'
-        Info: 6: + IC(0.460 ns) + CELL(0.271 ns) = 3.734 ns; Loc. = LCCOMB_X59_Y37_N10; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[1]~27'
-        Info: 7: + IC(0.261 ns) + CELL(0.150 ns) = 4.145 ns; Loc. = LCCOMB_X59_Y37_N12; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[3]~28'
-        Info: 8: + IC(0.257 ns) + CELL(0.150 ns) = 4.552 ns; Loc. = LCCOMB_X59_Y37_N6; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[3]~29'
-        Info: 9: + IC(0.268 ns) + CELL(0.150 ns) = 4.970 ns; Loc. = LCCOMB_X59_Y37_N16; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[4]~30'
-        Info: 10: + IC(0.266 ns) + CELL(0.275 ns) = 5.511 ns; Loc. = LCCOMB_X59_Y37_N2; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[6]~33'
-        Info: 11: + IC(0.726 ns) + CELL(0.150 ns) = 6.387 ns; Loc. = LCCOMB_X59_Y38_N6; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[6]~34'
-        Info: 12: + IC(0.271 ns) + CELL(0.150 ns) = 6.808 ns; Loc. = LCCOMB_X59_Y38_N28; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[8]~37'
-        Info: 13: + IC(0.440 ns) + CELL(0.150 ns) = 7.398 ns; Loc. = LCCOMB_X58_Y38_N20; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[8]~38'
-        Info: 14: + IC(0.268 ns) + CELL(0.275 ns) = 7.941 ns; Loc. = LCCOMB_X58_Y38_N10; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[10]~41'
-        Info: 15: + IC(0.681 ns) + CELL(0.150 ns) = 8.772 ns; Loc. = LCCOMB_X61_Y38_N8; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[10]~42'
-        Info: 16: + IC(0.262 ns) + CELL(0.275 ns) = 9.309 ns; Loc. = LCCOMB_X61_Y38_N2; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[12]~45'
-        Info: 17: + IC(0.664 ns) + CELL(0.150 ns) = 10.123 ns; Loc. = LCCOMB_X58_Y38_N30; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[14]~84'
-        Info: 18: + IC(0.432 ns) + CELL(0.150 ns) = 10.705 ns; Loc. = LCCOMB_X57_Y38_N24; Fanout = 4; COMB Node = 'Ula32:ALU|carry_temp[14]~48'
-        Info: 19: + IC(0.681 ns) + CELL(0.150 ns) = 11.536 ns; Loc. = LCCOMB_X61_Y38_N28; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[16]~53'
-        Info: 20: + IC(0.264 ns) + CELL(0.150 ns) = 11.950 ns; Loc. = LCCOMB_X61_Y38_N14; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[16]~54'
-        Info: 21: + IC(0.262 ns) + CELL(0.275 ns) = 12.487 ns; Loc. = LCCOMB_X61_Y38_N26; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[18]~57'
-        Info: 22: + IC(0.265 ns) + CELL(0.150 ns) = 12.902 ns; Loc. = LCCOMB_X61_Y38_N4; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[18]~58'
-        Info: 23: + IC(0.261 ns) + CELL(0.275 ns) = 13.438 ns; Loc. = LCCOMB_X61_Y38_N6; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[20]~61'
-        Info: 24: + IC(0.257 ns) + CELL(0.150 ns) = 13.845 ns; Loc. = LCCOMB_X61_Y38_N16; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[20]~62'
-        Info: 25: + IC(0.774 ns) + CELL(0.275 ns) = 14.894 ns; Loc. = LCCOMB_X60_Y36_N20; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[22]~65'
-        Info: 26: + IC(0.268 ns) + CELL(0.271 ns) = 15.433 ns; Loc. = LCCOMB_X60_Y36_N14; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[22]~66'
-        Info: 27: + IC(0.259 ns) + CELL(0.275 ns) = 15.967 ns; Loc. = LCCOMB_X60_Y36_N26; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[24]~69'
-        Info: 28: + IC(0.253 ns) + CELL(0.150 ns) = 16.370 ns; Loc. = LCCOMB_X60_Y36_N28; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[24]~70'
-        Info: 29: + IC(0.257 ns) + CELL(0.150 ns) = 16.777 ns; Loc. = LCCOMB_X60_Y36_N24; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[26]~73'
-        Info: 30: + IC(0.262 ns) + CELL(0.275 ns) = 17.314 ns; Loc. = LCCOMB_X60_Y36_N18; Fanout = 3; COMB Node = 'Ula32:ALU|carry_temp[26]~74'
-        Info: 31: + IC(0.265 ns) + CELL(0.150 ns) = 17.729 ns; Loc. = LCCOMB_X60_Y36_N4; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[29]~76'
-        Info: 32: + IC(0.252 ns) + CELL(0.271 ns) = 18.252 ns; Loc. = LCCOMB_X60_Y36_N30; Fanout = 1; COMB Node = 'Ula32:ALU|carry_temp[29]~77'
-        Info: 33: + IC(0.251 ns) + CELL(0.150 ns) = 18.653 ns; Loc. = LCCOMB_X60_Y36_N8; Fanout = 2; COMB Node = 'Ula32:ALU|carry_temp[29]~78'
-        Info: 34: + IC(0.686 ns) + CELL(0.150 ns) = 19.489 ns; Loc. = LCCOMB_X58_Y36_N10; Fanout = 3; COMB Node = 'Ula32:ALU|Mux1~2'
-        Info: 35: + IC(0.746 ns) + CELL(0.149 ns) = 20.384 ns; Loc. = LCCOMB_X58_Y35_N24; Fanout = 2; COMB Node = 'Ula32:ALU|Mux1~5'
-        Info: 36: + IC(3.696 ns) + CELL(2.778 ns) = 26.858 ns; Loc. = PIN_AG16; Fanout = 0; PIN Node = 'OUT_Alu[30]'
-        Info: Total cell delay = 9.904 ns ( 36.88 % )
-        Info: Total interconnect delay = 16.954 ns ( 63.12 % )
-Info: th for register "Control:comb_433|state.DECODE" (data pin = "reset", clock pin = "Clk") is 0.236 ns
-    Info: + Longest clock path from clock "Clk" to destination register is 2.828 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.989 ns) = 0.989 ns; Loc. = PIN_T2; Fanout = 1; CLK Node = 'Clk'
-        Info: 2: + IC(0.114 ns) + CELL(0.000 ns) = 1.103 ns; Loc. = CLKCTRL_G3; Fanout = 1371; COMB Node = 'Clk~clkctrl'
-        Info: 3: + IC(1.188 ns) + CELL(0.537 ns) = 2.828 ns; Loc. = LCFF_X61_Y37_N25; Fanout = 72; REG Node = 'Control:comb_433|state.DECODE'
-        Info: Total cell delay = 1.526 ns ( 53.96 % )
-        Info: Total interconnect delay = 1.302 ns ( 46.04 % )
-    Info: + Micro hold delay of destination is 0.266 ns
-    Info: - Shortest pin to register delay is 2.858 ns
-        Info: 1: + IC(0.000 ns) + CELL(0.959 ns) = 0.959 ns; Loc. = PIN_G15; Fanout = 14; PIN Node = 'reset'
-        Info: 2: + IC(1.540 ns) + CELL(0.275 ns) = 2.774 ns; Loc. = LCCOMB_X61_Y37_N24; Fanout = 1; COMB Node = 'Control:comb_433|state~69'
-        Info: 3: + IC(0.000 ns) + CELL(0.084 ns) = 2.858 ns; Loc. = LCFF_X61_Y37_N25; Fanout = 72; REG Node = 'Control:comb_433|state.DECODE'
-        Info: Total cell delay = 1.318 ns ( 46.12 % )
-        Info: Total interconnect delay = 1.540 ns ( 53.88 % )
+    Info: + Longest register to pin delay is 9.771 ns
+        Info: 1: + IC(0.000 ns) + CELL(0.000 ns) = 0.000 ns; Loc. = LCFF_X53_Y25_N9; Fanout = 12; REG Node = 'Control:comb_270|state.BEQ'
+        Info: 2: + IC(1.304 ns) + CELL(0.371 ns) = 1.675 ns; Loc. = LCCOMB_X53_Y26_N14; Fanout = 2; COMB Node = 'Control:comb_270|WideOr2~0'
+        Info: 3: + IC(0.256 ns) + CELL(0.275 ns) = 2.206 ns; Loc. = LCCOMB_X53_Y26_N16; Fanout = 2; COMB Node = 'Control:comb_270|WideOr3~1'
+        Info: 4: + IC(0.739 ns) + CELL(0.150 ns) = 3.095 ns; Loc. = LCCOMB_X53_Y25_N24; Fanout = 1; COMB Node = 'Control:comb_270|WideOr3~2'
+        Info: 5: + IC(4.034 ns) + CELL(2.642 ns) = 9.771 ns; Loc. = PIN_P2; Fanout = 0; PIN Node = 'Estado[1]'
+        Info: Total cell delay = 3.438 ns ( 35.19 % )
+        Info: Total interconnect delay = 6.333 ns ( 64.81 % )
 Info: Quartus II Classic Timing Analyzer was successful. 0 errors, 1 warning
     Info: Peak virtual memory: 212 megabytes
-    Info: Processing ended: Wed Sep 27 20:11:58 2017
-    Info: Elapsed time: 00:00:03
-    Info: Total CPU time (on all processors): 00:00:02
+    Info: Processing ended: Sat Oct 07 19:44:17 2017
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:01
 
 

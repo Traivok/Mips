@@ -1,5 +1,5 @@
 Analysis & Synthesis report for MIPS
-Wed Sep 27 20:10:28 2017
+Sat Oct 07 19:43:45 2017
 Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
 
 
@@ -14,7 +14,7 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis RAM Summary
-  9. State Machine - |MIPS|Control:comb_433|state
+  9. State Machine - |MIPS|Control:comb_270|state
  10. Registers Removed During Synthesis
  11. General Register Statistics
  12. Multiplexer Restructuring Statistics (Restructuring Performed)
@@ -26,12 +26,15 @@ Quartus II Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
  18. Parameter Settings for User Entity Instance: Memoria:Memory|LPM_RAM_DQ:MEM_plus_One
  19. Parameter Settings for User Entity Instance: Memoria:Memory|LPM_RAM_DQ:MEM_plus_Two
  20. Parameter Settings for User Entity Instance: Memoria:Memory|LPM_RAM_DQ:MEM_plus_Three
- 21. Port Connectivity Checks: "Mux32bits_4x2:PC_MUX"
+ 21. Port Connectivity Checks: "Mux32bit_8x1:PC_MUX"
  22. Port Connectivity Checks: "Mux32bits_4x2:RHS_Mux"
- 23. Port Connectivity Checks: "Mux32bits_4x2:WriteDataMux"
- 24. Port Connectivity Checks: "Control:comb_433"
- 25. Analysis & Synthesis Messages
- 26. Analysis & Synthesis Suppressed Messages
+ 23. Port Connectivity Checks: "Mux5bits_4x2:WriteRegMux"
+ 24. Port Connectivity Checks: "Mux32bit_8x1:WriteDataMux"
+ 25. Port Connectivity Checks: "Mux32bits_4x2:MemDataInMux"
+ 26. Port Connectivity Checks: "Mux32bits_4x2:MemMux"
+ 27. Port Connectivity Checks: "Control:comb_270"
+ 28. Analysis & Synthesis Messages
+ 29. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -57,16 +60,16 @@ applicable agreement for further details.
 +-----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                      ;
 +------------------------------------+----------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Sep 27 20:10:27 2017        ;
+; Analysis & Synthesis Status        ; Successful - Sat Oct 07 19:43:45 2017        ;
 ; Quartus II Version                 ; 9.1 Build 350 03/24/2010 SP 2 SJ Web Edition ;
 ; Revision Name                      ; MIPS                                         ;
 ; Top-level Entity Name              ; MIPS                                         ;
 ; Family                             ; Cyclone II                                   ;
-; Total logic elements               ; 2,963                                        ;
-;     Total combinational functions  ; 1,903                                        ;
-;     Dedicated logic registers      ; 1,239                                        ;
-; Total registers                    ; 1239                                         ;
-; Total pins                         ; 274                                          ;
+; Total logic elements               ; 2,857                                        ;
+;     Total combinational functions  ; 1,793                                        ;
+;     Dedicated logic registers      ; 1,240                                        ;
+; Total registers                    ; 1240                                         ;
+; Total pins                         ; 338                                          ;
 ; Total virtual pins                 ; 0                                            ;
 ; Total memory bits                  ; 8,192                                        ;
 ; Embedded Multiplier 9-bit elements ; 0                                            ;
@@ -164,26 +167,28 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+--------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                    ;
-+----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type                          ; File Name with Absolute Path                                                                    ;
-+----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
-; instrucoes.mif                   ; yes             ; User Memory Initialization File    ; C:/Users/José/Documents/Mips/instrucoes.mif                                                     ;
-; Control.sv                       ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/Control.sv                                                         ;
-; Banco_reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Banco_reg.vhd                                                      ;
-; Instr_Reg.vhd                    ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Instr_Reg.vhd                                                      ;
-; Memoria.vhd                      ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Memoria.vhd                                                        ;
-; Registrador.vhd                  ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/Registrador.vhd                                                    ;
-; ula32.vhd                        ; yes             ; User VHDL File                     ; C:/Users/José/Documents/Mips/ula32.vhd                                                          ;
-; MIPS.sv                          ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/MIPS.sv                                                            ;
-; MUX.sv                           ; yes             ; User SystemVerilog HDL File        ; C:/Users/José/Documents/Mips/MUX.sv                                                             ;
-; signextend.sv                    ; yes             ; Auto-Found SystemVerilog HDL File  ; C:/Users/José/Documents/Mips/signextend.sv                                                      ;
-; lpm_ram_dq.tdf                   ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/lpm_ram_dq.tdf ;
-; altram.tdf                       ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altram.tdf     ;
-; altsyncram.tdf                   ; yes             ; Megafunction                       ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altsyncram.tdf ;
-; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction        ; C:/Users/José/Documents/Mips/db/altsyncram_e1a1.tdf                                             ;
-+----------------------------------+-----------------+------------------------------------+-------------------------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                  ;
++----------------------------------+-----------------+----------------------------------+-------------------------------------------------------------------------------------------------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                        ; File Name with Absolute Path                                                                    ;
++----------------------------------+-----------------+----------------------------------+-------------------------------------------------------------------------------------------------+
+; Extract_LSB.sv                   ; yes             ; User SystemVerilog HDL File      ; C:/Users/José/Documents/Mips/Extract_LSB.sv                                                     ;
+; SignExtend.sv                    ; yes             ; User SystemVerilog HDL File      ; C:/Users/José/Documents/Mips/SignExtend.sv                                                      ;
+; instrucoes.mif                   ; yes             ; User Memory Initialization File  ; C:/Users/José/Documents/Mips/instrucoes.mif                                                     ;
+; Control.sv                       ; yes             ; User SystemVerilog HDL File      ; C:/Users/José/Documents/Mips/Control.sv                                                         ;
+; Banco_reg.vhd                    ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/Banco_reg.vhd                                                      ;
+; Instr_Reg.vhd                    ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/Instr_Reg.vhd                                                      ;
+; Memoria.vhd                      ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/Memoria.vhd                                                        ;
+; RegDesloc.vhd                    ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/RegDesloc.vhd                                                      ;
+; Registrador.vhd                  ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/Registrador.vhd                                                    ;
+; ula32.vhd                        ; yes             ; User VHDL File                   ; C:/Users/José/Documents/Mips/ula32.vhd                                                          ;
+; MIPS.sv                          ; yes             ; User SystemVerilog HDL File      ; C:/Users/José/Documents/Mips/MIPS.sv                                                            ;
+; MUX.sv                           ; yes             ; User SystemVerilog HDL File      ; C:/Users/José/Documents/Mips/MUX.sv                                                             ;
+; lpm_ram_dq.tdf                   ; yes             ; Megafunction                     ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/lpm_ram_dq.tdf ;
+; altram.tdf                       ; yes             ; Megafunction                     ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altram.tdf     ;
+; altsyncram.tdf                   ; yes             ; Megafunction                     ; c:/users/josé/desktop/alteraquartus91sp2portable/quartus/libraries/megafunctions/altsyncram.tdf ;
+; db/altsyncram_e1a1.tdf           ; yes             ; Auto-Generated Megafunction      ; C:/Users/José/Documents/Mips/db/altsyncram_e1a1.tdf                                             ;
++----------------------------------+-----------------+----------------------------------+-------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -191,28 +196,28 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Estimated Total logic elements              ; 2,963 ;
+; Estimated Total logic elements              ; 2,857 ;
 ;                                             ;       ;
-; Total combinational functions               ; 1903  ;
+; Total combinational functions               ; 1793  ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 1656  ;
-;     -- 3 input functions                    ; 176   ;
-;     -- <=2 input functions                  ; 71    ;
+;     -- 4 input functions                    ; 1571  ;
+;     -- 3 input functions                    ; 152   ;
+;     -- <=2 input functions                  ; 70    ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 1883  ;
+;     -- normal mode                          ; 1773  ;
 ;     -- arithmetic mode                      ; 20    ;
 ;                                             ;       ;
-; Total registers                             ; 1239  ;
-;     -- Dedicated logic registers            ; 1239  ;
+; Total registers                             ; 1240  ;
+;     -- Dedicated logic registers            ; 1240  ;
 ;     -- I/O registers                        ; 0     ;
 ;                                             ;       ;
-; I/O pins                                    ; 274   ;
+; I/O pins                                    ; 338   ;
 ; Total memory bits                           ; 8192  ;
 ; Maximum fan-out node                        ; Clk   ;
-; Maximum fan-out                             ; 1271  ;
-; Total fan-out                               ; 12851 ;
-; Average fan-out                             ; 3.73  ;
+; Maximum fan-out                             ; 1272  ;
+; Total fan-out                               ; 12222 ;
+; Average fan-out                             ; 3.59  ;
 +---------------------------------------------+-------+
 
 
@@ -221,39 +226,40 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                      ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                            ; Library Name ;
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
-; |MIPS                                           ; 1903 (0)          ; 1239 (0)     ; 8192        ; 0            ; 0       ; 0         ; 274  ; 0            ; |MIPS                                                                                                          ; work         ;
-;    |Banco_reg:Registers|                        ; 1392 (1392)       ; 1024 (1024)  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Banco_reg:Registers                                                                                      ; work         ;
-;    |Control:comb_433|                           ; 75 (75)           ; 23 (23)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Control:comb_433                                                                                         ; work         ;
+; |MIPS                                           ; 1793 (0)          ; 1240 (0)     ; 8192        ; 0            ; 0       ; 0         ; 338  ; 0            ; |MIPS                                                                                                          ; work         ;
+;    |ALS:ALU|                                    ; 127 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|ALS:ALU                                                                                                  ; work         ;
+;       |Ula32:ALU|                               ; 127 (127)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|ALS:ALU|Ula32:ALU                                                                                        ; work         ;
+;    |Banco_reg:Registers|                        ; 1394 (1394)       ; 1024 (1024)  ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Banco_reg:Registers                                                                                      ; work         ;
+;    |Control:comb_270|                           ; 72 (72)           ; 24 (24)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Control:comb_270                                                                                         ;              ;
 ;    |Instr_Reg:Instruction_Register|             ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Instr_Reg:Instruction_Register                                                                           ; work         ;
 ;    |Memoria:Memory|                             ; 23 (23)           ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory                                                                                           ; work         ;
 ;       |lpm_ram_dq:MEM_plus_One|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One                                                                   ; work         ;
 ;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram                                                       ; work         ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block                                  ;              ;
 ;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ;              ;
-;       |lpm_ram_dq:MEM_plus_Three|               ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three                                                                 ; work         ;
-;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram                                                     ; work         ;
+;       |lpm_ram_dq:MEM_plus_Three|               ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three                                                                 ;              ;
+;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram                                                     ;              ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block                                ; work         ;
 ;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated ; work         ;
-;       |lpm_ram_dq:MEM_plus_Two|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two                                                                   ; work         ;
-;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram                                                       ; work         ;
-;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block                                  ; work         ;
-;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ; work         ;
+;       |lpm_ram_dq:MEM_plus_Two|                 ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two                                                                   ;              ;
+;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram                                                       ;              ;
+;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block                                  ;              ;
+;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated   ;              ;
 ;       |lpm_ram_dq:MEM|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM                                                                            ; work         ;
 ;          |altram:sram|                          ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram                                                                ; work         ;
 ;             |altsyncram:ram_block|              ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block                                           ; work         ;
 ;                |altsyncram_e1a1:auto_generated| ; 0 (0)             ; 0 (0)        ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated            ; work         ;
 ;    |Mux32bit_2x1:LHS_Mux|                       ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_2x1:LHS_Mux                                                                                     ; work         ;
-;    |Mux32bit_2x1:MemMux|                        ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_2x1:MemMux                                                                                      ;              ;
-;    |Mux32bits_4x2:PC_MUX|                       ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:PC_MUX                                                                                     ; work         ;
-;    |Mux32bits_4x2:RHS_Mux|                      ; 31 (31)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:RHS_Mux                                                                                    ; work         ;
-;    |Mux32bits_4x2:WriteDataMux|                 ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:WriteDataMux                                                                               ; work         ;
-;    |Mux5bit_2x1:WriteRegMux|                    ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux5bit_2x1:WriteRegMux                                                                                  ; work         ;
+;    |Mux32bit_8x1:PC_MUX|                        ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_8x1:PC_MUX                                                                                      ; work         ;
+;    |Mux32bit_8x1:WriteDataMux|                  ; 53 (53)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bit_8x1:WriteDataMux                                                                                ; work         ;
+;    |Mux32bits_4x2:MemMux|                       ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:MemMux                                                                                     ; work         ;
+;    |Mux32bits_4x2:RHS_Mux|                      ; 46 (46)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux32bits_4x2:RHS_Mux                                                                                    ; work         ;
+;    |Mux5bits_4x2:WriteRegMux|                   ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Mux5bits_4x2:WriteRegMux                                                                                 ; work         ;
 ;    |Registrador:ALUOut_Reg|                     ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:ALUOut_Reg                                                                                   ; work         ;
 ;    |Registrador:A|                              ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:A                                                                                            ; work         ;
 ;    |Registrador:B|                              ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:B                                                                                            ; work         ;
 ;    |Registrador:MemDataRegister|                ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:MemDataRegister                                                                              ; work         ;
-;    |Registrador:ProgramCounter|                 ; 31 (31)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:ProgramCounter                                                                               ; work         ;
-;    |Ula32:ALU|                                  ; 244 (244)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Ula32:ALU                                                                                                ; work         ;
+;    |Registrador:ProgramCounter|                 ; 27 (27)           ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |MIPS|Registrador:ProgramCounter                                                                               ; work         ;
 +-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -271,58 +277,56 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 
 
 Encoding Type:  One-Hot
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |MIPS|Control:comb_433|state                                                                                                                                                                                                                                                                                                                                                                                       ;
-+------------------------+----------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+-------------+
-; Name                   ; state.SW_DELAY ; state.LW_DELAY2 ; state.LW_DELAY1 ; state.WRITE_BACK ; state.SW_ADDRESS_COMP ; state.LW_ADDRESS_COMP ; state.INC ; state.NOT_A ; state.BREAK ; state.XOR ; state.SUB ; state.AND ; state.R_WAIT ; state.ADD ; state.NOP ; state.J ; state.LUI ; state.SW ; state.LW ; state.BNE ; state.BEQ ; state.DECODE ; state.FETCH_MEM_DELAY2 ; state.FETCH_MEM_DELAY1 ; state.FETCH ; state.RESET ;
-+------------------------+----------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+-------------+
-; state.RESET            ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0           ;
-; state.FETCH            ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 1           ; 1           ;
-; state.FETCH_MEM_DELAY1 ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 1                      ; 0           ; 1           ;
-; state.FETCH_MEM_DELAY2 ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 1                      ; 0                      ; 0           ; 1           ;
-; state.DECODE           ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 1            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BEQ              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 1         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BNE              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 1         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LW               ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 1        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SW               ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 1        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LUI              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 1         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.J                ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 1       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.NOP              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 1         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.ADD              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 1         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.R_WAIT           ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 1            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.AND              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 1         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SUB              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 1         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.XOR              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 1         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.BREAK            ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 1           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.NOT_A            ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 1           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.INC              ; 0              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 1         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LW_ADDRESS_COMP  ; 0              ; 0               ; 0               ; 0                ; 0                     ; 1                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SW_ADDRESS_COMP  ; 0              ; 0               ; 0               ; 0                ; 1                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.WRITE_BACK       ; 0              ; 0               ; 0               ; 1                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LW_DELAY1        ; 0              ; 0               ; 1               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.LW_DELAY2        ; 0              ; 1               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-; state.SW_DELAY         ; 1              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0         ; 0           ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1           ;
-+------------------------+----------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-----------+-------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+-------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |MIPS|Control:comb_270|state                                                                                                                                                                                                                                                                                                                                                               ;
++------------------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+------------------+-------------+
+; Name                   ; state.LW_DELAY2 ; state.LW_DELAY1 ; state.WRITE_BACK ; state.SW_ADDRESS_COMP ; state.LW_ADDRESS_COMP ; state.BREAK ; state.XOR ; state.SUB ; state.AND ; state.R_WAIT ; state.ADD ; state.NOP ; state.J ; state.LUI ; state.SW ; state.LW ; state.BNE ; state.BEQ ; state.DECODE ; state.FETCH_MEM_DELAY2 ; state.FETCH_MEM_DELAY1 ; state.FETCH ; state.STACK_INIT ; state.RESET ;
++------------------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+------------------+-------------+
+; state.RESET            ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 0           ;
+; state.STACK_INIT       ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 1                ; 1           ;
+; state.FETCH            ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 1           ; 0                ; 1           ;
+; state.FETCH_MEM_DELAY1 ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 1                      ; 0           ; 0                ; 1           ;
+; state.FETCH_MEM_DELAY2 ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 1                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.DECODE           ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 1            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.BEQ              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 1         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.BNE              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 1         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.LW               ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 1        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.SW               ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 1        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.LUI              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 1         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.J                ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 1       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.NOP              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 1         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.ADD              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 1         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.R_WAIT           ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 1            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.AND              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 1         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.SUB              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 1         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.XOR              ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 1         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.BREAK            ; 0               ; 0               ; 0                ; 0                     ; 0                     ; 1           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.LW_ADDRESS_COMP  ; 0               ; 0               ; 0                ; 0                     ; 1                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.SW_ADDRESS_COMP  ; 0               ; 0               ; 0                ; 1                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.WRITE_BACK       ; 0               ; 0               ; 1                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.LW_DELAY1        ; 0               ; 1               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
+; state.LW_DELAY2        ; 1               ; 0               ; 0                ; 0                     ; 0                     ; 0           ; 0         ; 0         ; 0         ; 0            ; 0         ; 0         ; 0       ; 0         ; 0        ; 0        ; 0         ; 0         ; 0            ; 0                      ; 0                      ; 0           ; 0                ; 1           ;
++------------------------+-----------------+-----------------+------------------+-----------------------+-----------------------+-------------+-----------+-----------+-----------+--------------+-----------+-----------+---------+-----------+----------+----------+-----------+-----------+--------------+------------------------+------------------------+-------------+------------------+-------------+
 
 
-+-------------------------------------------------------------+
-; Registers Removed During Synthesis                          ;
-+----------------------------------------+--------------------+
-; Register name                          ; Reason for Removal ;
-+----------------------------------------+--------------------+
-; Control:comb_433|state.NOT_A           ; Lost fanout        ;
-; Control:comb_433|state.INC             ; Lost fanout        ;
-; Control:comb_433|state.WRITE_BACK      ; Lost fanout        ;
-; Control:comb_433|state~3               ; Lost fanout        ;
-; Control:comb_433|state~4               ; Lost fanout        ;
-; Control:comb_433|state~5               ; Lost fanout        ;
-; Control:comb_433|state~6               ; Lost fanout        ;
-; Control:comb_433|state~7               ; Lost fanout        ;
-; Control:comb_433|state~8               ; Lost fanout        ;
-; Control:comb_433|state~9               ; Lost fanout        ;
-; Control:comb_433|state~10              ; Lost fanout        ;
-; Total Number of Removed Registers = 11 ;                    ;
-+----------------------------------------+--------------------+
++------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                       ;
++--------------------------------------------+---------------------------------------------+
+; Register name                              ; Reason for Removal                          ;
++--------------------------------------------+---------------------------------------------+
+; Registrador:ExcProgramCounter|Saida[0..31] ; Stuck at GND due to stuck port clock_enable ;
+; ALS:ALU|RegDesloc:DESL|temp[0..30]         ; Merged with ALS:ALU|RegDesloc:DESL|temp[31] ;
+; ALS:ALU|RegDesloc:DESL|temp[31]            ; Stuck at GND due to stuck port data_in      ;
+; Control:comb_270|state~4                   ; Lost fanout                                 ;
+; Control:comb_270|state~5                   ; Lost fanout                                 ;
+; Control:comb_270|state~6                   ; Lost fanout                                 ;
+; Control:comb_270|state~7                   ; Lost fanout                                 ;
+; Control:comb_270|state~8                   ; Lost fanout                                 ;
+; Control:comb_270|state~9                   ; Lost fanout                                 ;
+; Control:comb_270|state~10                  ; Lost fanout                                 ;
+; Control:comb_270|state~11                  ; Lost fanout                                 ;
+; Total Number of Removed Registers = 72     ;                                             ;
++--------------------------------------------+---------------------------------------------+
 
 
 +------------------------------------------------------+
@@ -330,10 +334,10 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 1239  ;
+; Total registers                              ; 1240  ;
 ; Number of registers using Synchronous Clear  ; 2     ;
-; Number of registers using Synchronous Load   ; 30    ;
-; Number of registers using Asynchronous Clear ; 1184  ;
+; Number of registers using Synchronous Load   ; 26    ;
+; Number of registers using Asynchronous Clear ; 1240  ;
 ; Number of registers using Asynchronous Load  ; 0     ;
 ; Number of registers using Clock Enable       ; 1216  ;
 ; Number of registers using Preset             ; 0     ;
@@ -345,21 +349,21 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                 ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
-; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[31] ;
-; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[2]  ;
-; 4:1                ; 26 bits   ; 52 LEs        ; 52 LEs               ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[29] ;
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:B|Saida[12]              ;
-; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:A|Saida[19]              ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:WriteDataMux|Mux0      ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:WriteDataMux|Mux24     ;
-; 3:1                ; 17 bits   ; 34 LEs        ; 34 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux19          ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux1           ;
-; 4:1                ; 13 bits   ; 26 LEs        ; 26 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux11          ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 64 LEs               ; 96 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux42                      ;
-; 8:1                ; 32 bits   ; 160 LEs       ; 96 LEs               ; 64 LEs                 ; No         ; |MIPS|Ula32:ALU|Mux30                      ;
-; 65:1               ; 10 bits   ; 430 LEs       ; 10 LEs               ; 420 LEs                ; No         ; |MIPS|Control:comb_433|Selector29          ;
-; 67:1               ; 10 bits   ; 440 LEs       ; 60 LEs               ; 380 LEs                ; No         ; |MIPS|Control:comb_433|state               ;
-; 129:1              ; 5 bits    ; 430 LEs       ; 40 LEs               ; 390 LEs                ; No         ; |MIPS|Control:comb_433|state               ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[1]  ;
+; 4:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[30] ;
+; 4:1                ; 26 bits   ; 52 LEs        ; 52 LEs               ; 0 LEs                  ; Yes        ; |MIPS|Registrador:ProgramCounter|Saida[9]  ;
+; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:B|Saida[4]               ;
+; 32:1               ; 32 bits   ; 672 LEs       ; 672 LEs              ; 0 LEs                  ; Yes        ; |MIPS|Registrador:A|Saida[24]              ;
+; 4:1                ; 5 bits    ; 10 LEs        ; 10 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux5bits_4x2:WriteRegMux|Mux0        ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux30          ;
+; 3:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux14          ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bit_8x1:WriteDataMux|Mux27      ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bit_8x1:WriteDataMux|Mux10      ;
+; 4:1                ; 15 bits   ; 30 LEs        ; 30 LEs               ; 0 LEs                  ; No         ; |MIPS|Mux32bits_4x2:RHS_Mux|Mux15          ;
+; 8:1                ; 32 bits   ; 160 LEs       ; 64 LEs               ; 96 LEs                 ; No         ; |MIPS|ALS:ALU|Ula32:ALU|Mux26              ;
+; 65:1               ; 11 bits   ; 473 LEs       ; 11 LEs               ; 462 LEs                ; No         ; |MIPS|Control:comb_270|Selector7           ;
+; 66:1               ; 7 bits    ; 308 LEs       ; 42 LEs               ; 266 LEs                ; No         ; |MIPS|Control:comb_270|state               ;
+; 128:1              ; 5 bits    ; 425 LEs       ; 35 LEs               ; 390 LEs                ; No         ; |MIPS|Control:comb_270|state               ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------+
 
 
@@ -491,52 +495,88 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings Tables in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "Mux32bits_4x2:PC_MUX"                                                                                                                                 ;
-+-------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port        ; Type  ; Severity ; Details                                                                                                                                         ;
-+-------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------+
-; in2[31..30] ; Input ; Info     ; Stuck at GND                                                                                                                                    ;
-; in3         ; Input ; Warning  ; Input port expression (31 bits) is smaller than the input port (32 bits) it drives.  Extra input bit(s) "in3[31..31]" will be connected to GND. ;
-; in3[13..12] ; Input ; Info     ; Stuck at VCC                                                                                                                                    ;
-; in3[5..3]   ; Input ; Info     ; Stuck at VCC                                                                                                                                    ;
-; in3[30..14] ; Input ; Info     ; Stuck at GND                                                                                                                                    ;
-; in3[11..6]  ; Input ; Info     ; Stuck at GND                                                                                                                                    ;
-; in3[2..1]   ; Input ; Info     ; Stuck at GND                                                                                                                                    ;
-; in3[1]      ; Input ; Info     ; Stuck at VCC                                                                                                                                    ;
-+-------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------+
+; Port Connectivity Checks: "Mux32bit_8x1:PC_MUX" ;
++-----------+-------+----------+------------------+
+; Port      ; Type  ; Severity ; Details          ;
++-----------+-------+----------+------------------+
+; in2[1..0] ; Input ; Info     ; Stuck at GND     ;
+; in5       ; Input ; Info     ; Stuck at GND     ;
+; in6       ; Input ; Info     ; Stuck at GND     ;
+; in7       ; Input ; Info     ; Stuck at GND     ;
++-----------+-------+----------+------------------+
 
 
 +---------------------------------------------------+
 ; Port Connectivity Checks: "Mux32bits_4x2:RHS_Mux" ;
-+-------------+-------+----------+------------------+
-; Port        ; Type  ; Severity ; Details          ;
-+-------------+-------+----------+------------------+
-; in1[31..3]  ; Input ; Info     ; Stuck at GND     ;
-; in1[1..0]   ; Input ; Info     ; Stuck at GND     ;
-; in1[2]      ; Input ; Info     ; Stuck at VCC     ;
-; in3[31..30] ; Input ; Info     ; Stuck at GND     ;
-+-------------+-------+----------+------------------+
++------------+-------+----------+-------------------+
+; Port       ; Type  ; Severity ; Details           ;
++------------+-------+----------+-------------------+
+; in1[31..3] ; Input ; Info     ; Stuck at GND      ;
+; in1[1..0]  ; Input ; Info     ; Stuck at GND      ;
+; in1[2]     ; Input ; Info     ; Stuck at VCC      ;
+; in3[1..0]  ; Input ; Info     ; Stuck at GND      ;
++------------+-------+----------+-------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Mux5bits_4x2:WriteRegMux"                                                                                                                                                            ;
++-----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port      ; Type  ; Severity ; Details                                                                                                                                                                          ;
++-----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; in2       ; Input ; Warning  ; Input port expression (6 bits) is wider than the input port (5 bits) it drives.  The 1 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; in2[4..2] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                     ;
+; in2[1]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                     ;
+; in2[0]    ; Input ; Info     ; Stuck at VCC                                                                                                                                                                     ;
+; in3       ; Input ; Info     ; Stuck at GND                                                                                                                                                                     ;
++-----------+-------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------+
+; Port Connectivity Checks: "Mux32bit_8x1:WriteDataMux" ;
++------------+-------+----------+-----------------------+
+; Port       ; Type  ; Severity ; Details               ;
++------------+-------+----------+-----------------------+
+; in2[15..0] ; Input ; Info     ; Stuck at GND          ;
+; in3[7..5]  ; Input ; Info     ; Stuck at VCC          ;
+; in3[1..0]  ; Input ; Info     ; Stuck at VCC          ;
+; in3[31..8] ; Input ; Info     ; Stuck at GND          ;
+; in3[4..2]  ; Input ; Info     ; Stuck at GND          ;
++------------+-------+----------+-----------------------+
 
 
 +--------------------------------------------------------+
-; Port Connectivity Checks: "Mux32bits_4x2:WriteDataMux" ;
-+-------------+-------+----------+-----------------------+
-; Port        ; Type  ; Severity ; Details               ;
-+-------------+-------+----------+-----------------------+
-; in2[31..16] ; Input ; Info     ; Stuck at GND          ;
-; in3         ; Input ; Info     ; Stuck at GND          ;
-+-------------+-------+----------+-----------------------+
+; Port Connectivity Checks: "Mux32bits_4x2:MemDataInMux" ;
++------+-------+----------+------------------------------+
+; Port ; Type  ; Severity ; Details                      ;
++------+-------+----------+------------------------------+
+; in3  ; Input ; Info     ; Stuck at GND                 ;
++------+-------+----------+------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "Control:comb_433"                                                                          ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port        ; Type   ; Severity ; Details                                                                             ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
-; PCWriteCond ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; PCWrite     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-------------+--------+----------+-------------------------------------------------------------------------------------+
++--------------------------------------------------+
+; Port Connectivity Checks: "Mux32bits_4x2:MemMux" ;
++------------+-------+----------+------------------+
+; Port       ; Type  ; Severity ; Details          ;
++------------+-------+----------+------------------+
+; in2[7..0]  ; Input ; Info     ; Stuck at VCC     ;
+; in2[31..8] ; Input ; Info     ; Stuck at GND     ;
+; in3[7..1]  ; Input ; Info     ; Stuck at VCC     ;
+; in3[31..8] ; Input ; Info     ; Stuck at GND     ;
+; in3[0]     ; Input ; Info     ; Stuck at GND     ;
++------------+-------+----------+------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "Control:comb_270"                                                                                                                                                                              ;
++--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port               ; Type   ; Severity ; Details                                                                                                                                                                          ;
++--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; REG_funct          ; Input  ; Warning  ; Input port expression (3 bits) is wider than the input port (1 bits) it drives.  The 2 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; REG_NumberOfShifts ; Input  ; Warning  ; Input port expression (5 bits) is wider than the input port (1 bits) it drives.  The 4 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; PCWriteCond        ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                              ;
+; PCWrite            ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                              ;
++--------------------+--------+----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-------------------------------+
@@ -545,8 +585,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II Analysis & Synthesis
     Info: Version 9.1 Build 350 03/24/2010 Service Pack 2 SJ Web Edition
-    Info: Processing started: Wed Sep 27 20:10:00 2017
+    Info: Processing started: Sat Oct 07 19:43:34 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off MIPS -c MIPS
+Info: Found 1 design units, including 1 entities, in source file extract_lsb.sv
+    Info: Found entity 1: Extract_LSB
+Info: Found 1 design units, including 1 entities, in source file signextend.sv
+    Info: Found entity 1: SignExtend
 Info: Found 1 design units, including 1 entities, in source file control.sv
     Info: Found entity 1: Control
 Info: Found 2 design units, including 1 entities, in source file banco_reg.vhd
@@ -568,29 +612,34 @@ Info: Found 2 design units, including 1 entities, in source file registrador.vhd
 Info: Found 2 design units, including 1 entities, in source file ula32.vhd
     Info: Found design unit 1: Ula32-behavioral
     Info: Found entity 1: Ula32
-Info: Found 1 design units, including 1 entities, in source file mips.sv
+Info: Found 2 design units, including 2 entities, in source file mips.sv
     Info: Found entity 1: MIPS
-Info: Found 1 design units, including 1 entities, in source file testmodule.sv
-    Info: Found entity 1: TestModule
-Warning: Can't analyze file -- file DataPath.sv is missing
-Warning: Can't analyze file -- file PC.sv is missing
-Info: Found 3 design units, including 3 entities, in source file mux.sv
+    Info: Found entity 2: ALS
+Info: Found 5 design units, including 5 entities, in source file mux.sv
     Info: Found entity 1: Mux32bits_4x2
     Info: Found entity 2: Mux5bit_2x1
     Info: Found entity 3: Mux32bit_2x1
-Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(118): instance has no name
-Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(166): instance has no name
-Critical Warning (10846): Verilog HDL Instantiation warning at TestModule.sv(4): instance has no name
+    Info: Found entity 4: Mux32bit_8x1
+    Info: Found entity 5: Mux5bits_4x2
+Critical Warning (10846): Verilog HDL Instantiation warning at MIPS.sv(181): instance has no name
 Info: Elaborating entity "MIPS" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at MIPS.sv(81): object "Instr25_0" assigned a value but never read
-Warning: Using design file signextend.sv, which is not specified as a design file for the current project, but contains definitions for 1 design units and 1 entities in project
-    Info: Found entity 1: SignExtend
-Info: Elaborating entity "SignExtend" for hierarchy "SignExtend:comb_330"
-Info: Elaborating entity "Control" for hierarchy "Control:comb_433"
-Warning (10036): Verilog HDL or VHDL warning at Control.sv(46): object "holdState" assigned a value but never read
-Info (10264): Verilog HDL Case Statement information at Control.sv(99): all case item expressions in this case statement are onehot
+Warning (10034): Output port "MemData" at MIPS.sv(2) has no driver
+Warning (10034): Output port "Address" at MIPS.sv(3) has no driver
+Warning (10034): Output port "WriteDataMem" at MIPS.sv(4) has no driver
+Warning (10034): Output port "WriteRegister" at MIPS.sv(5) has no driver
+Warning (10034): Output port "WriteDataReg" at MIPS.sv(6) has no driver
+Warning (10034): Output port "MDR" at MIPS.sv(7) has no driver
+Warning (10034): Output port "Alu" at MIPS.sv(8) has no driver
+Warning (10034): Output port "AluOut" at MIPS.sv(9) has no driver
+Warning (10034): Output port "PC" at MIPS.sv(10) has no driver
+Warning (10034): Output port "wr" at MIPS.sv(11) has no driver
+Warning (10034): Output port "RegWrite" at MIPS.sv(12) has no driver
+Warning (10034): Output port "IRWrite" at MIPS.sv(13) has no driver
+Info: Elaborating entity "SignExtend" for hierarchy "SignExtend:SignEx"
+Info: Elaborating entity "Control" for hierarchy "Control:comb_270"
 Info: Elaborating entity "Registrador" for hierarchy "Registrador:ProgramCounter"
-Info: Elaborating entity "Mux32bit_2x1" for hierarchy "Mux32bit_2x1:MemMux"
+Info: Elaborating entity "Mux32bits_4x2" for hierarchy "Mux32bits_4x2:MemMux"
+Info: Elaborating entity "Extract_LSB" for hierarchy "Extract_LSB:MemDataInExtract"
 Info: Elaborating entity "Memoria" for hierarchy "Memoria:Memory"
 Info: Elaborating entity "LPM_RAM_DQ" for hierarchy "Memoria:Memory|LPM_RAM_DQ:MEM"
 Info: Elaborated megafunction instantiation "Memoria:Memory|LPM_RAM_DQ:MEM"
@@ -615,38 +664,387 @@ Info: Found 1 design units, including 1 entities, in source file db/altsyncram_e
     Info: Found entity 1: altsyncram_e1a1
 Info: Elaborating entity "altsyncram_e1a1" for hierarchy "Memoria:Memory|LPM_RAM_DQ:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated"
 Info: Elaborating entity "Instr_Reg" for hierarchy "Instr_Reg:Instruction_Register"
-Info: Elaborating entity "Mux32bits_4x2" for hierarchy "Mux32bits_4x2:WriteDataMux"
-Info: Elaborating entity "Mux5bit_2x1" for hierarchy "Mux5bit_2x1:WriteRegMux"
+Info: Elaborating entity "Mux32bit_8x1" for hierarchy "Mux32bit_8x1:WriteDataMux"
+Info: Elaborating entity "Mux5bits_4x2" for hierarchy "Mux5bits_4x2:WriteRegMux"
 Info: Elaborating entity "Banco_reg" for hierarchy "Banco_reg:Registers"
-Info: Elaborating entity "Ula32" for hierarchy "Ula32:ALU"
-Warning: 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Info: Elaborating entity "Mux32bit_2x1" for hierarchy "Mux32bit_2x1:LHS_Mux"
+Info: Elaborating entity "ALS" for hierarchy "ALS:ALU"
+Info: Elaborating entity "Ula32" for hierarchy "ALS:ALU|Ula32:ALU"
+Info: Elaborating entity "RegDesloc" for hierarchy "ALS:ALU|RegDesloc:DESL"
+Warning (10492): VHDL Process Statement warning at RegDesloc.vhd(1102): signal "temp" is read inside the Process Statement but isn't in the Process Statement's sensitivity list
+Warning: Net is missing source, defaulting to GND
+    Warning (12110): Net "REG_reset" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[2]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[1]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[0]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[4]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[3]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[2]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[1]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[0]" is missing source, defaulting to GND
+Warning: Net is missing source, defaulting to GND
+    Warning (12110): Net "REG_reset" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[2]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[1]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_funct[0]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[4]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[3]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[2]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[1]" is missing source, defaulting to GND
+    Warning (12110): Net "REG_NumberOfShifts[0]" is missing source, defaulting to GND
+Warning: 2 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning: Output pins are stuck at VCC or GND
+    Warning (13410): Pin "MemData[0]" is stuck at GND
+    Warning (13410): Pin "MemData[1]" is stuck at GND
+    Warning (13410): Pin "MemData[2]" is stuck at GND
+    Warning (13410): Pin "MemData[3]" is stuck at GND
+    Warning (13410): Pin "MemData[4]" is stuck at GND
+    Warning (13410): Pin "MemData[5]" is stuck at GND
+    Warning (13410): Pin "MemData[6]" is stuck at GND
+    Warning (13410): Pin "MemData[7]" is stuck at GND
+    Warning (13410): Pin "MemData[8]" is stuck at GND
+    Warning (13410): Pin "MemData[9]" is stuck at GND
+    Warning (13410): Pin "MemData[10]" is stuck at GND
+    Warning (13410): Pin "MemData[11]" is stuck at GND
+    Warning (13410): Pin "MemData[12]" is stuck at GND
+    Warning (13410): Pin "MemData[13]" is stuck at GND
+    Warning (13410): Pin "MemData[14]" is stuck at GND
+    Warning (13410): Pin "MemData[15]" is stuck at GND
+    Warning (13410): Pin "MemData[16]" is stuck at GND
+    Warning (13410): Pin "MemData[17]" is stuck at GND
+    Warning (13410): Pin "MemData[18]" is stuck at GND
+    Warning (13410): Pin "MemData[19]" is stuck at GND
+    Warning (13410): Pin "MemData[20]" is stuck at GND
+    Warning (13410): Pin "MemData[21]" is stuck at GND
+    Warning (13410): Pin "MemData[22]" is stuck at GND
+    Warning (13410): Pin "MemData[23]" is stuck at GND
+    Warning (13410): Pin "MemData[24]" is stuck at GND
+    Warning (13410): Pin "MemData[25]" is stuck at GND
+    Warning (13410): Pin "MemData[26]" is stuck at GND
+    Warning (13410): Pin "MemData[27]" is stuck at GND
+    Warning (13410): Pin "MemData[28]" is stuck at GND
+    Warning (13410): Pin "MemData[29]" is stuck at GND
+    Warning (13410): Pin "MemData[30]" is stuck at GND
+    Warning (13410): Pin "MemData[31]" is stuck at GND
+    Warning (13410): Pin "Address[0]" is stuck at GND
+    Warning (13410): Pin "Address[1]" is stuck at GND
+    Warning (13410): Pin "Address[2]" is stuck at GND
+    Warning (13410): Pin "Address[3]" is stuck at GND
+    Warning (13410): Pin "Address[4]" is stuck at GND
+    Warning (13410): Pin "Address[5]" is stuck at GND
+    Warning (13410): Pin "Address[6]" is stuck at GND
+    Warning (13410): Pin "Address[7]" is stuck at GND
+    Warning (13410): Pin "Address[8]" is stuck at GND
+    Warning (13410): Pin "Address[9]" is stuck at GND
+    Warning (13410): Pin "Address[10]" is stuck at GND
+    Warning (13410): Pin "Address[11]" is stuck at GND
+    Warning (13410): Pin "Address[12]" is stuck at GND
+    Warning (13410): Pin "Address[13]" is stuck at GND
+    Warning (13410): Pin "Address[14]" is stuck at GND
+    Warning (13410): Pin "Address[15]" is stuck at GND
+    Warning (13410): Pin "Address[16]" is stuck at GND
+    Warning (13410): Pin "Address[17]" is stuck at GND
+    Warning (13410): Pin "Address[18]" is stuck at GND
+    Warning (13410): Pin "Address[19]" is stuck at GND
+    Warning (13410): Pin "Address[20]" is stuck at GND
+    Warning (13410): Pin "Address[21]" is stuck at GND
+    Warning (13410): Pin "Address[22]" is stuck at GND
+    Warning (13410): Pin "Address[23]" is stuck at GND
+    Warning (13410): Pin "Address[24]" is stuck at GND
+    Warning (13410): Pin "Address[25]" is stuck at GND
+    Warning (13410): Pin "Address[26]" is stuck at GND
+    Warning (13410): Pin "Address[27]" is stuck at GND
+    Warning (13410): Pin "Address[28]" is stuck at GND
+    Warning (13410): Pin "Address[29]" is stuck at GND
+    Warning (13410): Pin "Address[30]" is stuck at GND
+    Warning (13410): Pin "Address[31]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[0]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[1]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[2]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[3]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[4]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[5]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[6]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[7]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[8]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[9]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[10]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[11]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[12]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[13]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[14]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[15]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[16]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[17]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[18]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[19]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[20]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[21]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[22]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[23]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[24]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[25]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[26]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[27]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[28]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[29]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[30]" is stuck at GND
+    Warning (13410): Pin "WriteDataMem[31]" is stuck at GND
+    Warning (13410): Pin "WriteRegister[0]" is stuck at GND
+    Warning (13410): Pin "WriteRegister[1]" is stuck at GND
+    Warning (13410): Pin "WriteRegister[2]" is stuck at GND
+    Warning (13410): Pin "WriteRegister[3]" is stuck at GND
+    Warning (13410): Pin "WriteRegister[4]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[0]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[1]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[2]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[3]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[4]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[5]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[6]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[7]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[8]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[9]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[10]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[11]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[12]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[13]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[14]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[15]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[16]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[17]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[18]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[19]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[20]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[21]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[22]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[23]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[24]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[25]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[26]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[27]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[28]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[29]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[30]" is stuck at GND
+    Warning (13410): Pin "WriteDataReg[31]" is stuck at GND
+    Warning (13410): Pin "MDR[0]" is stuck at GND
+    Warning (13410): Pin "MDR[1]" is stuck at GND
+    Warning (13410): Pin "MDR[2]" is stuck at GND
+    Warning (13410): Pin "MDR[3]" is stuck at GND
+    Warning (13410): Pin "MDR[4]" is stuck at GND
+    Warning (13410): Pin "MDR[5]" is stuck at GND
+    Warning (13410): Pin "MDR[6]" is stuck at GND
+    Warning (13410): Pin "MDR[7]" is stuck at GND
+    Warning (13410): Pin "MDR[8]" is stuck at GND
+    Warning (13410): Pin "MDR[9]" is stuck at GND
+    Warning (13410): Pin "MDR[10]" is stuck at GND
+    Warning (13410): Pin "MDR[11]" is stuck at GND
+    Warning (13410): Pin "MDR[12]" is stuck at GND
+    Warning (13410): Pin "MDR[13]" is stuck at GND
+    Warning (13410): Pin "MDR[14]" is stuck at GND
+    Warning (13410): Pin "MDR[15]" is stuck at GND
+    Warning (13410): Pin "MDR[16]" is stuck at GND
+    Warning (13410): Pin "MDR[17]" is stuck at GND
+    Warning (13410): Pin "MDR[18]" is stuck at GND
+    Warning (13410): Pin "MDR[19]" is stuck at GND
+    Warning (13410): Pin "MDR[20]" is stuck at GND
+    Warning (13410): Pin "MDR[21]" is stuck at GND
+    Warning (13410): Pin "MDR[22]" is stuck at GND
+    Warning (13410): Pin "MDR[23]" is stuck at GND
+    Warning (13410): Pin "MDR[24]" is stuck at GND
+    Warning (13410): Pin "MDR[25]" is stuck at GND
+    Warning (13410): Pin "MDR[26]" is stuck at GND
+    Warning (13410): Pin "MDR[27]" is stuck at GND
+    Warning (13410): Pin "MDR[28]" is stuck at GND
+    Warning (13410): Pin "MDR[29]" is stuck at GND
+    Warning (13410): Pin "MDR[30]" is stuck at GND
+    Warning (13410): Pin "MDR[31]" is stuck at GND
+    Warning (13410): Pin "Alu[0]" is stuck at GND
+    Warning (13410): Pin "Alu[1]" is stuck at GND
+    Warning (13410): Pin "Alu[2]" is stuck at GND
+    Warning (13410): Pin "Alu[3]" is stuck at GND
+    Warning (13410): Pin "Alu[4]" is stuck at GND
+    Warning (13410): Pin "Alu[5]" is stuck at GND
+    Warning (13410): Pin "Alu[6]" is stuck at GND
+    Warning (13410): Pin "Alu[7]" is stuck at GND
+    Warning (13410): Pin "Alu[8]" is stuck at GND
+    Warning (13410): Pin "Alu[9]" is stuck at GND
+    Warning (13410): Pin "Alu[10]" is stuck at GND
+    Warning (13410): Pin "Alu[11]" is stuck at GND
+    Warning (13410): Pin "Alu[12]" is stuck at GND
+    Warning (13410): Pin "Alu[13]" is stuck at GND
+    Warning (13410): Pin "Alu[14]" is stuck at GND
+    Warning (13410): Pin "Alu[15]" is stuck at GND
+    Warning (13410): Pin "Alu[16]" is stuck at GND
+    Warning (13410): Pin "Alu[17]" is stuck at GND
+    Warning (13410): Pin "Alu[18]" is stuck at GND
+    Warning (13410): Pin "Alu[19]" is stuck at GND
+    Warning (13410): Pin "Alu[20]" is stuck at GND
+    Warning (13410): Pin "Alu[21]" is stuck at GND
+    Warning (13410): Pin "Alu[22]" is stuck at GND
+    Warning (13410): Pin "Alu[23]" is stuck at GND
+    Warning (13410): Pin "Alu[24]" is stuck at GND
+    Warning (13410): Pin "Alu[25]" is stuck at GND
+    Warning (13410): Pin "Alu[26]" is stuck at GND
+    Warning (13410): Pin "Alu[27]" is stuck at GND
+    Warning (13410): Pin "Alu[28]" is stuck at GND
+    Warning (13410): Pin "Alu[29]" is stuck at GND
+    Warning (13410): Pin "Alu[30]" is stuck at GND
+    Warning (13410): Pin "Alu[31]" is stuck at GND
+    Warning (13410): Pin "AluOut[0]" is stuck at GND
+    Warning (13410): Pin "AluOut[1]" is stuck at GND
+    Warning (13410): Pin "AluOut[2]" is stuck at GND
+    Warning (13410): Pin "AluOut[3]" is stuck at GND
+    Warning (13410): Pin "AluOut[4]" is stuck at GND
+    Warning (13410): Pin "AluOut[5]" is stuck at GND
+    Warning (13410): Pin "AluOut[6]" is stuck at GND
+    Warning (13410): Pin "AluOut[7]" is stuck at GND
+    Warning (13410): Pin "AluOut[8]" is stuck at GND
+    Warning (13410): Pin "AluOut[9]" is stuck at GND
+    Warning (13410): Pin "AluOut[10]" is stuck at GND
+    Warning (13410): Pin "AluOut[11]" is stuck at GND
+    Warning (13410): Pin "AluOut[12]" is stuck at GND
+    Warning (13410): Pin "AluOut[13]" is stuck at GND
+    Warning (13410): Pin "AluOut[14]" is stuck at GND
+    Warning (13410): Pin "AluOut[15]" is stuck at GND
+    Warning (13410): Pin "AluOut[16]" is stuck at GND
+    Warning (13410): Pin "AluOut[17]" is stuck at GND
+    Warning (13410): Pin "AluOut[18]" is stuck at GND
+    Warning (13410): Pin "AluOut[19]" is stuck at GND
+    Warning (13410): Pin "AluOut[20]" is stuck at GND
+    Warning (13410): Pin "AluOut[21]" is stuck at GND
+    Warning (13410): Pin "AluOut[22]" is stuck at GND
+    Warning (13410): Pin "AluOut[23]" is stuck at GND
+    Warning (13410): Pin "AluOut[24]" is stuck at GND
+    Warning (13410): Pin "AluOut[25]" is stuck at GND
+    Warning (13410): Pin "AluOut[26]" is stuck at GND
+    Warning (13410): Pin "AluOut[27]" is stuck at GND
+    Warning (13410): Pin "AluOut[28]" is stuck at GND
+    Warning (13410): Pin "AluOut[29]" is stuck at GND
+    Warning (13410): Pin "AluOut[30]" is stuck at GND
+    Warning (13410): Pin "AluOut[31]" is stuck at GND
+    Warning (13410): Pin "PC[0]" is stuck at GND
+    Warning (13410): Pin "PC[1]" is stuck at GND
+    Warning (13410): Pin "PC[2]" is stuck at GND
+    Warning (13410): Pin "PC[3]" is stuck at GND
+    Warning (13410): Pin "PC[4]" is stuck at GND
+    Warning (13410): Pin "PC[5]" is stuck at GND
+    Warning (13410): Pin "PC[6]" is stuck at GND
+    Warning (13410): Pin "PC[7]" is stuck at GND
+    Warning (13410): Pin "PC[8]" is stuck at GND
+    Warning (13410): Pin "PC[9]" is stuck at GND
+    Warning (13410): Pin "PC[10]" is stuck at GND
+    Warning (13410): Pin "PC[11]" is stuck at GND
+    Warning (13410): Pin "PC[12]" is stuck at GND
+    Warning (13410): Pin "PC[13]" is stuck at GND
+    Warning (13410): Pin "PC[14]" is stuck at GND
+    Warning (13410): Pin "PC[15]" is stuck at GND
+    Warning (13410): Pin "PC[16]" is stuck at GND
+    Warning (13410): Pin "PC[17]" is stuck at GND
+    Warning (13410): Pin "PC[18]" is stuck at GND
+    Warning (13410): Pin "PC[19]" is stuck at GND
+    Warning (13410): Pin "PC[20]" is stuck at GND
+    Warning (13410): Pin "PC[21]" is stuck at GND
+    Warning (13410): Pin "PC[22]" is stuck at GND
+    Warning (13410): Pin "PC[23]" is stuck at GND
+    Warning (13410): Pin "PC[24]" is stuck at GND
+    Warning (13410): Pin "PC[25]" is stuck at GND
+    Warning (13410): Pin "PC[26]" is stuck at GND
+    Warning (13410): Pin "PC[27]" is stuck at GND
+    Warning (13410): Pin "PC[28]" is stuck at GND
+    Warning (13410): Pin "PC[29]" is stuck at GND
+    Warning (13410): Pin "PC[30]" is stuck at GND
+    Warning (13410): Pin "PC[31]" is stuck at GND
+    Warning (13410): Pin "wr" is stuck at GND
+    Warning (13410): Pin "RegWrite" is stuck at GND
+    Warning (13410): Pin "IRWrite" is stuck at GND
     Warning (13410): Pin "Estado[5]" is stuck at GND
     Warning (13410): Pin "Estado[6]" is stuck at GND
     Warning (13410): Pin "Estado[7]" is stuck at GND
-Info: 11 registers lost all their fanouts during netlist optimizations. The first 11 are displayed below.
-    Info: Register "Control:comb_433|state.NOT_A" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state.INC" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state.WRITE_BACK" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~3" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~4" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~5" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~6" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~7" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~8" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~9" lost all its fanouts during netlist optimizations.
-    Info: Register "Control:comb_433|state~10" lost all its fanouts during netlist optimizations.
+    Warning (13410): Pin "EPC[0]" is stuck at GND
+    Warning (13410): Pin "EPC[1]" is stuck at GND
+    Warning (13410): Pin "EPC[2]" is stuck at GND
+    Warning (13410): Pin "EPC[3]" is stuck at GND
+    Warning (13410): Pin "EPC[4]" is stuck at GND
+    Warning (13410): Pin "EPC[5]" is stuck at GND
+    Warning (13410): Pin "EPC[6]" is stuck at GND
+    Warning (13410): Pin "EPC[7]" is stuck at GND
+    Warning (13410): Pin "EPC[8]" is stuck at GND
+    Warning (13410): Pin "EPC[9]" is stuck at GND
+    Warning (13410): Pin "EPC[10]" is stuck at GND
+    Warning (13410): Pin "EPC[11]" is stuck at GND
+    Warning (13410): Pin "EPC[12]" is stuck at GND
+    Warning (13410): Pin "EPC[13]" is stuck at GND
+    Warning (13410): Pin "EPC[14]" is stuck at GND
+    Warning (13410): Pin "EPC[15]" is stuck at GND
+    Warning (13410): Pin "EPC[16]" is stuck at GND
+    Warning (13410): Pin "EPC[17]" is stuck at GND
+    Warning (13410): Pin "EPC[18]" is stuck at GND
+    Warning (13410): Pin "EPC[19]" is stuck at GND
+    Warning (13410): Pin "EPC[20]" is stuck at GND
+    Warning (13410): Pin "EPC[21]" is stuck at GND
+    Warning (13410): Pin "EPC[22]" is stuck at GND
+    Warning (13410): Pin "EPC[23]" is stuck at GND
+    Warning (13410): Pin "EPC[24]" is stuck at GND
+    Warning (13410): Pin "EPC[25]" is stuck at GND
+    Warning (13410): Pin "EPC[26]" is stuck at GND
+    Warning (13410): Pin "EPC[27]" is stuck at GND
+    Warning (13410): Pin "EPC[28]" is stuck at GND
+    Warning (13410): Pin "EPC[29]" is stuck at GND
+    Warning (13410): Pin "EPC[30]" is stuck at GND
+    Warning (13410): Pin "EPC[31]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[0]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[1]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[2]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[3]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[4]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[5]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[6]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[7]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[8]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[9]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[10]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[11]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[12]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[13]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[14]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[15]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[16]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[17]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[18]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[19]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[20]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[21]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[22]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[23]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[24]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[25]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[26]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[27]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[28]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[29]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[30]" is stuck at GND
+    Warning (13410): Pin "Reg_Desloc[31]" is stuck at GND
+Info: 8 registers lost all their fanouts during netlist optimizations. The first 8 are displayed below.
+    Info: Register "Control:comb_270|state~4" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~5" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~6" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~7" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~8" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~9" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~10" lost all its fanouts during netlist optimizations.
+    Info: Register "Control:comb_270|state~11" lost all its fanouts during netlist optimizations.
 Info: Generated suppressed messages file C:/Users/José/Documents/Mips/MIPS.map.smsg
-Info: Implemented 3333 device resources after synthesis - the final resource count might be different
+Info: Implemented 3291 device resources after synthesis - the final resource count might be different
     Info: Implemented 2 input pins
-    Info: Implemented 272 output pins
-    Info: Implemented 3027 logic cells
+    Info: Implemented 336 output pins
+    Info: Implemented 2921 logic cells
     Info: Implemented 32 RAM segments
-Info: Quartus II Analysis & Synthesis was successful. 0 errors, 14 warnings
-    Info: Peak virtual memory: 290 megabytes
-    Info: Processing ended: Wed Sep 27 20:10:28 2017
-    Info: Elapsed time: 00:00:28
-    Info: Total CPU time (on all processors): 00:00:18
+Info: Quartus II Analysis & Synthesis was successful. 0 errors, 368 warnings
+    Info: Peak virtual memory: 289 megabytes
+    Info: Processing ended: Sat Oct 07 19:43:45 2017
+    Info: Elapsed time: 00:00:11
+    Info: Total CPU time (on all processors): 00:00:12
 
 
 +------------------------------------------+
