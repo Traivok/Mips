@@ -117,7 +117,7 @@ module Mux32bit_8x1(
 	
 endmodule : Mux32bit_8x1
 
-module Mux32bits_4x2(
+module Mux5bits_4x2(
 	input logic [1:0] sel,
 	input logic [4:0] in0, in1, in2, in3,
 	output logic [4:0] out);
@@ -155,4 +155,4 @@ module Mux32bits_4x2(
 		endcase
 	end
 	
-endmodule : Mux32bits_4x2
+endmodule : Mux5bits_4x2
