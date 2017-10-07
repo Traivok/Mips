@@ -74,12 +74,9 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] ALU_LHS;		// left operand of alu
 	logic [31:0] ALU_RHS;		// right operand of alu
 	logic [31:0] DP_AluOut; 		// ALU out register content
-  logic [31:0] Aout, Bout;	// content of registers a and b, respectively
-  logic [31:0] Bout_byte, Bout_Halfword;
-  
-	logic [31:0] Reg_Desloc; 	// Content of shift register
-
-	logic [31:0] EPC;			// Exception Program Counter content
+	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
+	logic [31:0] Bout_byte, Bout_Halfword;
+ 
 	logic [31:0] mul;			// mult
 
 	logic [5:0] Instr31_26;
@@ -128,12 +125,12 @@ module MIPS(input logic Clk, input logic reset,
 	// extend 15-0 field
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
-  assign SetLessThan [31:0] = { 32{ALU_lt} };
-  
-  assign OVERFLOW_EXCEPTION = 32'd255;
-  assign INVALIDCODE_EXCEPTION = 32'd254;
-  assign STACK_ADDRESS = 32'd227;
-  assign STACK_POINTER = 32'd29;
+	assign SetLessThan [31:0] = { 32{ALU_lt} };
+	  
+	assign OVERFLOW_EXCEPTION = 32'd255;
+	assign INVALIDCODE_EXCEPTION = 32'd254;
+	assign STACK_ADDRESS = 32'd227;
+	assign STACK_POINTER = 32'd29;
   
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
@@ -142,8 +139,8 @@ module MIPS(input logic Clk, input logic reset,
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
     
-    	//Shift
-   		.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
+			//Shift
+			.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
 				
 			.StateOut(Estado),
 				
@@ -159,7 +156,7 @@ module MIPS(input logic Clk, input logic reset,
 			.ALUSrcA(ALUSrcA),
 			.RegDst(RegDst),
 			.ALU_sel(ALU_sel),
-	    .MemDataSize(MemDataSize),  
+			.MemDataSize(MemDataSize),  
     
 			// registers load and reset signals
 			.A_load(A_load),
@@ -180,11 +177,12 @@ module MIPS(input logic Clk, input logic reset,
 	/* CONTROL SECTION ENDS HERE */
 	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
+	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_loag, ALU_result, EPC);
 	
 	Mux32bit_2x1 MemMux(IorD, DP_PC, DP_AluOut, DP_Address);
   
-  Extract_LSB MemDataInExtract(Bout, Bout_Halfword, Bout_Byte);
-  Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_byte, Bout_HalfWord, 32'd0, DP_WriteDataMem);
+	Extract_LSB MemDataInExtract(Bout, Bout_Halfword, Bout_Byte);
+	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_byte, Bout_HalfWord, 32'd0, DP_WriteDataMem);
   
 	Memoria Memory(.Address(DP_Address), .Clock(Clk), 
 				   .wr(DP_wr), .Datain(DP_WriteDataMem), .Dataout(DP_MemData));
@@ -192,10 +190,10 @@ module MIPS(input logic Clk, input logic reset,
 	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);
 
-  Extract_LSB extract(Bout, Half_Word, Byte);
+	Extract_LSB extract(Bout, Half_Word, Byte);
   
-  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, Half_Word, Byte, DP_WriteDataReg);
-  Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
+	Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, Half_Word, Byte, DP_WriteDataReg);
+	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
 							 Instr25_21, Instr20_16,
@@ -212,10 +210,10 @@ module MIPS(input logic Clk, input logic reset,
 	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
-  Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, 
-                      	32'd0, Aout,
-                     		NEW_PC
-                     );
+	Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, 
+							32'd0, Aout,
+							NEW_PC
+						 );
 
 endmodule : MIPS
 
@@ -232,7 +230,7 @@ module ALS(	/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
 	
 	RegDesloc DESL(Clk, reset, funct, NumberofShifts, Array, Shifted_Array);
 
-endmodule 
+endmodule : ALS
 
 module Extract_LSB ( input logic [31:0] Word, output logic [31:0] HalfWord, Byte); // Get the least significant bits of an word
 			assign HalfWord = { {16{Word[15]}}, {Word[15:0]} };
