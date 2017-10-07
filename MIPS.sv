@@ -11,9 +11,9 @@ module MIPS(input logic Clk, input logic reset,
 			output logic wr,
 			output logic RegWrite,
 			output logic IRWrite,
-      output logic [7:0] Estado,
-      output logic [31:0] EPC,
-      output logic [31:0] Reg_Desloc
+			output logic [7:0] Estado,
+			output logic [31:0] EPC,
+			output logic [31:0] Reg_Desloc
   );
 	  
 	/* Begin of Control Section */
@@ -23,15 +23,15 @@ module MIPS(input logic Clk, input logic reset,
 	logic DP_wr; 					//  memory write/read control
 	logic [1:0] MemtoReg; 
 	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instrucoes.
-  logic [2:0] PCSource;
+	logic [2:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
 	logic ALUSrcA;
 	logic DP_RegWrite;				// write registers control
 	logic RegReset;				// reset all registers of 31-0
-  logic [1:0] RegDst;				
+	logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
-  logic [1:0] MemDataSize;
+	logic [1:0] MemDataSize;
 
 	logic ALU_zero;				// alu zero result flag
 	logic ALU_overflow;
@@ -39,23 +39,25 @@ module MIPS(input logic Clk, input logic reset,
 	logic ALU_eq;					// alu equal flag
 	logic ALU_gt;					// alu greater flag
 	logic ALU_lt;					// alu less flag
-  logic REG_reset;
-  logic [2:0] REG_funct;
-  logic [4:0] REG_NumberOfShifts;
-  logic [31:0] REG_array;
-  logic [31:0] Shifted_Register;
+	logic REG_reset;
+	logic [2:0] REG_funct;
+	logic [4:0] REG_NumberOfShifts;
+	logic [31:0] REG_array;
+	logic [31:0] Shifted_Register;
 
 	logic A_load;
 	logic A_reset;		
 	logic B_load;
 	logic B_reset;
 	logic PC_load;
-	logic PC_reset;		
+	logic PC_reset;
+	logic EPC_load;
+	logic EPC_reset;	
 	logic MDR_load;
 	logic MDR_reset;
 	logic ALUOut_load;
 	logic ALUOut_reset;
-  logic IR_reset;
+	logic IR_reset;
 						
 	logic [04:0] DP_WriteRegister; // Register to be overwrited
 	/* End of Control Section */
@@ -75,7 +77,6 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] ALU_RHS;		// right operand of alu
 	logic [31:0] DP_AluOut; 		// ALU out register content
 	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
-	logic [31:0] Bout_byte, Bout_Halfword;
  
 	logic [31:0] mul;			// mult
 
@@ -95,14 +96,16 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] JMP_address;
 	logic [31:0] BEQ_address;
 	logic [31:0] ALU_result;
-  logic [31:0] Half_Word;
-  logic [31:0] Byte;
-  logic [31:0] SetLessThan;
+	logic [31:0] Half_Word;
+	logic [31:0] Byte;
+	logic [31:0] Bout_Halfword;
+	logic [31:0] Bout_Byte;
+	logic [31:0] SetLessThan;
   
-  logic [31:0] OVERFLOW_EXCEPTION;
-  logic [31:0] INVALIDCODE_EXCEPTION;
-  logic [31:0] STACK_ADDRESS;
-  logic [5:00] STACK_POINTER;
+	logic [31:0] OVERFLOW_EXCEPTION;
+	logic [31:0] INVALIDCODE_EXCEPTION;
+	logic [31:0] STACK_ADDRESS;
+	logic [5:00] STACK_POINTER;
 	/* End of Data Section */
 	
 	/* Assignment Section */
@@ -116,7 +119,7 @@ module MIPS(input logic Clk, input logic reset,
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
 	assign JMP_address[31:0] = { DP_PC[31:28], Instr25_0, 2'b00 };
 	
-	SignExtend(Instr15_0, Instr15_0_EXTENDED);
+	SignExtend SignEx(Instr15_0, Instr15_0_EXTENDED);
 	assign BEQ_address[31:00] = { Instr15_0_EXTENDED[29:00], 2'b00 };
 		
 	// extract Funct field of instruction
@@ -130,10 +133,10 @@ module MIPS(input logic Clk, input logic reset,
 	assign OVERFLOW_EXCEPTION = 32'd255;
 	assign INVALIDCODE_EXCEPTION = 32'd254;
 	assign STACK_ADDRESS = 32'd227;
-	assign STACK_POINTER = 32'd29;
+	assign STACK_POINTER = 5'd29;
   
 	/* CONTROL SECTION BEGINS HERE */
-	Control(	
+	Control (	
 			// control inputs
 			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
@@ -164,7 +167,9 @@ module MIPS(input logic Clk, input logic reset,
 			.B_load(B_load),
 			.B_reset(B_reset),
 			.PC_load(PC_load),
-			.PC_reset(PC_reset),		
+			.PC_reset(PC_reset),
+			.E_PC_load(EPC_load),					
+			.E_PC_reset(EPC_reset),
 			.MDR_load(MDR_load),
 			.MDR_reset(MDR_reset),
 			.ALUOut_load(ALUOut_load),
@@ -177,12 +182,13 @@ module MIPS(input logic Clk, input logic reset,
 	/* CONTROL SECTION ENDS HERE */
 	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
-	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_loag, ALU_result, EPC);
+	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_load, ALU_result, EPC);
 	
 	Mux32bit_2x1 MemMux(IorD, DP_PC, DP_AluOut, DP_Address);
-  
-	Extract_LSB MemDataInExtract(Bout, Bout_Halfword, Bout_Byte);
-	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_byte, Bout_HalfWord, 32'd0, DP_WriteDataMem);
+	
+	Extract_LSB MemDataInExtract( .Word(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
+	
+	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_Byte, Bout_Halfword, 32'd0, DP_WriteDataMem);
   
 	Memoria Memory(.Address(DP_Address), .Clock(Clk), 
 				   .wr(DP_wr), .Datain(DP_WriteDataMem), .Dataout(DP_MemData));
@@ -210,7 +216,7 @@ module MIPS(input logic Clk, input logic reset,
 	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
-	Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, 
+	Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, Aout, INVALIDCODE_EXCEPTION, 
 							32'd0, Aout,
 							NEW_PC
 						 );
@@ -231,11 +237,6 @@ module ALS(	/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
 	RegDesloc DESL(Clk, reset, funct, NumberofShifts, Array, Shifted_Array);
 
 endmodule : ALS
-
-module Extract_LSB ( input logic [31:0] Word, output logic [31:0] HalfWord, Byte); // Get the least significant bits of an word
-			assign HalfWord = { {16{Word[15]}}, {Word[15:0]} };
-			assign Byte = { {24{Word[7]}}, {Word[7:0]} };
-endmodule : Extract_LSB
 
 
 
