@@ -20,14 +20,14 @@ module MIPS(input logic Clk, input logic reset,
 	logic IorD;
 	logic DP_wr; 					//  memory write/read control
 	logic [1:0] MemtoReg; 
-	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instruÃƒÆ’Ã‚Â§Ãƒâ€¹Ã…â€œoes.
-	logic [1:0] PCSource;
+	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instrucoes.
+  logic [2:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
 	logic ALUSrcA;
 	logic DP_RegWrite;				// write registers control
 	logic RegReset;				// reset all registers of 31-0
-	logic RegDst;				
+  logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
 
 	logic ALU_zero;				// alu zero result flag
@@ -36,6 +36,11 @@ module MIPS(input logic Clk, input logic reset,
 	logic ALU_eq;					// alu equal flag
 	logic ALU_gt;					// alu greater flag
 	logic ALU_lt;					// alu less flag
+  logic REG_reset;
+  logic [2:0] REG_funct;
+  logic [4:0] REG_NumberOfShifts;
+  logic [31:0] REG_array;
+  logic [31:0] Shifted_Register;
 
 	logic A_load;
 	logic A_reset;		
@@ -47,7 +52,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic MDR_reset;
 	logic ALUOut_load;
 	logic ALUOut_reset;
-	logic IR_reset;
+  logic IR_reset;
 						
 	logic [04:0] DP_WriteRegister; // Register to be overwrited
 	/* End of Control Section */
@@ -82,13 +87,16 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
 	logic [5:0] Funct;
 	logic [31:0] UPPER_IMMEDIATE; 	// used in LUI instruction 15-0 field at MSD and 0 at LSD
-		
+    
 	logic [31:0] ReadData1;
 	logic [31:0] ReadData2;
 	
 	logic [31:0] JMP_address;
 	logic [31:0] BEQ_address;
 	logic [31:0] ALU_result;
+  logic [31:0] Half_Word;
+  logic [31:0] Byte;
+  logic [31:0] SetLessThan;
 	/* End of Data Section */
 	
 	/* Assignment Section */
@@ -115,7 +123,7 @@ module MIPS(input logic Clk, input logic reset,
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
 	assign JMP_address[31:0] = { DP_PC[31:28], Instr25_0, 2'b00 };
 	
-	SignExtend(Instr15_0, Instr15_0_EXTENDED);	
+	SignExtend(Instr15_0, Instr15_0_EXTENDED);
 	assign BEQ_address[31:00] = { Instr15_0_EXTENDED[29:00], 2'b00 };
 		
 	// extract Funct field of instruction
@@ -125,13 +133,16 @@ module MIPS(input logic Clk, input logic reset,
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
 	assign DP_WriteDataMem = Bout;
-	
+  assign SetLessThan [31:0] = { 32{ALU_lt} };
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
 			// control inputs
 			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
+    
+    	//Shift
+   		.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
 				
 			.StateOut(Estado),
 				
@@ -168,7 +179,6 @@ module MIPS(input logic Clk, input logic reset,
 	
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
 	
-	
 	Mux32bit_2x1 MemMux(IorD, DP_PC, DP_AluOut, DP_Address);
 
 	Memoria Memory(.Address(DP_Address), .Clock(Clk), 
@@ -177,10 +187,9 @@ module MIPS(input logic Clk, input logic reset,
 	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);	
 
-	Mux32bits_4x2 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, 32'd0, DP_WriteDataReg);
-	Mux5bit_2x1 WriteRegMux(RegDst, Instr20_16, Instr15_11, DP_WriteRegister);
-	
-	
+  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, 32'd227, SetLessThan /*, RegDesloc, halfword, byte*/ ,DP_WriteDataReg);
+  Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, 5'd29, 5'd0, DP_WriteRegister);
+		
 	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
 							 Instr25_21, Instr20_16,
 							 DP_WriteRegister, DP_WriteDataReg,
@@ -189,13 +198,36 @@ module MIPS(input logic Clk, input logic reset,
 							
 	Registrador A(Clk, A_reset, A_load, ReadData1, Aout);
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
-		
+  
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, DP_PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
-		
-	Ula32 ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt);
+  
+	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Shifted_Register);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
-	Mux32bits_4x2 PC_MUX(PCSource, ALU_result, DP_AluOut, JMP_address, 31'd12345, NEW_PC);
+	Mux32bit_8x1 PC_MUX(PCSource, ALU_result, DP_AluOut, JMP_address, 31'd12345, NEW_PC);
 
 endmodule : MIPS
+
+module ALS(	/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
+			input logic [31:0] oper_A, oper_B, input logic [2:0] ALU_sel,
+			output logic [31:0] ALU_result,	output logic overflow, 
+			negative, zero, equal, greater, lesser,
+			/* BEGIN OF SHIFT INPUTS/OUTPUTS SECTION */
+			input logic Clk, reset, input logic [2:0] funct, 
+			input logic [4:0] NumberofShifts, input logic [31:0] Array, 
+			output logic [31:0] Shifted_Array);
+		
+	ula32 ALU(oper_A, oper_B, ALU_sel, ALU_result, overflow, negative, zero, equal, greater, lesser);
+	
+	RegDesloc DESL(Clk, reset, funct, NumberofShifts, Array, Shifted_Array);
+
+endmodule 
+
+module Extract_LSB ( input logic [31:0] Word, output logic [31:0] HalfWord, Byte); // Get the least significant bits of an word
+			assign HalfWord = { {16{Word[15]}}, {Word[15:0]} };
+			assign Byte = { {24{Word[7]}}, {Word[7:0]} };
+endmodule : Extract_LSB
+
+
+
