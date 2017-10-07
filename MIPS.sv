@@ -11,9 +11,13 @@ module MIPS(input logic Clk, input logic reset,
 			output logic wr,
 			output logic RegWrite,
 			output logic IRWrite,
-			output logic [7:0] Estado
-	);
+      output logic [7:0] Estado,
+      output logic [31:0] EPC,
+      output logic [31:0] Reg_Desloc
+  );
 	
+
+  
 	/* Begin of Control Section */
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
@@ -97,6 +101,11 @@ module MIPS(input logic Clk, input logic reset,
   logic [31:0] Half_Word;
   logic [31:0] Byte;
   logic [31:0] SetLessThan;
+  
+  logic [31:0] OVERFLOW_EXCEPTION;
+  logic [31:0] INVALIDCODE_EXCEPTION;
+  logic [31:0] STACK_ADDRESS;
+  logic [5:00] STACK_POINTER;
 	/* End of Data Section */
 	
 	/* Assignment Section */
@@ -134,6 +143,12 @@ module MIPS(input logic Clk, input logic reset,
 	
 	assign DP_WriteDataMem = Bout;
   assign SetLessThan [31:0] = { 32{ALU_lt} };
+  
+  assign OVERFLOW_EXCEPTION = ;
+  logic [31:0] INVALIDCODE_EXCEPTION
+  logic [31:0] STACK_ADDRESS;
+  logic [5:00] STACK_POINTER;
+  
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
 			// control inputs
@@ -187,8 +202,8 @@ module MIPS(input logic Clk, input logic reset,
 	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);	
 
-  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, 32'd227, SetLessThan /*, RegDesloc, halfword, byte*/ ,DP_WriteDataReg);
-  Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, 5'd29, 5'd0, DP_WriteRegister);
+  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan /*, RegDesloc, halfword, byte*/ ,DP_WriteDataReg);
+  Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
 							 Instr25_21, Instr20_16,
@@ -202,10 +217,13 @@ module MIPS(input logic Clk, input logic reset,
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, DP_PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
-	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Shifted_Register);
+	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
-	Mux32bit_8x1 PC_MUX(PCSource, ALU_result, DP_AluOut, JMP_address, 31'd12345, NEW_PC);
+  Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, 
+                      	32'd0, 32'd0,
+                     		NEW_PC
+                     );
 
 endmodule : MIPS
 
