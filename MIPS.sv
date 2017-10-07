@@ -15,9 +15,7 @@ module MIPS(input logic Clk, input logic reset,
       output logic [31:0] EPC,
       output logic [31:0] Reg_Desloc
   );
-	
-
-  
+	  
 	/* Begin of Control Section */
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
@@ -75,8 +73,9 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] ALU_LHS;		// left operand of alu
 	logic [31:0] ALU_RHS;		// right operand of alu
 	logic [31:0] DP_AluOut; 		// ALU out register content
-	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
-	
+  logic [31:0] Aout, Bout;	// content of registers a and b, respectively
+  logic [31:0] Bout_byte, Bout_Halfword;
+  
 	logic [31:0] Reg_Desloc; 	// Content of shift register
 
 	logic [31:0] EPC;			// Exception Program Counter content
@@ -110,19 +109,6 @@ module MIPS(input logic Clk, input logic reset,
 	
 	/* Assignment Section */
 	
-	assign OUT_MemData = DP_MemData;
-	assign OUT_Address = DP_Address;
-	assign OUT_WriteDataMem = DP_WriteDataMem;
-	assign OUT_WriteDataReg = DP_WriteDataReg;
-	assign OUT_WriteRegister = DP_WriteRegister; 
-	assign OUT_MDR = DP_MDR;
-	assign OUT_Alu = ALU_result;
-	assign OUT_AluOut = DP_AluOut;
-	assign OUT_PC = DP_PC;
-	assign OUT_wr = DP_wr;
-	assign OUT_RegWrite = DP_RegWrite;
-	assign OUT_IRWrite = DP_IRWrite; 
-	
 	// [15:11] field of instruction is used at reg write operations
 	assign Instr15_11[4:0] = Instr15_0[15:11];
 		
@@ -141,13 +127,12 @@ module MIPS(input logic Clk, input logic reset,
 	// extend 15-0 field
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
-	assign DP_WriteDataMem = Bout;
   assign SetLessThan [31:0] = { 32{ALU_lt} };
   
-  assign OVERFLOW_EXCEPTION = ;
-  logic [31:0] INVALIDCODE_EXCEPTION
-  logic [31:0] STACK_ADDRESS;
-  logic [5:00] STACK_POINTER;
+  assign OVERFLOW_EXCEPTION = 32'd255;
+  assign INVALIDCODE_EXCEPTION = 32'd254;
+  assign STACK_ADDRESS = 32'd227;
+  assign STACK_POINTER = 32'd29;
   
 	/* CONTROL SECTION BEGINS HERE */
 	Control(	
@@ -195,14 +180,19 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
 	
 	Mux32bit_2x1 MemMux(IorD, DP_PC, DP_AluOut, DP_Address);
-
+  
+  Extract_LSB MemDataInExtract(Bout, Bout_Halfword, Bout_Byte);
+  Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_byte, Bout_HalfWord, 32'd0, DP_WriteDataMem);
+  
 	Memoria Memory(.Address(DP_Address), .Clock(Clk), 
 				   .wr(DP_wr), .Datain(DP_WriteDataMem), .Dataout(DP_MemData));
 	
 	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
-	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);	
+	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);
 
-  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan /*, RegDesloc, halfword, byte*/ ,DP_WriteDataReg);
+  Extract_LSB extract(Bout, Half_Word, Byte);
+  
+  Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, Half_Word, Byte, DP_WriteDataReg);
   Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
