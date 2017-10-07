@@ -9,9 +9,9 @@ module Control(
 				input logic ALU_eq,					// alu equal flag
 				input logic ALU_gt,					// alu greater flag
 				input logic ALU_lt,					// alu less flag
-				input logic REG_reset;
- 				input logic REG_funct;
-				input logic REG_NumberOfShifts;
+				input logic REG_reset,
+ 				input logic REG_funct,
+				input logic REG_NumberOfShifts,
 								
 				output logic [7:0] StateOut,
 				
@@ -26,7 +26,7 @@ module Control(
 				output logic [2:0] ALU_sel,
 				
 				output logic [2:0] MemtoReg, 
-				output logic [1:0] PCSource,
+				output logic [2:0] PCSource,
 				output logic ALUSrcA,
 				output logic [1:0] ALUSrcB,
 				output logic IorD,
@@ -38,11 +38,13 @@ module Control(
 				output logic B_load,
 				output logic B_reset,
 				output logic PC_load,
-				output logic PC_reset,		
+				output logic PC_reset,
+				output logic E_PC_load,
+				output logic E_PC_reset,					
 				output logic MDR_load,
 				output logic MDR_reset,
 				output logic ALUOut_load,
-				output logic ALUOut_reset
+				output logic ALUOut_reset,
 				output logic IR_reset			
 			  );
 				
@@ -130,7 +132,7 @@ module Control(
 					end
 					
 					DECODE:
-					begi
+					begin
 					
 						case (Op)
 						
@@ -328,7 +330,9 @@ module Control(
 					A_reset <= 		
 					B_load <= 
 					B_reset <= 
-					PC_reset <= 		
+					PC_reset <= 
+					E_PC_load <=
+					E_PC_reset <=	
 					MDR_load <= 
 					MDR_reset <= 
 					ALUOut_load <= 
@@ -367,7 +371,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 1;
 
-					PC_reset <= 1;	
+					PC_reset <= 1;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 1;
 					ALUOut_load <= 0;
@@ -401,7 +407,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -436,6 +444,8 @@ module Control(
 					B_reset <= 0;
 
 					PC_reset <= 0;	
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;			// store the content of address read 
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -469,7 +479,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;			// store the content of address read 
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -503,7 +515,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 1;			// store the content of address read 
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -537,7 +551,9 @@ module Control(
 					B_load <= 1;			// load read2 at B
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the alu result at aluout, it may be needed for Branch operations
@@ -571,6 +587,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -605,6 +623,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -639,6 +659,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -672,6 +694,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -705,6 +729,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -738,6 +764,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -771,6 +799,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -804,6 +834,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -838,6 +870,8 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -871,7 +905,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
@@ -905,7 +941,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -939,7 +977,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -973,7 +1013,9 @@ module Control(
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
-					PC_reset <= 0;		
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;		
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1008,6 +1050,8 @@ module Control(
 					B_reset <= 0;
 
 					PC_reset <= 0;	
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
@@ -1041,7 +1085,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1075,7 +1121,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
@@ -1109,7 +1157,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 1;			// get word
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1143,7 +1193,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 1;			// get word
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1177,7 +1229,9 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 1;			// get word
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1211,7 +1265,9 @@ module Control(
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
-					PC_reset <= 0;	
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -1245,7 +1301,9 @@ module Control(
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
-					PC_reset <= 0;		
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;		
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
