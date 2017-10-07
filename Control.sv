@@ -9,6 +9,9 @@ module Control(
 				input logic ALU_eq,					// alu equal flag
 				input logic ALU_gt,					// alu greater flag
 				input logic ALU_lt,					// alu less flag
+  			input logic REG_reset;
+ 				input logic REG_funct;
+  			input logic REG_NumberOfShifts;
 								
 				output logic [7:0] StateOut,
 				
@@ -64,8 +67,8 @@ module Control(
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
 		
-		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 09
-							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 19
+  enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
+							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2			// 24
 						 } StateEnum;
 							
@@ -101,9 +104,14 @@ module Control(
 				
 					RESET:
 					begin
-						state <= FETCH;
+						state <= STACK_INIT;
 						holdState <= RESET;
 					end
+          
+        	STACK_INIT:
+          begin
+            state <= FETCH;
+          end
 				
 					FETCH:
 					begin
@@ -360,7 +368,39 @@ module Control(
 					ALUOut_load <= 0;
 					ALUOut_reset <= 1;
 					IR_reset <= 1;			
-				end					
+				end
+        
+        STACK_INIT:
+        begin
+ 					PCWriteCond <= 0;
+					PCWrite <= 0;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					
+					MemtoReg <= 3'b011;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					IorD <= 1'b0;
+					RegDst <= 2'b10;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+        end
 			
 				FETCH:					// get content of pc, read it and send a memread signal
 				begin					// the MDR and IR will be loaded with Memory content
