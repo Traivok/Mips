@@ -29,7 +29,7 @@ module Control(
 				output logic [2:0] PCSource,
 				output logic ALUSrcA,
 				output logic [1:0] ALUSrcB,
-				output logic IorD,
+				output logic [1:0] IorD,
 				output logic [1:0] RegDst,
 				output logic [1:0] MemDataSize,
 				
@@ -48,9 +48,7 @@ module Control(
 				output logic IR_reset			
 			  );
 				
-	/* BEGIN OF DATA SECTION */		
-		logic [7:0] holdState;		// use it if the value of some state will be used
-		
+	/* BEGIN OF DATA SECTION */				
 		logic [7:0] state;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero
 		
@@ -108,7 +106,6 @@ module Control(
 					RESET:
 					begin
 						state <= STACK_INIT;
-						holdState <= RESET;
 					end
           
         	STACK_INIT:
@@ -323,7 +320,7 @@ module Control(
 					
 					ALUSrcA <= 1'bx;
 					ALUSrcB <= 2'bxx; 
-					IorD <= 1'bx;
+					IorD <= 2'bxx;
 					RegDst <= 2'bxx;
 					
 					A_load <= 
@@ -363,7 +360,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -373,7 +370,7 @@ module Control(
 
 					PC_reset <= 1;
 					E_PC_load <= 0;
-					E_PC_reset <= 0;
+					E_PC_reset <= 1;
 					MDR_load <= 0;
 					MDR_reset <= 1;
 					ALUOut_load <= 0;
@@ -399,7 +396,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b10;
 					
 					A_load <= 0;
@@ -435,7 +432,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b01; 
-					IorD <= 1'b0;			// instruction set
+					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -471,7 +468,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b01; 
-					IorD <= 1'b0;			// instruction set
+					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -507,7 +504,7 @@ module Control(
 					PCSource <= 3'b000;		// perform a sum of PC + 4 
 					ALUSrcA <= 1'b0;			// get the PC value
 					ALUSrcB <= 2'b01; 		// and +4
-					IorD <= 1'b0;			// instruction set
+					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -543,7 +540,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b11;	// get the [15-0] field of instruction extended and multiplied by 4 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 1;			// load read1 at A
@@ -579,7 +576,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -615,7 +612,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b01; //
 					
 					A_load <= 0;
@@ -651,7 +648,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -686,7 +683,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -721,7 +718,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -756,7 +753,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -791,7 +788,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // don't care
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -826,7 +823,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // don't care
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -862,7 +859,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -897,7 +894,7 @@ module Control(
 					PCSource <= 3'b010;  // PC <<= {PC[31:28],(IR[25:0], 2'b00)}
 					ALUSrcA <= 1'b0; 
 					ALUSrcB <= 2'b11;   // The 2nd input of ALU is the sign-extended, lower 16 bits of the IR shiftled left 2 bits
-					IorD <= 1'b1;
+					IorD <= 2'b01;
 					RegDst <= 2'b00;     // Don't Care
 					
 					A_load <= 0;
@@ -933,7 +930,7 @@ module Control(
 					PCSource <= 3'b001;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -969,7 +966,7 @@ module Control(
 					PCSource <= 3'b001;   // ???
 					ALUSrcA <= 1'b1;     // The first ALU operend comes from the A register
 					ALUSrcB <= 2'b00;    // The 2nd input of ALU comes from B register
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00; 
 					
 					A_load <= 0;
@@ -1006,7 +1003,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;				// [20-16] will specify what reg will be overwrited
 					
 					A_load <= 0;
@@ -1041,7 +1038,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b1;		// get the content of the A register
 					ALUSrcB <= 2'b10; 	// and the sign extended of offset
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -1077,7 +1074,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
-					IorD <= 1'b1;			// set to data
+					IorD <= 2'b01;			// set to data
 					RegDst <= 2'b00;
 						
 					A_load <= 0;
@@ -1113,7 +1110,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b1;		// get the content of the A register
 					ALUSrcB <= 2'b10; 	// and the sign extended of offset
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -1149,7 +1146,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
-					IorD <= 1'b1;			// set to data to memmux
+					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
 						
 					A_load <= 0;
@@ -1185,7 +1182,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
-					IorD <= 1'b1;			// set to data to memmux
+					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
 					
 					A_load <= 0;
@@ -1221,7 +1218,7 @@ module Control(
 					PCSource <= 3'b000; 
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
-					IorD <= 1'b1;			// set to data to memmux
+					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
 						
 					A_load <= 0;
@@ -1258,7 +1255,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;			// content of rt (20-16)
 					
 					A_load <= 0;
@@ -1294,7 +1291,7 @@ module Control(
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00; 
-					IorD <= 1'b0;
+					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
 					A_load <= 0;

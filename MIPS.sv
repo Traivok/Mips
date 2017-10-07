@@ -19,7 +19,7 @@ module MIPS(input logic Clk, input logic reset,
 	/* Begin of Control Section */
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
-	logic IorD;
+	logic [1:0] IorD;
 	logic DP_wr; 					//  memory write/read control
 	logic [1:0] MemtoReg; 
 	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instrucoes.
@@ -184,7 +184,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
 	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_load, ALU_result, EPC);
 	
-	Mux32bit_2x1 MemMux(IorD, DP_PC, DP_AluOut, DP_Address);
+	Mux32bits_4x2 MemMux(IorD, DP_PC, DP_AluOut, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, DP_Address);
 	
 	Extract_LSB MemDataInExtract( .Word(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
 	
@@ -216,10 +216,10 @@ module MIPS(input logic Clk, input logic reset,
 	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
 	
-	Mux32bit_8x1 PC_MUX(	PCSource, ALU_result, DP_AluOut, JMP_address, EPC, Aout, INVALIDCODE_EXCEPTION, 
-							32'd0, Aout,
+	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, DP_AluOut, JMP_address, EPC, Aout, 
+							32'd0, 32'd0, 32'd0,
 							NEW_PC
-						 );
+						);
 
 endmodule : MIPS
 
