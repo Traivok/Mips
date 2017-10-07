@@ -30,7 +30,8 @@ module Control(
 				output logic ALUSrcA,
 				output logic [1:0] ALUSrcB,
 				output logic IorD,
-				output logic [1:0] RegDst,
+			  output logic [1:0] RegDst,
+  			output logic [1:0] MemDataSize,
 				
 				output logic A_load,
 				output logic A_reset,		
@@ -305,6 +306,8 @@ module Control(
 /*		APAGAR ISSO DEPOIS, ZE
 				PCWriteCond <=  
 					PCWrite <= 
+          
+          MemDataSize <= 0;
 					
 					wr <= 				
 					IRWrite <= 
@@ -342,6 +345,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -374,6 +379,8 @@ module Control(
         begin
  					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -406,6 +413,8 @@ module Control(
 				begin					// the MDR and IR will be loaded with Memory content
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0;			// get the current instruction
@@ -438,6 +447,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -470,6 +481,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 1;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 1; 
@@ -502,6 +515,8 @@ module Control(
 				begin					// add PC content with instruction offset field, uset if next OP is beq
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;	
 					IRWrite <= 0; 
@@ -534,6 +549,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -565,6 +582,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -597,6 +616,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;				
 					IRWrite <= 0; 
@@ -629,6 +650,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -660,6 +683,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -691,6 +716,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -722,6 +749,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -753,6 +782,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -784,6 +815,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;				
 					IRWrite <= 0; 
@@ -816,6 +849,8 @@ module Control(
 				begin
 					PCWriteCond <= 0; // Don't care?
 					PCWrite <= 1;     // Write at PC
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;			 // Don't write
 					IRWrite <= 0;     // DÃƒÂºvida
@@ -848,6 +883,8 @@ module Control(
 				begin
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;			  // read from memory
 					IRWrite <= 0;         //
@@ -880,6 +917,8 @@ module Control(
 				begin
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;			  // read from memory
 					IRWrite <= 0;
@@ -913,6 +952,8 @@ module Control(
 					PCWriteCond <= 0;  
 					PCWrite <= 0;
 					
+          MemDataSize <= 0;
+          
 					wr <= 0;		
 					IRWrite <= 0;
 					RegWrite <= 1;				// write UI at rt
@@ -944,6 +985,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -976,6 +1019,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 1;					// write
 					IRWrite <= 0; 
@@ -1008,6 +1053,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -1040,6 +1087,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1072,6 +1121,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1104,6 +1155,8 @@ module Control(
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1136,6 +1189,8 @@ module Control(
 				begin
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0;
@@ -1168,6 +1223,8 @@ module Control(
 				begin
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
+          
+          MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
