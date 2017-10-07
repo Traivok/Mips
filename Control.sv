@@ -9,9 +9,9 @@ module Control(
 				input logic ALU_eq,					// alu equal flag
 				input logic ALU_gt,					// alu greater flag
 				input logic ALU_lt,					// alu less flag
-  			input logic REG_reset;
+				input logic REG_reset;
  				input logic REG_funct;
-  			input logic REG_NumberOfShifts;
+				input logic REG_NumberOfShifts;
 								
 				output logic [7:0] StateOut,
 				
@@ -30,8 +30,8 @@ module Control(
 				output logic ALUSrcA,
 				output logic [1:0] ALUSrcB,
 				output logic IorD,
-			  output logic [1:0] RegDst,
-  			output logic [1:0] MemDataSize,
+				output logic [1:0] RegDst,
+				output logic [1:0] MemDataSize,
 				
 				output logic A_load,
 				output logic A_reset,		
@@ -307,7 +307,7 @@ module Control(
 				PCWriteCond <=  
 					PCWrite <= 
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 				
 					IRWrite <= 
@@ -346,7 +346,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -380,7 +380,7 @@ module Control(
  					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -414,7 +414,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0;			// get the current instruction
@@ -448,7 +448,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -482,7 +482,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 1;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 1; 
@@ -516,7 +516,7 @@ module Control(
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;	
 					IRWrite <= 0; 
@@ -550,7 +550,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -583,7 +583,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -617,7 +617,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;				
 					IRWrite <= 0; 
@@ -651,7 +651,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -684,7 +684,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -717,7 +717,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -750,7 +750,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -783,7 +783,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;
 					IRWrite <= 0;
@@ -816,7 +816,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;				
 					IRWrite <= 0; 
@@ -850,7 +850,7 @@ module Control(
 					PCWriteCond <= 0; // Don't care?
 					PCWrite <= 1;     // Write at PC
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;			 // Don't write
 					IRWrite <= 0;     // DÃƒÂºvida
@@ -884,7 +884,7 @@ module Control(
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;			  // read from memory
 					IRWrite <= 0;         //
@@ -918,7 +918,7 @@ module Control(
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;			  // read from memory
 					IRWrite <= 0;
@@ -952,7 +952,7 @@ module Control(
 					PCWriteCond <= 0;  
 					PCWrite <= 0;
 					
-          MemDataSize <= 0;
+					MemDataSize <= 0;
           
 					wr <= 0;		
 					IRWrite <= 0;
@@ -986,7 +986,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -1020,7 +1020,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 1;					// write
 					IRWrite <= 0; 
@@ -1054,7 +1054,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
@@ -1088,7 +1088,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1122,7 +1122,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1156,7 +1156,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 						
 					wr <= 0;					// read
 					IRWrite <= 0; 
@@ -1190,7 +1190,7 @@ module Control(
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0;
@@ -1224,7 +1224,7 @@ module Control(
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
           
-          MemDataSize <= 0;
+					MemDataSize <= 0;
 					
 					wr <= 0;		
 					IRWrite <= 0; 
