@@ -66,7 +66,7 @@ module Control(
 		
 		enum logic [7:0] { RESET, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 09
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 19
-							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, SW_DELAY			// 25
+							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2			// 24
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -278,11 +278,6 @@ module Control(
 					
 					SW:
 					begin
-						state <= SW_DELAY;
-					end
-					
-					SW_DELAY:
-					begin
 						state <= FETCH;
 					end
 					
@@ -373,7 +368,7 @@ module Control(
 					PCWrite <= 0;
 					
 					wr <= 0;		
-					IRWrite <= 1;			// get the current instruction
+					IRWrite <= 0;			// get the current instruction
 					RegWrite <= 0;
 					RegReset <= 0;
 													
@@ -392,7 +387,7 @@ module Control(
 					B_reset <= 0;
 
 					PC_reset <= 0;	
-					MDR_load <= 1;			// store the content of address read 
+					MDR_load <= 0;			// store the content of address read 
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
@@ -405,7 +400,7 @@ module Control(
 					PCWrite <= 0;
 					
 					wr <= 0;		
-					IRWrite <= 1; 
+					IRWrite <= 0; 
 					RegWrite <= 0;
 					RegReset <= 0;
 													
@@ -424,11 +419,11 @@ module Control(
 					B_reset <= 0;
 
 					PC_reset <= 0;	
-					MDR_load <= 1;			// store the content of address read 
+					MDR_load <= 0;			// store the content of address read 
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
-					IR_reset <= 	0;	
+					IR_reset <= 0;	
 				end
 				
 				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
@@ -938,38 +933,6 @@ module Control(
 				end
 				
 				SW:
-				begin
-					PCWriteCond <= 0;
-					PCWrite <= 0;
-					
-					wr <= 1;					// write
-					IRWrite <= 0; 
-					RegWrite <= 0;
-					RegReset <= 0;
-													
-					ALU_sel <= 3'b000;
-						
-					MemtoReg <= 2'b00;
-					PCSource <= 3'b000; 
-					ALUSrcA <= 1'b0;
-					ALUSrcB <= 2'b00;
-					IorD <= 1'b1;			// set to data
-					RegDst <= 1'b0;
-						
-					A_load <= 0;
-					A_reset <= 0;	
-					B_load <= 0;
-					B_reset <= 0;
-
-					PC_reset <= 0;	
-					MDR_load <= 0;
-					MDR_reset <= 0;
-					ALUOut_load <= 0;
-					ALUOut_reset <= 0;
-					IR_reset <= 0;	
-				end
-
-				SW_DELAY:
 				begin
 					PCWriteCond <= 0;
 					PCWrite <= 0;
