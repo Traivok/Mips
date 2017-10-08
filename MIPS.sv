@@ -96,8 +96,6 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] JMP_address;
 	logic [31:0] BEQ_address;
 	logic [31:0] ALU_result;
-	logic [31:0] Half_Word;
-	logic [31:0] Byte;
 	logic [31:0] Bout_Halfword;
 	logic [31:0] Bout_Byte;
 	logic [31:0] SetLessThan;
@@ -195,10 +193,8 @@ module MIPS(input logic Clk, input logic reset,
 	
 	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);
-
-	Extract_LSB extract(Bout, Half_Word, Byte);
   
-	Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, Half_Word, Byte, DP_WriteDataReg);
+	Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, Bout_HalfWord, Bout_Byte, DP_WriteDataReg);
 	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
