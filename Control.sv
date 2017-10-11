@@ -9,6 +9,7 @@ module Control(
 				input logic ALU_eq,					// alu equal flag
 				input logic ALU_gt,					// alu greater flag
 				input logic ALU_lt,					// alu less flag
+				
 				output logic REG_reset,
  				output logic [2:0] REG_funct,
 				output logic [4:0] REG_NumberOfShifts,
@@ -303,7 +304,11 @@ module Control(
 		end
 
 /*		APAGAR ISSO DEPOIS, ZE
-				PCWriteCond <=  
+
+				REG_reset <= 0;
+					REG_funct < 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					PCWriteCond <=  
 					PCWrite <= 
           
 					MemDataSize <= 2'b00;
@@ -344,6 +349,10 @@ module Control(
 				
 				RESET:					// reset ALL registers
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -380,6 +389,10 @@ module Control(
         
         STACK_INIT:
         begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
  					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -416,6 +429,10 @@ module Control(
 			
 				FETCH:					// get content of pc, read it and send a memread signal
 				begin					// the MDR and IR will be loaded with Memory content
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -452,6 +469,11 @@ module Control(
 				
 				FETCH_MEM_DELAY1:					// just hold memread signal
 				begin
+				
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -488,6 +510,10 @@ module Control(
 				
 				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 1;
           
@@ -524,6 +550,10 @@ module Control(
 				
 				DECODE:					// store values read of 32 Mips registers at A,B;
 				begin					// add PC content with instruction offset field, uset if next OP is beq
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
           
@@ -560,6 +590,10 @@ module Control(
 				
 				ADD:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -595,6 +629,10 @@ module Control(
 				
 				R_WAIT:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -631,6 +669,10 @@ module Control(
 				
 				NOP:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -667,6 +709,10 @@ module Control(
 				
 				AND:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -702,6 +748,10 @@ module Control(
 				
 				SUB:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -737,6 +787,10 @@ module Control(
 				
 				XOR:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -772,6 +826,10 @@ module Control(
 				
 				/*NOT_A:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -807,6 +865,10 @@ module Control(
 				
 				INC:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -842,6 +904,10 @@ module Control(
 				
 				BREAK:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -878,13 +944,17 @@ module Control(
 				
 				J:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0; // Don't care?
 					PCWrite <= 1;     // Write at PC
           
 					MemDataSize <= 2'b00;
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // DÃƒÂºvida
+					IRWrite <= 0;     // DÃƒÆ’Ã‚Âºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
@@ -914,6 +984,10 @@ module Control(
 				
 				BEQ:		// branch if Aout == Bout
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
           
@@ -950,6 +1024,10 @@ module Control(
 								
 				BNE:					//	branch if Aout != Bout
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
           
@@ -986,6 +1064,10 @@ module Control(
 				
 				LUI:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;  
 					PCWrite <= 0;
 					
@@ -1022,6 +1104,10 @@ module Control(
 				
 				SW_ADDRESS_COMP: 			// compute the address of memory acsess
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1058,6 +1144,10 @@ module Control(
 				
 				SW:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1094,6 +1184,10 @@ module Control(
 
 				LW_ADDRESS_COMP: 			// compute the address of memory acsess
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1130,6 +1224,10 @@ module Control(
 			
 				LW:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1166,6 +1264,10 @@ module Control(
 				
 				LW_DELAY1:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1202,6 +1304,10 @@ module Control(
 				
 				LW_DELAY2:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -1238,6 +1344,10 @@ module Control(
 			
 				WRITE_BACK:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
           
@@ -1274,6 +1384,10 @@ module Control(
 				
 				default:
 				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
           
