@@ -20,14 +20,11 @@ module MIPS(input logic Clk, input logic reset,
 	logic PCWriteCond; 
 	logic PCWrite; 				// ativo em 1
 	logic [1:0] IorD;
-	logic DP_wr; 					//  memory write/read control
 	logic [2:0] MemtoReg; 
-	logic DP_IRWrite; 				// Instruction register write controla a escrita no registrador de instrucoes.
 	logic [2:0] PCSource;
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
 	logic ALUSrcA;
-	logic DP_RegWrite;				// write registers control
 	logic RegReset;				// reset all registers of 31-0
 	logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
@@ -58,24 +55,13 @@ module MIPS(input logic Clk, input logic reset,
 	logic ALUOut_load;
 	logic ALUOut_reset;
 	logic IR_reset;
-						
-	logic [04:0] DP_WriteRegister; // Register to be overwrited
 	/* End of Control Section */
 	
 	/* Begin of Data Section */
 	logic [31:0] NEW_PC;
-	logic [31:0] DP_PC;			// PC content
 	
-	logic [31:0] DP_MemData;		// Memory content
-	logic [31:0] DP_Address;		// address of memory query
-
-	logic [31:0] DP_WriteDataReg; 	// Data to be write
-	logic [31:0] DP_WriteDataMem;	// data to write at memory
-	logic [31:0] DP_MDR;			// Memory Data Register content
-	logic [31:0] DP_Alu;			// ALU result
 	logic [31:0] ALU_LHS;		// left operand of alu
 	logic [31:0] ALU_RHS;		// right operand of alu
-	logic [31:0] DP_AluOut; 		// ALU out register content
 	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
  
 	logic [31:0] mul;			// mult
@@ -118,7 +104,7 @@ module MIPS(input logic Clk, input logic reset,
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
 		
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
-	assign JMP_address[31:0] = { DP_PC[31:28], Instr25_0, 2'b00 };
+	assign JMP_address[31:0] = { PC[31:28], Instr25_0, 2'b00 };
 	
 	SignExtend SignEx(Instr15_0, Instr15_0_EXTENDED);
 	assign BEQ_address[31:00] = { Instr15_0_EXTENDED[29:00], 2'b00 };
@@ -152,9 +138,9 @@ module MIPS(input logic Clk, input logic reset,
 			.PCWriteCond(PCWriteCond),
 			.PCWrite(PCWrite),
 			.IorD(IorD),
-			.wr(DP_wr),
+			.wr(wr),
 			.MemtoReg(MemtoReg),
-			.IRWrite(DP_IRWrite),
+			.IRWrite(IRWrite),
 			.PCSource(PCSource),
 			.ALUSrcB(ALUSrcB),
 			.ALUSrcA(ALUSrcA),
@@ -177,66 +163,51 @@ module MIPS(input logic Clk, input logic reset,
 			.ALUOut_reset(ALUOut_reset),
 			.IR_reset(IR_reset),
 			.RegReset(RegReset),
-			.RegWrite(DP_RegWrite)
+			.RegWrite(RegWrite)
 						
 		);			
 	/* CONTROL SECTION ENDS HERE */
 	
-	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, DP_PC);
+	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_load, ALU_result, EPC);
 	
-	Mux32bits_4x2 MemMux(IorD, DP_PC, DP_AluOut, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, DP_Address);
+	Mux32bits_4x2 MemMux(IorD, PC, AluOut, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, Address);
 	
 	Extract_LSB MemDataInExtract( .Word(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
 	
-	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_Byte, Bout_Halfword, 32'd0, DP_WriteDataMem);
+	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_Byte, Bout_Halfword, 32'd0, WriteDataMem);
   
-	Memoria Memory(.Address(DP_Address), .Clock(Clk), 
-				   .wr(DP_wr), .Datain(DP_WriteDataMem), .Dataout(DP_MemData));
+	Memoria Memory(.Address(Address), .Clock(Clk), 
+				   .wr(wr), .Datain(WriteDataMem), .Dataout(MemData));
 	
-	Instr_Reg Instruction_Register(Clk, IR_reset, DP_IRWrite, DP_MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
-	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, DP_MemData, DP_MDR);
+	Instr_Reg Instruction_Register(Clk, IR_reset, IRWrite, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
+	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);
   
-	ZeroExtension MDRExtract( .Word(DP_MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );   
-	Mux32bit_8x1 WriteDataMux(MemtoReg, DP_AluOut, DP_MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, MDR_Halfword, MDR_Byte, DP_WriteDataReg);
-	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, DP_WriteRegister);
+	ZeroExtension MDRExtract( .Word(MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );   
+	Mux32bit_8x1 WriteDataMux(MemtoReg, AluOut, MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, MDR_Halfword, MDR_Byte, WriteDataReg);
+	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, WriteRegister);
 		
-	Banco_reg Registers(Clk, RegReset, DP_RegWrite, 
+	Banco_reg Registers(Clk, RegReset, RegWrite, 
 							 Instr25_21, Instr20_16,
-							 DP_WriteRegister, DP_WriteDataReg,
+							 WriteRegister, WriteDataReg,
 							 ReadData1, ReadData2
 						);
 							
 	Registrador A(Clk, A_reset, A_load, ReadData1, Aout);
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
   
-	Mux32bit_2x1 LHS_Mux(ALUSrcA, DP_PC, Aout, ALU_LHS);
+	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
 	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
-	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, DP_AluOut);
+	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
 	
-	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, DP_AluOut, JMP_address, EPC, Aout, 
+	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
 							MDR_Byte, 32'd0, 32'd0,
 							NEW_PC
 						);
 
 endmodule : MIPS
-
-module ALS(	/* BEGIN OF ALU INPUTS/OUTPUTS SECTION */
-			input logic [31:0] oper_A, oper_B, input logic [2:0] ALU_sel,
-			output logic [31:0] ALU_result,	output logic overflow, 
-			negative, zero, equal, greater, lesser,
-			/* BEGIN OF SHIFT INPUTS/OUTPUTS SECTION */
-			input logic Clk, reset, input logic [2:0] funct, 
-			input logic [4:0] NumberofShifts, input logic [31:0] Array, 
-			output logic [31:0] Shifted_Array);
-		
-	ula32 ALU(oper_A, oper_B, ALU_sel, ALU_result, overflow, negative, zero, equal, greater, lesser);
-	
-	RegDesloc DESL(Clk, reset, funct, NumberofShifts, Array, Shifted_Array);
-
-endmodule : ALS
 
 
 
