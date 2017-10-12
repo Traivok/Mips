@@ -45,7 +45,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [4:0] REG_NumberOfShifts;
 	logic [31:0] REG_array;
 	logic [31:0] Shifted_Register;
-	logic startMult;
+	logic workMult;
 	logic endMult;
 
 	logic A_load;
@@ -133,7 +133,7 @@ module MIPS(input logic Clk, input logic reset,
 			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
-			.endMult(endMult), .startMult(startMult),
+			.endMult(endMult), .workMult(workMult),
 			//Shift
 			.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
 				
@@ -211,7 +211,7 @@ module MIPS(input logic Clk, input logic reset,
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), . lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
 				.NumberofShifts(REG_NumberOfShifts), .Array(ALU_RHS), .Shifted_Array(Reg_Desloc),
-				.startMult(startMult), .mul(mul), .endMult(endMult)
+				.workMult(workMult), .mul(mul), .endMult(endMult)
 			);
 	
 	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, mul[63:32], mul[31:00], ALUOutIn);

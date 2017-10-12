@@ -1,4 +1,4 @@
-module multiplication(input logic Clk, start, reset, input logic [31:0] lhs, rhs, output logic [63:0] result, output logic endSignal, output logic [4:0] counter);
+module multiplication(input logic Clk, work, reset, input logic [31:0] lhs, rhs, output logic [63:0] result, output logic endSignal, output logic [4:0] counter);
 	/*
 	logic [31:0] multiplier, multiplicand;
 	assign result = {multiplier, multiplicand} ;
