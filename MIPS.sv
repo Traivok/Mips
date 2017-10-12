@@ -13,7 +13,10 @@ module MIPS(input logic Clk, input logic reset,
 			output logic IRWrite,
 			output logic [7:0] Estado,
 			output logic [31:0] EPC,
-			output logic [31:0] Reg_Desloc
+			output logic [31:0] Reg_Desloc,
+			output logic [63:0] mul,
+			output logic [31:0] ALU_LHS,
+			output logic [31:0] ALU_RHS
   );
 	  
 	/* Begin of Control Section */
@@ -25,6 +28,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [1:0] ALUOp;
 	logic [1:0] ALUSrcB;
 	logic ALUSrcA;
+	logic [1:0] ALUOutSrc;
 	logic RegReset;				// reset all registers of 31-0
 	logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
@@ -41,6 +45,8 @@ module MIPS(input logic Clk, input logic reset,
 	logic [4:0] REG_NumberOfShifts;
 	logic [31:0] REG_array;
 	logic [31:0] Shifted_Register;
+	logic startMult;
+	logic endMult;
 
 	logic A_load;
 	logic A_reset;		
@@ -60,11 +66,8 @@ module MIPS(input logic Clk, input logic reset,
 	/* Begin of Data Section */
 	logic [31:0] NEW_PC;
 	
-	logic [31:0] ALU_LHS;		// left operand of alu
-	logic [31:0] ALU_RHS;		// right operand of alu
 	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
- 
-	logic [31:0] mul;			// mult
+	logic [31:0] ALUOutIn;
 
 	logic [5:0] Instr31_26;
 	logic [4:0] Instr25_21;
@@ -99,6 +102,8 @@ module MIPS(input logic Clk, input logic reset,
 	
 	// [15:11] field of instruction is used at reg write operations
 	assign Instr15_11[4:0] = Instr15_0[15:11];
+	
+	assign Alu = ALU_result;
 		
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
@@ -128,7 +133,7 @@ module MIPS(input logic Clk, input logic reset,
 			.Clk(Clk), .Reset_signal(reset), .Op(Instr31_26), .Funct(Funct), 
 			// alu flags
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
-    
+			.endMult(endMult), .startMult(startMult),
 			//Shift
 			.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
 				
@@ -144,6 +149,7 @@ module MIPS(input logic Clk, input logic reset,
 			.PCSource(PCSource),
 			.ALUSrcB(ALUSrcB),
 			.ALUSrcA(ALUSrcA),
+			.ALUOutSrc(ALUOutSrc),
 			.RegDst(RegDst),
 			.ALU_sel(ALU_sel),
 			.MemDataSize(MemDataSize),  
@@ -199,8 +205,17 @@ module MIPS(input logic Clk, input logic reset,
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
-	ALS ALU(ALU_LHS, ALU_RHS, ALU_sel, ALU_result, ALU_overflow, ALU_neg, ALU_zero, ALU_eq, ALU_gt, ALU_lt, Clk, REG_reset, REG_funct, REG_NumberOfShifts, Bout, Reg_Desloc);
-	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALU_result, AluOut);
+	ALS ALU (
+				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
+				.ALU_result(ALU_result), .overflow(ALU_overflow), 
+				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), . lesser(ALU_lt), 
+				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
+				.NumberofShifts(REG_NumberOfShifts), .Array(ALU_RHS), .Shifted_Array(Reg_Desloc),
+				.startMult(startMult), .mul(mul), .endMult(endMult)
+			);
+	
+	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, mul[63:32], mul[31:00], ALUOutIn);
+	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
 	
 	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
 							MDR_Byte, 32'd0, 32'd0,
