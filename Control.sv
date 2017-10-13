@@ -68,13 +68,14 @@ module Control(
 		
 	/* BEGIN OF ENUM SECTION */		
 		enum logic [5:0] { FUNCT_OP = 6'h0,
-				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2 } OpCodeEnum;
+				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he } OpCodeEnum;
 				  
-		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0 } FunctEnum;
+		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0, ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23 } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
-							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2			// 24
+							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
+							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -170,6 +171,16 @@ module Control(
 									begin
 										state <= NOP;
 									end
+									
+									ADDU_FUNCT:
+									begin
+										state <= ADDU;
+									end
+									
+									SUBU_FUNCT:
+									begin
+										state <= SUBU;
+									end
 							
 								endcase // case funct
 							end
@@ -182,6 +193,11 @@ module Control(
 							BNE_OP:
 							begin
 								state <= BNE;
+							end
+							
+							ANDI_OP:
+							begin
+								state <= ANDI;
 							end
 							
 							LW_OP:
@@ -204,11 +220,41 @@ module Control(
 								state <= J;
 							end
 							
+							ADDI_OP:
+							begin
+								state <= ADDI;
+							end
+							
+							ADDIU_OP:
+							begin
+								state <= ADDIU;
+							end
+							
+							SXORI_OP:
+							begin
+								state <= SXORI;
+							end
+							
 						endcase // case OP		
 						
 					end // DECODE
 					
-					ADD:
+					ADDU:
+					begin
+						state <= R_WAIT; 
+					end
+					
+					ADDI:
+					begin
+						state <= R_WAIT_IMMEDIATE; 
+					end
+					
+					ADDIU:
+					begin
+						state <= R_WAIT_IMMEDIATE; 
+					end
+				
+					ADD: 
 					begin
 						state <= R_WAIT;
 					end
@@ -218,9 +264,19 @@ module Control(
 						state <= FETCH;
 					end
 					
+					R_WAIT_IMMEDIATE:
+					begin
+						state <= FETCH;
+					end
+					
 					AND:
 					begin
 						state <= R_WAIT;
+					end
+					
+					ANDI:
+					begin
+						state <= R_WAIT_IMMEDIATE;
 					end
 					
 					SUB:
@@ -228,9 +284,19 @@ module Control(
 						state <= R_WAIT;
 					end
 					
+					SUBU:
+					begin
+						state <= R_WAIT;
+					end
+							
 					XOR:
 					begin
 						state <= R_WAIT;
+					end
+					
+					SXORI:
+					begin
+						state <= R_WAIT_IMMEDIATE;
 					end
 					
 					BREAK:
@@ -309,7 +375,7 @@ module Control(
 /*		APAGAR ISSO DEPOIS, ZE
 
 				REG_reset <= 0;
-					REG_funct < 3'b000;
+					REG_funct <= 3'b000;
 					REG_NumberOfShifts <= 5'b00000;
 					PCWriteCond <=  
 					PCWrite <= 
@@ -394,8 +460,8 @@ module Control(
 					IR_reset <= 1;			
 				end
         
-        STACK_INIT:
-        begin
+				STACK_INIT:
+				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
 					REG_NumberOfShifts <= 5'b00000;
@@ -434,7 +500,7 @@ module Control(
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
-        end
+				end
 			
 				FETCH:					// get content of pc, read it and send a memread signal
 				begin					// the MDR and IR will be loaded with Memory content
@@ -605,7 +671,89 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				ADD:
+				ADDIU:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b001; // soma 
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000; 
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1; // A (rs)
+					ALUSrcB <= 2'b10; // sign_extend
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00; 
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; //
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				ADDI:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b001; // soma 
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000; 
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1; // A (rs)
+					ALUSrcB <= 2'b10; // sign_extend
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00; 
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; //
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				ADDU: 
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -629,6 +777,47 @@ module Control(
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
 					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				ADD:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b001;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					
@@ -673,6 +862,48 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b01; //
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				R_WAIT_IMMEDIATE:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 1; //
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000; // ALUout
+					PCSource <= 3'b000;
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00; // rt
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -771,6 +1002,47 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				ANDI:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b011; // and
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000; 
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b10; // sign_extend
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; //
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
 				SUB:
 				begin
 					REG_reset <= 0;
@@ -812,6 +1084,47 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				SUBU:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b010; // sub
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; //
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
 				XOR:
 				begin
 					REG_reset <= 0;
@@ -849,6 +1162,47 @@ module Control(
 					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
+				SXORI:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					REG_NumberOfShifts <= 5'b00000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b110; // xor
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b10; // sign_extend
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
 				end
