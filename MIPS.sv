@@ -208,7 +208,7 @@ module MIPS(input logic Clk, input logic reset,
 	ALS ALU (
 				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
 				.ALU_result(ALU_result), .overflow(ALU_overflow), 
-				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), . lesser(ALU_lt), 
+				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
 				.NumberofShifts(REG_NumberOfShifts), .Array(ALU_RHS), .Shifted_Array(Reg_Desloc),
 				.workMult(workMult), .mul(mul), .endMult(endMult)
