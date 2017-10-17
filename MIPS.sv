@@ -75,6 +75,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [15:0] Instr15_0;
 	logic [4:0] Instr15_11;
 	logic [25:0] Instr25_0;
+	logic [4:0] Shamt; // 10-6
 	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
 	logic [5:0] Funct;
 	logic [31:0] UPPER_IMMEDIATE; 	// used in LUI instruction 15-0 field at MSD and 0 at LSD
@@ -107,7 +108,8 @@ module MIPS(input logic Clk, input logic reset,
 		
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
-		
+	assign Shamt [4:0] = { Instr15_0 [10:6] };
+	
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
 	assign JMP_address[31:0] = { PC[31:28], Instr25_0, 2'b00 };
 	
@@ -135,7 +137,7 @@ module MIPS(input logic Clk, input logic reset,
 			.ALU_zero(ALU_zero), .ALU_overflow(ALU_overflow), .ALU_neg(ALU_neg), .ALU_eq(ALU_eq), .ALU_gt(ALU_gt), .ALU_lt(ALU_lt), 
 			.endMult(endMult), .workMult(workMult),
 			//Shift
-			.REG_reset(REG_reset), .REG_funct(REG_funct), .REG_NumberOfShifts(REG_NumberOfShifts),
+			.REG_reset(REG_reset), .REG_funct(REG_funct),
 				
 			.StateOut(Estado),
 				
@@ -204,6 +206,8 @@ module MIPS(input logic Clk, input logic reset,
   
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
+  
+	Mux5bit_2x1 ShiftAmountMux( ShamtOrRt, Bout, Shamt, REG_NumberOfShifts );
   
 	ALS ALU (
 				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
