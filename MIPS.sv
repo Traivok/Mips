@@ -179,7 +179,7 @@ module MIPS(input logic Clk, input logic reset,
 	
 	Mux32bits_4x2 MemMux(IorD, PC, AluOut, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, Address);
 	
-	Extract_LSB MemDataInExtract( .Word(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
+	MemWrapper MemDataSizeHandler( .MemData(MDR), .Address(Address), .value(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
 	
 	Mux32bits_4x2 MemDataInMux(MemDataSize, Bout, Bout_Byte, Bout_Halfword, 32'd0, WriteDataMem);
   
@@ -191,7 +191,7 @@ module MIPS(input logic Clk, input logic reset,
   
 	ZeroExtension MDRExtract( .Word(MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );   
 	Mux32bit_8x1 WriteDataMux(MemtoReg, AluOut, MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, MDR_Halfword, MDR_Byte, WriteDataReg);
-	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd0, WriteRegister);
+	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd31, WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, RegWrite, 
 							 Instr25_21, Instr20_16,
