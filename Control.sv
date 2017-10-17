@@ -13,7 +13,6 @@ module Control(
 				
 				output logic REG_reset,
  				output logic [2:0] REG_funct,
-				output logic [4:0] REG_NumberOfShifts,
 								
 				output logic [7:0] StateOut,
 				
@@ -75,7 +74,8 @@ module Control(
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
-							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA_SHIFT, SRA_SIGN_EXTENDED
+							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA_SHIFT, SRA_SIGN_EXTENDED, // 37
+							TREATING_OVERFLOW
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -256,7 +256,15 @@ module Control(
 				
 					ADD: 
 					begin
-						state <= R_WAIT;
+						if(ALU_overflow) // se houve overflow vai para o tratador
+							state <= TREATING_OVERFLOW;
+						else //senão, segue normalmente
+							state <= R_WAIT;
+					end
+					
+					TREATING_OVERFLOW:
+					begin
+						
 					end
 					
 					R_WAIT:
@@ -401,7 +409,7 @@ module Control(
 
 				REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <=  
 					PCWrite <= 
           
@@ -447,7 +455,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -489,7 +497,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
  					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -531,7 +539,7 @@ module Control(
 				begin					// the MDR and IR will be loaded with Memory content
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -574,7 +582,7 @@ module Control(
 				
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -616,7 +624,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 1;
@@ -658,7 +666,7 @@ module Control(
 				begin					// add PC content with instruction offset field, uset if next OP is beq
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
@@ -696,11 +704,52 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				TREATING_OVERFLOW:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b010; // sub
+					workMult <= 0;
+					
+					MemtoReg <= 3'bxxx;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0; //PC
+					ALUSrcB <= 2'bxx; //4
+					ALUOutSrc <= 2'b00; //ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; // resultado no ALU_out
+					ALUOut_reset <= 0;
+					IR_reset <= 0;
+				end
+				
 				ADDIU:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -741,7 +790,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
@@ -782,7 +831,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -823,7 +872,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -864,7 +913,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -906,7 +955,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -948,7 +997,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -990,7 +1039,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1031,7 +1080,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1072,7 +1121,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1113,7 +1162,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1154,7 +1203,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1195,7 +1244,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1236,7 +1285,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1277,7 +1326,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1318,7 +1367,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1360,7 +1409,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0; // Don't care?
 					PCWrite <= 1;     // Write at PC
@@ -1368,7 +1417,7 @@ module Control(
 					MemDataSize <= 2'b00;
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // DÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºvida
+					IRWrite <= 0;     // DÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
@@ -1402,7 +1451,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
@@ -1444,7 +1493,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 1; 
 					PCWrite <= 0;     
@@ -1486,7 +1535,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;  
 					PCWrite <= 0;
@@ -1528,7 +1577,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1570,7 +1619,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1612,7 +1661,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1654,7 +1703,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1696,7 +1745,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1738,7 +1787,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1780,7 +1829,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
@@ -1822,7 +1871,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b010;
-					REG_NumberOfShifts <= 5'b00000; // NumberOfShifts = shamt?
+					 // NumberOfShifts = shamt?
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1863,7 +1912,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b011;
-					REG_NumberOfShifts <= 5'b00000; // NumberOfShifts = shamt?
+					 // NumberOfShifts = shamt?
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1904,7 +1953,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b010;
-					REG_NumberOfShifts <= 5'b00000; // NumberOfShifts = rs ?
+					 // NumberOfShifts = rs ?
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1945,7 +1994,6 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b100;
-					REG_NumberOfShifts <= 5'b00000; // NumberOfShifts = shamt ?
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -1986,7 +2034,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -2029,7 +2077,7 @@ module Control(
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					REG_NumberOfShifts <= 5'b00000;
+					
 					
 					PCWriteCond <= 0; 
 					PCWrite <= 0;
