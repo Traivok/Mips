@@ -75,10 +75,10 @@ module MIPS(input logic Clk, input logic reset,
 	logic [15:0] Instr15_0;
 	logic [4:0] Instr15_11;
 	logic [25:0] Instr25_0;
-	logic [4:0] Shamt; // 10-6
 	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
-	logic [5:0] Funct;
 	logic [31:0] UPPER_IMMEDIATE; 	// used in LUI instruction 15-0 field at MSD and 0 at LSD
+    logic [5:0] Funct;
+	logic [4:0] Shamt; // 10-6
     
 	logic [31:0] ReadData1;
 	logic [31:0] ReadData2;
@@ -97,6 +97,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] INVALIDCODE_EXCEPTION;
 	logic [31:0] STACK_ADDRESS;
 	logic [5:00] STACK_POINTER;
+	logic [5:00] LINK_ADDRESS;
 	/* End of Data Section */
 	
 	/* Assignment Section */
@@ -128,7 +129,7 @@ module MIPS(input logic Clk, input logic reset,
 	assign INVALIDCODE_EXCEPTION = 32'd254;
 	assign STACK_ADDRESS = 32'd227;
 	assign STACK_POINTER = 5'd29;
-  
+	assign LINK_ADDRESS = 5'd31;
 	/* CONTROL SECTION BEGINS HERE */
 	Control (	
 			// control inputs
@@ -193,7 +194,7 @@ module MIPS(input logic Clk, input logic reset,
   
 	ZeroExtension MDRExtract( .Word(MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );   
 	Mux32bit_8x1 WriteDataMux(MemtoReg, AluOut, MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, MDR_Halfword, MDR_Byte, WriteDataReg);
-	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, 5'd31, WriteRegister);
+	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, LINK_ADDRESS, WriteRegister);
 		
 	Banco_reg Registers(Clk, RegReset, RegWrite, 
 							 Instr25_21, Instr20_16,
