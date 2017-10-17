@@ -5,6 +5,8 @@ addiu
 andi
 sxori
 subu
+lbu
+lhu
 
 Daniel:
 jr
@@ -19,9 +21,8 @@ sra
 srav
 srl
 
-José:
-lbu
-lhu
-lb
+JosÃ©:
+rte
+sb
 sh
 mul
