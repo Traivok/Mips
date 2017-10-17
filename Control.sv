@@ -707,7 +707,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_OVERFLOW:
+				TREATING_OVERFLOW_1: 
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -725,12 +725,12 @@ module Control(
 					ALU_sel <= 3'b010; // sub
 					workMult <= 0;
 					
-					MemtoReg <= 3'bxxx;
+					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
 					
 					ALUSrcA <= 1'b0; //PC
 					ALUSrcB <= 2'bxx; //4
-					ALUOutSrc <= 2'b00; //ALU_result
+					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRt <= 1'b0;
@@ -740,11 +740,11 @@ module Control(
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
-					E_PC_load <= 0;
+					E_PC_load <= 1; // resultado no ALU_out
 					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 1; // resultado no ALU_out
+					ALUOut_load <= 0; 
 					ALUOut_reset <= 0;
 					IR_reset <= 0;
 				end
