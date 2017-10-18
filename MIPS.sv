@@ -95,6 +95,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] Bout_Byte;
 	logic [31:0] MDR_Byte;
 	logic [31:0] MDR_Halfword;
+	logic [31:0] Byte_Address;
 	
 	logic [31:0] SetLessThan;
   
@@ -129,6 +130,8 @@ module MIPS(input logic Clk, input logic reset,
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
 	assign SetLessThan [31:0] = { 31'd0, ALU_lt };
+	
+	assign Byte_Address [31:0] = { 24'd0, MemData[7:0] };
 	  
 	assign OVERFLOW_EXCEPTION = 32'd255;
 	assign INVALIDCODE_EXCEPTION = 32'd254;
@@ -199,7 +202,8 @@ module MIPS(input logic Clk, input logic reset,
 	Instr_Reg Instruction_Register(Clk, IR_reset, IRWrite, MemData, Instr31_26, Instr25_21, Instr20_16, Instr15_0);
 	Registrador MemDataRegister(Clk, MDR_reset, MDR_load, MemData, MDR);
   
-	ZeroExtension MDRExtract( .Word(MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );   
+	ZeroExtension MDRExtract( .Word(MDR), .HalfWord(MDR_Halfword), .Byte(MDR_Byte) );
+	
 	Mux32bit_8x1 WriteDataMux(MemtoReg, AluOut, MDR, UPPER_IMMEDIATE, STACK_ADDRESS, SetLessThan, Reg_Desloc, MDR_Halfword, MDR_Byte, WriteDataReg);
 	Mux5bits_4x2 WriteRegMux(RegDst, Instr20_16, Instr15_11, STACK_POINTER, LINK_ADDRESS, WriteRegister);
 		
