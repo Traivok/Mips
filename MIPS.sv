@@ -32,6 +32,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic RegReset;				// reset all registers of 31-0
 	logic [1:0] RegDst;				
 	logic [2:0] ALU_sel;
+	logic ShamtOrRs;
 	logic [1:0] MemDataSize;
 
 	logic ALU_zero;				// alu zero result flag
@@ -139,7 +140,7 @@ module MIPS(input logic Clk, input logic reset,
 			.endMult(endMult), .workMult(workMult),
 			//Shift
 			.REG_reset(REG_reset), .REG_funct(REG_funct),
-				
+			.ShamtOrRs(ShamtOrRs),
 			.StateOut(Estado),
 				
 			// enables, disables
@@ -206,9 +207,9 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
   
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
-	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
+	Mux32bits_4x2 RHS_Mux(ALUSrcB, Aout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
-	Mux5bit_2x1 ShiftAmountMux( ShamtOrRt, Bout, Shamt, REG_NumberOfShifts );
+	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Bout, Shamt, REG_NumberOfShifts );
   
 	ALS ALU (
 				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
