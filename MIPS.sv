@@ -214,7 +214,7 @@ module MIPS(input logic Clk, input logic reset,
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Aout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
-	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Bout, Shamt, REG_NumberOfShifts );
+	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Aout, Shamt, REG_NumberOfShifts );
   
 	ALS ALU (
 				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
