@@ -12,39 +12,46 @@ module multiplication(input logic Clk, reset, input logic [5:0] state, input log
 		begin
 			endSignal = 1;
 			result = 64'd0;
-			multiplier = lhs;
-			multiplicand = rhs;
+			counter = 6'd0;
+			multiplier = 32'd0;
+			multiplicand = 32'd0;
 		end
 		else
 		begin
+			
 			if (state == MULT_IDLE)
 			begin
-				endSignal = 0;
-				result = 64'd0;
-				multiplier = 32'd0;
-				multiplicand = 32'd0;
+				endSignal = 1;
 			end
+			
 			else if (state == MULT_INIT)
 			begin
 				endSignal = 0;
+				counter = 6'd0;
 				result = 64'd0;
 				multiplier = lhs;
-				multiplicand = rhs;			
+				multiplicand = rhs;		
 			end
 			else if (state == MULT_WORK)
 			begin
 				
-				for (counter = 6'd0; counter < 6'd32; counter++)
+				if (counter > 6'd31) 
 				begin
-					if (multiplier[0] == 1'b0)
-					begin
-						result = result + { 32'd0, multiplicand };
-					end
+					endSignal = 1; 
+				end
+				
+				else
+				begin
 					
+					endSignal = 0;
+							
+					if (multiplier[0] == 1'b0)
+						result = result + { 32'd0, multiplicand };
+										
+					counter = counter + 1'b1;
 					multiplicand = multiplicand << 1;
 					multiplier = multiplier >> 1;				
-					
-				end		
+				end
 				
 			end // state
 						
