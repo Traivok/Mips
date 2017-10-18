@@ -26,7 +26,7 @@ module Control(
 				output logic RegReset,
 												
 				output logic [2:0] ALU_sel,
-				output logic workMult,
+				output logic [5:0] workMult,
 				
 				output logic [2:0] MemtoReg, 
 				output logic [2:0] PCSource,
@@ -491,7 +491,7 @@ module Control(
 					RegReset <= 
 													
 					ALU_sel <= 3'bxxx;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'bxxx;
 					PCSource <= 3'b0xx; 
@@ -541,7 +541,7 @@ module Control(
 					RegReset <= 1;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -586,7 +586,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b011;
 					PCSource <= 3'b000; 
@@ -631,7 +631,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -677,7 +677,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -722,7 +722,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001;		// 001 is the ADD code of ALU
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;		// perform a sum of PC + 4 
@@ -767,7 +767,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001;	// perform an addition of PC and offset field
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -811,7 +811,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b010; // sub
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -855,7 +855,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001; // soma 
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000; 
 					PCSource <= 3'b000; 
@@ -899,7 +899,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001; // soma 
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000; 
 					PCSource <= 3'b000; 
@@ -944,7 +944,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b001;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -988,7 +988,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b001;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1032,7 +1032,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000; //
 					PCSource <= 3'b000;
@@ -1077,7 +1077,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000; // ALUout
 					PCSource <= 3'b000;
@@ -1122,7 +1122,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1167,7 +1167,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b011;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1211,7 +1211,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b011; // and
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000; 
 					PCSource <= 3'b000;
@@ -1255,7 +1255,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b010;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1299,7 +1299,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b010; // sub
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1342,7 +1342,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b110;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1386,7 +1386,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b110; // xor
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -1430,7 +1430,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1475,7 +1475,7 @@ module Control(
 					RegReset <= 0;	
 													
 					ALU_sel <= 3'b001; //sum
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b010;  // PC <<= {PC[31:28],(IR[25:0], 2'b00)}
@@ -1520,7 +1520,7 @@ module Control(
 					RegReset <= 0;	
 													
 					ALU_sel <= 3'b010;   //	sub
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b001;   // ???
@@ -1565,7 +1565,7 @@ module Control(
 					RegReset <= 0;	
 													
 					ALU_sel <= 3'b010;   //sub
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b001;   // ???
@@ -1610,7 +1610,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b010;			// get 15-0 extendend field
 					PCSource <= 3'b000; 
@@ -1655,7 +1655,7 @@ module Control(
 					RegReset <= 0;
 												
 					ALU_sel <= 3'b001;	// add the Aout to Offset
-					workMult <= 0;
+					workMult <= 6'd0;
 						
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1700,7 +1700,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 						
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1745,7 +1745,7 @@ module Control(
 					RegReset <= 0;
 												
 					ALU_sel <= 3'b001;	// add the Aout to Offset
-					workMult <= 0;
+					workMult <= 6'd0;
 						
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1790,7 +1790,7 @@ module Control(
 					RegReset <= 0;
 														
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 						
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1835,7 +1835,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1880,7 +1880,7 @@ module Control(
 					RegReset <= 0;
 														
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
@@ -1925,7 +1925,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b001;		// Write the content of MDR at WriteReg
 					PCSource <= 3'b000; 
@@ -1970,7 +1970,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -2014,7 +2014,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -2058,7 +2058,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -2101,7 +2101,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -2144,7 +2144,7 @@ module Control(
 					RegReset <= 0;
 					
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000;
@@ -2360,7 +2360,7 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
-					workMult <= 0;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
