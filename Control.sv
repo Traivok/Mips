@@ -80,15 +80,15 @@ module Control(
 						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
 						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12,
 						 SRL_FUNCT = 6'h2, SLLV_FUNCT = 6'h4,
-						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8/*,
-						 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
+						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8, 
+						  SLT_FUNCT = 6'h2a /*,	 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP 
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, RTE,   
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP,
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE,   
 							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE,
 							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE,
 							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3
@@ -243,6 +243,11 @@ module Control(
 									JR_FUNCT:
 									begin
 										state <= JR;
+									end
+									
+									SLT_FUNCT:
+									begin
+										state <= SLT;
 									end
 							
 								endcase // case funct
@@ -431,6 +436,12 @@ module Control(
 					begin
 						state <= J;
 					end
+					
+					SLT:
+					begin
+						state <= FETCH;
+					end
+					
 					LUI:
 					begin
 						state <= FETCH;
@@ -2379,6 +2390,50 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				SLT:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0	;	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b100;// set less than
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+								
 				BEQ:		// branch if Aout == Bout
 				begin
 					REG_reset <= 0;
