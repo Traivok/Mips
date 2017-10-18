@@ -230,14 +230,14 @@ module MIPS(input logic Clk, input logic reset,
 				.workMult(workMult), .mul(mul_Module), .endMult(endMult), .MultCounter(MultCounter)
 			);
 	
-	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul_Module[63:32], himul); 
+	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul_Module[63:32], himul);
 	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul_Module[31:00], lomul);
 	
 	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, himul, lomul, ALUOutIn);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
 	
 	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
-							32'd0, 32'd0, 32'd0,
+							Byte_Address, 32'd0, 32'd0,
 							NEW_PC
 						);
 
