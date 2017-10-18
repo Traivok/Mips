@@ -4,7 +4,7 @@ de sb 2 M[0], 4 M[1], 6 M[2], 8 M[3]
 e depois de lw em Z, veja se MemData e [2][4][6][8]
 sh 516 M[0] e 2064 M[2]
 lw em z e veja se MemData e [2][4][8][16]
-*/
+
 
 				RTE:
 				begin	
@@ -493,3 +493,4 @@ lw em z e veja se MemData e [2][4][8][16]
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end 
+*/
