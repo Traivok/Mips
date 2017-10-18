@@ -73,24 +73,27 @@ module Control(
 				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b,
 				  LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9,
 				  ANDI_OP = 6'hc, SXORI_OP = 6'he, JAL_OP = 6'h3, RTE_OP = 6'h10,
-				  SB_OP = 6'h28, SH_OP = 6'h29 } OpCodeEnum;
+				  SB_OP = 6'h28, SH_OP = 6'h29, LBU_OP = 6'h24, LHU_OP = 6'h25 } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
 						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
 						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
 						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12,
 						 SRL_FUNCT = 6'h2, SLLV_FUNCT = 6'h4,
-						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8/*,
-						 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
+						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8, 
+						  SLT_FUNCT = 6'h2a /*,	 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, TREATING_OVERFLOW_2_DELAY1, TREATING_OVERFLOW_2_DELAY2, TREATING_OVERFLOW_3,//  42
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, RTE,   // 49
-							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE, // 54
-							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE // 59						
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP, //42
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 51
+							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE, //56
+							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE, //61
+							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
+		    					LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3 // 71
+											
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -242,6 +245,11 @@ module Control(
 									begin
 										state <= JR;
 									end
+									
+									SLT_FUNCT:
+									begin
+										state <= SLT;
+									end
 							
 								endcase // case funct
 							end
@@ -250,6 +258,16 @@ module Control(
 							begin
 								if (Funct == 6'h10) state <= RTE;
 								else state <= RESET;//INVALID OPCODE;								
+							end
+							
+							LBU_OP:
+							begin
+								state <= LBU_1;
+							end
+							
+							LHU_OP:
+							begin
+								state <= LHU_1;
 							end
 							
 							BEQ_OP:
@@ -321,6 +339,55 @@ module Control(
 						
 					end // DECODE
 					
+					LBU_1:
+					begin
+						state <= LBU_2;
+					end
+					
+					LBU_2:
+					begin
+						state <= LBU_2_DELAY1;
+					end
+						
+					LBU_2_DELAY1:
+					begin
+						state <= LBU_2_DELAY2;
+					end
+						
+					LBU_2_DELAY2:
+					begin
+						state <= LBU_3;
+					end
+						
+					LBU_3:
+					begin
+						state <= FETCH;
+					end	
+
+					LHU_1:
+					begin
+						state <= LHU_2;
+					end
+					
+					LHU_2:
+					begin
+						state <= LHU_2_DELAY1;
+					end
+						
+					LHU_2_DELAY1:
+					begin
+						state <= LHU_2_DELAY2;
+					end
+						
+					LHU_2_DELAY2:
+					begin
+						state <= LHU_3;
+					end
+						
+					LHU_3:
+					begin
+						state <= FETCH;
+					end						
 					ADDU:
 					begin
 						state <= R_WAIT; 
@@ -354,22 +421,22 @@ module Control(
 					
 					TREATING_OVERFLOW_2:
 					begin
-						state <= TREATING_OVERFLOW_2_DELAY1;
+						state <= EXCEPTION_DELAY;
 					end
 					
-					TREATING_OVERFLOW_2_DELAY1:
-					begin
-						state <= TREATING_OVERFLOW_2_DELAY2;
-					end
-					
-					TREATING_OVERFLOW_2_DELAY2:
-					begin
-						state <= TREATING_OVERFLOW_3;
-					end
-					
-					TREATING_OVERFLOW_3:
+					LOAD_PC_EXCEPTION:
 					begin
 						state <= FETCH;
+					end
+					
+					EXCEPTION_DELAY:
+					begin
+						state <= LOAD_PC_EXCEPTION;
+					end
+					
+					TREATING_INVALID_OP:
+					begin
+						state <= EXCEPTION_DELAY;
 					end
 					
 					R_WAIT:
@@ -444,6 +511,12 @@ module Control(
 					begin
 						state <= J;
 					end
+					
+					SLT:
+					begin
+						state <= FETCH;
+					end
+					
 					LUI:
 					begin
 						state <= FETCH;
@@ -605,7 +678,7 @@ module Control(
 					
 					default:
 					begin
-						state <= RESET;
+						state <= TREATING_INVALID_OP;
 					end
 				endcase	// state
 			end // RESET signal
@@ -931,6 +1004,446 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				LBU_1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b001; // sum
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b10; // instr[15:0] sign extended
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; // ALU_result to ALUOut
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LBU_2:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; // leitura			
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01; // ALUOut
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0; 
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LBU_2_DELAY1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; 	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00; 
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0; 
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LBU_2_DELAY2: 
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; 	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00; 
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; // a leitura vai para o MDR
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LBU_3:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 1; //
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b111; // MDR_Byte
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00; // rt
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;		
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LHU_1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b001; // sum
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b10; // instr[15:0] sign extended
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; // ALU_result to ALUOut
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LHU_2:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; // leitura			
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01; // ALUOut
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0; 
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LHU_2_DELAY1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; 	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00; 
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0; 
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LHU_2_DELAY2: 
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; 	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00; 
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; // a leitura vai para o MDR
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+
+				LHU_3:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 1; //
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b110; // MDR_Word
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00; // rt
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;		
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
 				TREATING_OVERFLOW_1: // EPC = PC - 4 
 				begin
 					REG_reset <= 0;
@@ -975,7 +1488,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_OVERFLOW_2: // leitura da mem�ria do endere�o 255 (overflow)
+				TREATING_OVERFLOW_2: // leitura da memória do endereço 255 (overflow)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1018,8 +1531,8 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
-				
-				TREATING_OVERFLOW_2_DELAY1: 
+	
+				EXCEPTION_DELAY: 
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1048,7 +1561,7 @@ module Control(
 					ShamtOrRs <= 0;
 					
 					A_load <= 0;
-					A_reset <= 0;	
+					A_reset <= 0;
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
@@ -1063,51 +1576,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_OVERFLOW_2_DELAY2: 
-				begin
-					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
-					PCWriteCond <= 0;
-					PCWrite <= 0;
-          
-					MemDataSize <= 2'b00;
-					
-					wr <= 0;
-					IRWrite <= 0;
-					RegWrite <= 0;
-					RegReset <= 0;
-													
-					ALU_sel <= 3'b000;
-					workMult <= 0;
-					
-					MemtoReg <= 3'b000;
-					PCSource <= 3'b000; 
-					
-					ALUSrcA <= 1'b0;
-					ALUSrcB <= 2'b00;
-					ALUOutSrc <= 2'b00;
-					IorD <= 2'b00;
-					RegDst <= 2'b00;
-					ShamtOrRs <= 0;
-					
-					A_load <= 0;
-					A_reset <= 0;	
-					B_load <= 0;
-					B_reset <= 0;
-					PC_reset <= 0;
-					E_PC_load <= 0;
-					E_PC_reset <= 0;
-					MDR_load <= 0;
-					MDR_reset <= 0;
-					ALUOut_load <= 0;
-					ALUOut_reset <= 0;
-					MulReg_reset <= 0;
- 					MulReg_load <= 0;
-					IR_reset <= 0;
-				end
-				
-				TREATING_OVERFLOW_3:
+				LOAD_PC_EXCEPTION:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1137,6 +1606,50 @@ module Control(
 					
 					A_load <= 0;
 					A_reset <= 0;		
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				TREATING_INVALID_OP: // leitura da memória do endereço 254 (invalid opcode)
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; // leitura
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b11; // INVALIDCODE_EXCEPTION
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
@@ -1828,7 +2341,7 @@ module Control(
 					MemDataSize <= 2'b00;
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // DÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºvida
+					IRWrite <= 0;     // DÃÆÃâÃâ Ã¢â¬â¢ÃÆÃ¢â¬Â ÃÂ¢Ã¢âÂ¬Ã¢âÂ¢ÃÆÃâÃÂ¢Ã¢âÂ¬ÃÂ¡ÃÆÃ¢â¬Å¡ÃâÃÂºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
@@ -1952,6 +2465,50 @@ module Control(
 					IR_reset <= 0;
 				end
 				
+				SLT:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0	;	
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b100;// set less than
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+								
 				BEQ:		// branch if Aout == Bout
 				begin
 					REG_reset <= 0;
@@ -3322,14 +3879,13 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end 
-					
-							
-				default:
+								
+				default: // EPC = PC - 4 
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;					
+					REG_funct <= 3'b000;
 					
-					PCWriteCond <= 0; 
+					PCWriteCond <= 0;
 					PCWrite <= 0;
           
 					MemDataSize <= 2'b00;
@@ -3339,29 +3895,29 @@ module Control(
 					RegWrite <= 0;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b000;
-					workMult <= 6'd0;
+					ALU_sel <= 3'b010; // sub
+					workMult <= 0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
 					
-					ALUSrcA <= 1'b0;
-					ALUSrcB <= 2'b00; 
+					ALUSrcA <= 1'b0; //PC
+					ALUSrcB <= 2'b01; //4
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRs <= 1'b0;
+					ShamtOrRs <= 0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
-					E_PC_load <= 0;
-					E_PC_reset <= 0;		
+					E_PC_load <= 1; // resultado no EPC
+					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 0;
+					ALUOut_load <= 0; 
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
