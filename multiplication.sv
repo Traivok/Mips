@@ -1,6 +1,6 @@
 module multiplication (
 	    input logic Clk, reset, input logic [5:0] state, input logic [31:0] lhs, rhs,
-		output logic [63:0] result, output logic endSignal, output logic [5:0] counter,
+		output logic [63:0] result, output logic endSignal, output logic [5:0] counter
 	   );
 	
 	logic [31:0] multiplier;
