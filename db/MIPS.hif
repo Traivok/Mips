@@ -233,9 +233,6 @@ VERILOG_CONSTANT_LOOP_LIMIT
 VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
-# hierarchies {
-Extract_LSB:MemDataInExtract
-}
 # macro_sequence
 
 # end
@@ -276,18 +273,124 @@ ZeroExtension:MDRExtract
 
 # end
 # entity
-MIPS
+altsyncram_e1a1
 # storage
-db|MIPS.(0).cnf
-db|MIPS.(0).cnf
+db|MIPS.(9).cnf
+db|MIPS.(9).cnf
+# case_insensitive
+# source_file
+db|altsyncram_e1a1.tdf
+5f46b4426971a8cb9acc96938ade06f
+7
+# used_port {
+wren_a
+-1
+3
+q_a7
+-1
+3
+q_a6
+-1
+3
+q_a5
+-1
+3
+q_a4
+-1
+3
+q_a3
+-1
+3
+q_a2
+-1
+3
+q_a1
+-1
+3
+q_a0
+-1
+3
+data_a7
+-1
+3
+data_a6
+-1
+3
+data_a5
+-1
+3
+data_a4
+-1
+3
+data_a3
+-1
+3
+data_a2
+-1
+3
+data_a1
+-1
+3
+data_a0
+-1
+3
+clock1
+-1
+3
+clock0
+-1
+3
+address_a7
+-1
+3
+address_a6
+-1
+3
+address_a5
+-1
+3
+address_a4
+-1
+3
+address_a3
+-1
+3
+address_a2
+-1
+3
+address_a1
+-1
+3
+address_a0
+-1
+3
+}
+# memory_file {
+instrucoes.mif
+792845c46fbf550bd3152fa4d52649e
+}
+# hierarchies {
+Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
+Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
+Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
+Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
+}
+# macro_sequence
+
+# end
+# entity
+ALS
+# storage
+db|MIPS.(17).cnf
+db|MIPS.(17).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
 }
 # case_sensitive
 # source_file
-mips.sv
-2e04fdb982572d98544455a6d1cd
+als.sv
+ce1ad15764a6a44cfff22a3ae277fd9
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -306,7 +409,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-|
+ALS:ALU
 }
 # macro_sequence
 
@@ -341,19 +444,57 @@ Registrador:ExcProgramCounter
 Registrador:MemDataRegister
 Registrador:A
 Registrador:B
+Registrador:HImul
+Registrador:LOmul
 Registrador:ALUOut_Reg
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
+# macro_sequence
+
+# end
+# entity
+MemWrapper
+# storage
+db|MIPS.(5).cnf
+db|MIPS.(5).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+memwrapper.sv
+536bbe908f2e4743480339fa16184bc
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+MemWrapper:MemDataSizeHandler
+}
 # macro_sequence
 
 # end
 # entity
 Memoria
 # storage
-db|MIPS.(5).cnf
-db|MIPS.(5).cnf
+db|MIPS.(6).cnf
+db|MIPS.(6).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -377,7 +518,7 @@ ON
 Memoria:Memory
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
 # macro_sequence
 
@@ -385,11 +526,11 @@ a36c8ec425c8a2589af98b2d4daabc3
 # entity
 LPM_RAM_DQ
 # storage
-db|MIPS.(6).cnf
-db|MIPS.(6).cnf
+db|MIPS.(7).cnf
+db|MIPS.(7).cnf
 # case_insensitive
 # source_file
-|users|dpc2|desktop|quartus|libraries|megafunctions|lpm_ram_dq.tdf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|libraries|megafunctions|lpm_ram_dq.tdf
 8cb8fb4e8f3e90656f489fc92aabb9
 7
 # user_parameter {
@@ -545,11 +686,11 @@ Memoria:Memory|lpm_ram_dq:MEM_plus_Three
 # entity
 altram
 # storage
-db|MIPS.(7).cnf
-db|MIPS.(7).cnf
+db|MIPS.(8).cnf
+db|MIPS.(8).cnf
 # case_insensitive
 # source_file
-|users|dpc2|desktop|quartus|libraries|megafunctions|altram.tdf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|libraries|megafunctions|altram.tdf
 c72d5dfba4da3c5a1457d7f3112cd3b
 7
 # user_parameter {
@@ -713,11 +854,11 @@ Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram
 # entity
 altsyncram
 # storage
-db|MIPS.(8).cnf
-db|MIPS.(8).cnf
+db|MIPS.(10).cnf
+db|MIPS.(10).cnf
 # case_insensitive
 # source_file
-|users|dpc2|desktop|quartus|libraries|megafunctions|altsyncram.tdf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|libraries|megafunctions|altsyncram.tdf
 67d9a3902c8a461c1d5750189e124f2
 7
 # user_parameter {
@@ -1015,116 +1156,10 @@ Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block
 
 # end
 # entity
-altsyncram_e1a1
-# storage
-db|MIPS.(9).cnf
-db|MIPS.(9).cnf
-# case_insensitive
-# source_file
-db|altsyncram_e1a1.tdf
-5f46b4426971a8cb9acc96938ade06f
-7
-# used_port {
-wren_a
--1
-3
-q_a7
--1
-3
-q_a6
--1
-3
-q_a5
--1
-3
-q_a4
--1
-3
-q_a3
--1
-3
-q_a2
--1
-3
-q_a1
--1
-3
-q_a0
--1
-3
-data_a7
--1
-3
-data_a6
--1
-3
-data_a5
--1
-3
-data_a4
--1
-3
-data_a3
--1
-3
-data_a2
--1
-3
-data_a1
--1
-3
-data_a0
--1
-3
-clock1
--1
-3
-clock0
--1
-3
-address_a7
--1
-3
-address_a6
--1
-3
-address_a5
--1
-3
-address_a4
--1
-3
-address_a3
--1
-3
-address_a2
--1
-3
-address_a1
--1
-3
-address_a0
--1
-3
-}
-# memory_file {
-instrucoes.mif
-792845c46fbf550bd3152fa4d52649e
-}
-# hierarchies {
-Memoria:Memory|lpm_ram_dq:MEM|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
-Memoria:Memory|lpm_ram_dq:MEM_plus_One|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
-Memoria:Memory|lpm_ram_dq:MEM_plus_Two|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
-Memoria:Memory|lpm_ram_dq:MEM_plus_Three|altram:sram|altsyncram:ram_block|altsyncram_e1a1:auto_generated
-}
-# macro_sequence
-
-# end
-# entity
 Instr_Reg
 # storage
-db|MIPS.(10).cnf
-db|MIPS.(10).cnf
+db|MIPS.(12).cnf
+db|MIPS.(12).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -1148,7 +1183,7 @@ ON
 Instr_Reg:Instruction_Register
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
 # macro_sequence
 
@@ -1156,8 +1191,8 @@ a36c8ec425c8a2589af98b2d4daabc3
 # entity
 Banco_reg
 # storage
-db|MIPS.(12).cnf
-db|MIPS.(12).cnf
+db|MIPS.(18).cnf
+db|MIPS.(18).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -1181,24 +1216,24 @@ ON
 Banco_reg:Registers
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
 # macro_sequence
 
 # end
 # entity
-ALS
+Mux5bit_2x1
 # storage
-db|MIPS.(17).cnf
-db|MIPS.(17).cnf
+db|MIPS.(19).cnf
+db|MIPS.(19).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
 }
 # case_sensitive
 # source_file
-als.sv
-ce1ad15764a6a44cfff22a3ae277fd9
+mux.sv
+bf06bd9af300bd129f688370c5fe7b
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1217,7 +1252,7 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-ALS:ALU
+Mux5bit_2x1:ShiftAmountMux
 }
 # macro_sequence
 
@@ -1225,8 +1260,8 @@ ALS:ALU
 # entity
 Ula32
 # storage
-db|MIPS.(18).cnf
-db|MIPS.(18).cnf
+db|MIPS.(20).cnf
+db|MIPS.(20).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -1250,7 +1285,7 @@ ON
 ALS:ALU|Ula32:ALU
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
 # macro_sequence
 
@@ -1258,8 +1293,8 @@ a36c8ec425c8a2589af98b2d4daabc3
 # entity
 RegDesloc
 # storage
-db|MIPS.(19).cnf
-db|MIPS.(19).cnf
+db|MIPS.(21).cnf
+db|MIPS.(21).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -1283,7 +1318,7 @@ ON
 ALS:ALU|RegDesloc:DESL
 }
 # lmf
-|users|dpc2|desktop|quartus|lmf|maxplus2.lmf
+|users|josé|desktop|alteraquartus91sp2portable|quartus|lmf|maxplus2.lmf
 a36c8ec425c8a2589af98b2d4daabc3
 # macro_sequence
 
@@ -1291,8 +1326,8 @@ a36c8ec425c8a2589af98b2d4daabc3
 # entity
 multiplication
 # storage
-db|MIPS.(20).cnf
-db|MIPS.(20).cnf
+db|MIPS.(22).cnf
+db|MIPS.(22).cnf
 # logic_option {
 AUTO_RAM_RECOGNITION
 ON
@@ -1300,7 +1335,7 @@ ON
 # case_sensitive
 # source_file
 multiplication.sv
-f4f0f666be31388e52ec14fa2be42df
+5325706f2a966485729b368bc9f047
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1336,7 +1371,7 @@ ON
 # case_sensitive
 # source_file
 control.sv
-5b411e3e3d2d7dde43b4ad9315c06e1b
+873be3e175447bc1a951854fe1f77a
 9
 # internal_option {
 HDL_INITIAL_FANOUT_LIMIT
@@ -1355,7 +1390,43 @@ VERILOG_NON_CONSTANT_LOOP_LIMIT
 250
 }
 # hierarchies {
-Control:comb_302
+Control:comb_313
+}
+# macro_sequence
+
+# end
+# entity
+MIPS
+# storage
+db|MIPS.(0).cnf
+db|MIPS.(0).cnf
+# logic_option {
+AUTO_RAM_RECOGNITION
+ON
+}
+# case_sensitive
+# source_file
+mips.sv
+36c33aef18412a6d4ddeff5582eb56be
+9
+# internal_option {
+HDL_INITIAL_FANOUT_LIMIT
+OFF
+AUTO_RESOURCE_SHARING
+OFF
+AUTO_RAM_RECOGNITION
+ON
+AUTO_ROM_RECOGNITION
+ON
+IGNORE_VERILOG_INITIAL_CONSTRUCTS
+OFF
+VERILOG_CONSTANT_LOOP_LIMIT
+5000
+VERILOG_NON_CONSTANT_LOOP_LIMIT
+250
+}
+# hierarchies {
+|
 }
 # macro_sequence
 

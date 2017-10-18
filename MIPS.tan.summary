@@ -5,9 +5,9 @@ Timing Analyzer Summary
 Type           : Worst-case tco
 Slack          : N/A
 Required Time  : None
-Actual Time    : 31.354 ns
-From           : Control:comb_302|state.BREAK
-To             : Alu[28]
+Actual Time    : 29.004 ns
+From           : Control:comb_313|state.J
+To             : Alu[30]
 From Clock     : Clk
 To Clock       : --
 Failed Paths   : 0
@@ -15,9 +15,9 @@ Failed Paths   : 0
 Type           : Clock Setup: 'Clk'
 Slack          : N/A
 Required Time  : None
-Actual Time    : 40.77 MHz ( period = 24.528 ns )
-From           : Control:comb_302|state.BREAK
-To             : Registrador:ProgramCounter|Saida[1]
+Actual Time    : 41.31 MHz ( period = 24.206 ns )
+From           : Control:comb_313|state.J
+To             : Registrador:ProgramCounter|Saida[7]
 From Clock     : Clk
 To Clock       : Clk
 Failed Paths   : 0

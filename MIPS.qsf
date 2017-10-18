@@ -52,6 +52,7 @@ set_global_assignment -name LL_ROOT_REGION ON -section_id "Root Region"
 set_global_assignment -name LL_MEMBER_STATE LOCKED -section_id "Root Region"
 set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE MIPS.vwf
 set_global_assignment -name MISC_FILE "C:/Users/José/Documents/Mips/MIPS.dpf"
+set_global_assignment -name SYSTEMVERILOG_FILE MemWrapper.sv
 set_global_assignment -name SYSTEMVERILOG_FILE multiplication.sv
 set_global_assignment -name SYSTEMVERILOG_FILE ALS.sv
 set_global_assignment -name SYSTEMVERILOG_FILE Extract_LSB.sv
