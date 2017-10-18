@@ -70,22 +70,27 @@ module Control(
 		
 	/* BEGIN OF ENUM SECTION */		
 		enum logic [5:0] { FUNCT_OP = 6'h0,
-				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he,
-				  JAL_OP = 6'h3 } OpCodeEnum;
+				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b,
+				  LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9,
+				  ANDI_OP = 6'hc, SXORI_OP = 6'he, JAL_OP = 6'h3, RTE_OP = 6'h10,
+				  SB_OP = 6'h28, SH_OP = 6'h29 } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
 						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
 						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
 						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12,
 						 SRL_FUNCT = 6'h2, SLLV_FUNCT = 6'h4,
-						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8  } FunctEnum;
+						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8/*,
+						 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
 							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, TREATING_OVERFLOW_2_DELAY1, TREATING_OVERFLOW_2_DELAY2, TREATING_OVERFLOW_3,//  42
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR    // 48
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, RTE,   // 49
+							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE, // 54
+							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE // 59						
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -241,6 +246,12 @@ module Control(
 								endcase // case funct
 							end
 							
+							RTE_OP:
+							begin
+								if (Funct == 6'h10) state <= RTE;
+								else state <= RESET;//INVALID OPCODE;								
+							end
+							
 							BEQ_OP:
 							begin
 								state <= BEQ;
@@ -265,6 +276,16 @@ module Control(
 							begin
 								state <= SW_ADDRESS_COMP;
 							end
+							
+							SB_OP:
+							begin
+								state <= SB_ADDRESS_COMP;
+							end
+							
+							SH_OP:
+							begin
+								state <= SH_ADDRESS_COMP;
+							end							
 							
 							LUI_OP:
 							begin
@@ -463,6 +484,57 @@ module Control(
 						state <= FETCH;
 					end
 					
+					
+					SB_ADDRESS_COMP:
+					begin
+						state <= SB_READ;
+					end
+					
+					SB_READ:
+					begin
+						state <= SB_DELAY1;
+					end
+					
+					SB_DELAY1:
+					begin
+						state <= SB_DELAY2;
+					end
+					
+					SB_DELAY2:
+					begin
+						state <= SB_WRITE;
+					end
+					
+					SB_WRITE:
+					begin
+						state <= FETCH;
+					end
+					
+					SH_ADDRESS_COMP:
+					begin
+						state <= SH_READ;
+					end
+					
+					SH_READ:
+					begin
+						state <= SH_DELAY1;
+					end
+					
+					SH_DELAY1:
+					begin
+						state <= SH_DELAY2;
+					end
+					
+					SH_DELAY2:
+					begin
+						state <= SH_WRITE;
+					end
+					
+					SH_WRITE:
+					begin
+						state <= FETCH;
+					end					
+					
 					SLL:
 					begin
 						state <= S_WAIT;
@@ -522,7 +594,14 @@ module Control(
 					MFSTORE:
 					begin
 						state <= FETCH;
-					end 
+					end
+					
+					RTE:
+					begin
+						state <= FETCH;
+					end
+					
+					
 					
 					default:
 					begin
@@ -2755,6 +2834,495 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
+					
+				RTE:
+				begin	
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 1; 
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b00;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b011;
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				SB_ADDRESS_COMP: 			// compute the address of memory acsess
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+												
+					ALU_sel <= 3'b001;	// add the Aout to Offset
+					workMult <= 0;
+						
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b1;		// get the content of the A register
+					ALUSrcB <= 2'b10; 	// and the sign extended of offset
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+			
+				SB_READ:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+						
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+				
+				SB_DELAY1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+				
+				SB_DELAY2:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				SB_WRITE:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b01;
+						
+					wr <= 1;
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;        // the value of address is stored in aluout
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				SH_ADDRESS_COMP: 			// compute the address of memory acsess
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+												
+					ALU_sel <= 3'b001;	// add the Aout to Offset
+					workMult <= 0;
+						
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b1;		// get the content of the A register
+					ALUSrcB <= 2'b10; 	// and the sign extended of offset
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;	
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+			
+				SH_READ:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+						
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+				
+				SH_DELAY1:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+				
+				SH_DELAY2:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				SH_WRITE:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b01;
+						
+					wr <= 1;
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;        // the value of address is stored in aluout
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1;			// get word
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end 
+					
 							
 				default:
 				begin
