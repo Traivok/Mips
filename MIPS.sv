@@ -14,7 +14,7 @@ module MIPS(input logic Clk, input logic reset,
 			output logic [7:0] Estado,
 			output logic [31:0] EPC,
 			output logic [31:0] Reg_Desloc,
-			output logic [63:0] mul,
+			output logic [63:0] mul_Module,
 			output logic [31:0] ALU_LHS,
 			output logic [31:0] ALU_RHS
   );
@@ -222,11 +222,11 @@ module MIPS(input logic Clk, input logic reset,
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
 				.NumberofShifts(REG_NumberOfShifts), .Array(ALU_RHS), .Shifted_Array(Reg_Desloc),
-				.workMult(workMult), .mul(mul), .endMult(endMult)
+				.workMult(workMult), .mul(mul_Module), .endMult(endMult)
 			);
 	
-	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul[63:32], himul); 
-	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul[31:00], lomul);
+	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul_Module[63:32], himul); 
+	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul_Module[31:00], lomul);
 	
 	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, himul, lomul, ALUOutIn);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
