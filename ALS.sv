@@ -10,7 +10,7 @@ module ALS(
 				input logic [4:0] NumberofShifts, input logic [31:0] Array, 
 				output logic [31:0] Shifted_Array,
 				/* BEGIN OF MULTIPLICATION SECTION */
-				input logic workMult, output logic [63:0] mul, output logic endMult,		
+				input logic [5:0] workMult, output logic [63:0] mul, output logic endMult,		
 				output logic [5:0] MultCounter
 			);
 		
