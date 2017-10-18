@@ -49,6 +49,8 @@ module Control(
 				output logic MDR_reset,
 				output logic ALUOut_load,
 				output logic ALUOut_reset,
+				output logic MulReg_reset,
+				output logic MulReg_load,
 				output logic IR_reset		
 			  );
 				
@@ -445,6 +447,8 @@ module Control(
 					MDR_reset <= 
 					ALUOut_load <= 
 					ALUOut_reset <= 
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 
 
 */
@@ -493,6 +497,8 @@ module Control(
 					MDR_reset <= 1;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 1;
+					MulReg_reset <= 1;
+ 					MulReg_load <= 0;
 					IR_reset <= 1;			
 				end
         
@@ -536,6 +542,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 			
@@ -579,7 +587,9 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
-					IR_reset <= 	0;			
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
 				end
 				
 				FETCH_MEM_DELAY1:					// just hold memread signal
@@ -623,6 +633,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;	
 				end
 				
@@ -666,7 +678,9 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
-					IR_reset <= 	0;	
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;	
 				end
 				
 				DECODE:					// store values read of 32 Mips registers at A,B;
@@ -709,6 +723,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the alu result at aluout, it may be needed for Branch operations
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -751,6 +767,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0; 
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -793,6 +811,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -835,6 +855,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -877,6 +899,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -919,6 +943,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -962,6 +988,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1005,6 +1033,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1048,6 +1078,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1090,6 +1122,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1132,6 +1166,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1174,6 +1210,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1216,6 +1254,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1257,6 +1297,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1299,6 +1341,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1; //
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1342,6 +1386,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1385,6 +1431,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1428,6 +1476,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;				
 				end
 								
@@ -1471,6 +1521,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;				
 				end
 				
@@ -1514,6 +1566,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1557,7 +1611,9 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
 					ALUOut_reset <= 0;
-					IR_reset <= 	0;			
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
 				end
 				
 				SW:
@@ -1600,6 +1656,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;	
 				end
 
@@ -1643,6 +1701,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;	// store the PC+OFFSET at aluout
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
 			
@@ -1686,6 +1746,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
 				
@@ -1729,6 +1791,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
 				
@@ -1772,6 +1836,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
 			
@@ -1815,6 +1881,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;	
 				end
 				
@@ -1857,6 +1925,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1899,6 +1969,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1941,6 +2013,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 				
@@ -1982,6 +2056,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end				
 				
@@ -2023,6 +2099,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 1;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end				
 				
@@ -2066,6 +2144,8 @@ module Control(
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
 							

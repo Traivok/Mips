@@ -61,6 +61,8 @@ module MIPS(input logic Clk, input logic reset,
 	logic MDR_reset;
 	logic ALUOut_load;
 	logic ALUOut_reset;
+	logic MulReg_load;
+	logic MulReg_reset;
 	logic IR_reset;
 	/* End of Control Section */
 	
@@ -69,6 +71,7 @@ module MIPS(input logic Clk, input logic reset,
 	
 	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
 	logic [31:0] ALUOutIn;
+	logic [31:0] himul, lomul;
 
 	logic [5:0] Instr31_26;
 	logic [4:0] Instr25_21;
@@ -171,6 +174,8 @@ module MIPS(input logic Clk, input logic reset,
 			.MDR_reset(MDR_reset),
 			.ALUOut_load(ALUOut_load),
 			.ALUOut_reset(ALUOut_reset),
+			.MulReg_reset(MulReg_reset),
+ 			.MulReg_load(MulReg_load),
 			.IR_reset(IR_reset),
 			.RegReset(RegReset),
 			.RegWrite(RegWrite)
@@ -220,7 +225,10 @@ module MIPS(input logic Clk, input logic reset,
 				.workMult(workMult), .mul(mul), .endMult(endMult)
 			);
 	
-	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, mul[63:32], mul[31:00], ALUOutIn);
+	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul[63:32], himul); 
+	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul[31:00], lomul);
+	
+	Mux32bits_4x2 ALUOut_MUX(ALUOutSrc, ALU_result, Reg_Desloc, himul, lomul, ALUOutIn);
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
 	
 	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
