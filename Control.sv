@@ -73,9 +73,11 @@ module Control(
 				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
-						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
+						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, /*NOP_FUNCT = 6'h0,*/
 						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
-						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12 } FunctEnum;
+						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12,
+						 SLL_FUNCT = 6'h0, SRL_FUNCT = 6'h2, SLLV_FUNCT = 6'h4,
+						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7 } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
@@ -174,10 +176,10 @@ module Control(
 										state <= BREAK;
 									end
 									
-									NOP_FUNCT:
+									/*NOP_FUNCT:
 									begin
 										state <= NOP;
-									end
+									end*/
 									
 									ADDU_FUNCT:
 									begin
@@ -202,6 +204,31 @@ module Control(
 									MHLO_FUNCT:
  									begin
 										state <= MHLO;
+									end
+									
+									SLL_FUNCT:
+ 									begin
+										state <= SLL;
+									end
+									
+									SRL_FUNCT:
+ 									begin
+										state <= SRL;
+									end
+									
+									SLLV_FUNCT:
+ 									begin
+										state <= SLLV;
+									end
+									
+									SRA_FUNCT:
+ 									begin
+										state <= SRA;
+									end
+									
+									SRAV_FUNCT:
+ 									begin
+										state <= SRAV;
 									end
 							
 								endcase // case funct
@@ -391,27 +418,27 @@ module Control(
 					
 					SLL:
 					begin
-						state <= FETCH;
+						state <= R_WAIT;
 					end
 					
 					SRL:
 					begin
-						state <= FETCH;
+						state <= R_WAIT;
 					end
 					
 					SLLV:
 					begin
-						state <= FETCH;
+						state <= R_WAIT;
 					end
 					
 					SRA:
 					begin
-						state <= FETCH;
+						state <= R_WAIT;
 					end
 					
 					SRAV:
 					begin
-						state <= FETCH;
+						state <= R_WAIT;
 					end
 										
 					NOP:
