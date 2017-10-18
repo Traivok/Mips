@@ -24,7 +24,7 @@ module multiplication(input logic Clk, work, reset, input logic [31:0] lhs, rhs,
 				begin
 					for (counter = 6'd0; counter < 6'd32; counter++)
 					begin
-						if (multiplicand[0] == 31'd0)
+						if (multiplicand[0] == 1'b0)
 						begin
 							result = multiplicand + result;
 						end
