@@ -11,6 +11,7 @@ module Control(
 				input logic ALU_lt,					// alu less flag
 				input logic endMult,
 				
+				output logic ShamtOrRs,
 				output logic REG_reset,
  				output logic [2:0] REG_funct,
 								
@@ -25,7 +26,7 @@ module Control(
 				output logic RegReset,
 												
 				output logic [2:0] ALU_sel,
-				output logic ShamtOrRt,
+				output logic ShamtOrRs,
 				output logic workMult,
 				
 				output logic [2:0] MemtoReg, 
@@ -75,7 +76,7 @@ module Control(
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
-							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV// 37
+							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV,  // 37
 							TREATING_OVERFLOW
 						 } StateEnum;
 							
@@ -432,7 +433,7 @@ module Control(
 					ALUOutSrc <= 2'bxx;
 					IorD <= 2'bxx;
 					RegDst <= 2'bxx;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 
 					A_reset <= 		
@@ -479,7 +480,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 1;	
@@ -522,7 +523,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b10;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -565,7 +566,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -609,7 +610,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -652,7 +653,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;			// instruction set
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -695,7 +696,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 1;			// load read1 at A
 					A_reset <= 0;	
@@ -738,7 +739,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -780,7 +781,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00; 
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -822,7 +823,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00; 
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -864,7 +865,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -906,7 +907,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -949,7 +950,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b01; 
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -992,7 +993,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1035,7 +1036,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1077,7 +1078,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1119,7 +1120,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1161,7 +1162,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1203,7 +1204,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1244,7 +1245,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1286,7 +1287,7 @@ module Control(
 					ALUOutSrc <= 2'b00; // ALU_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1329,7 +1330,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1371,7 +1372,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b01;
 					RegDst <= 2'b00;     // Don't Care
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1414,7 +1415,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1457,7 +1458,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00; 
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1501,7 +1502,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;				// [20-16] will specify what reg will be overwrited
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1543,7 +1544,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1586,7 +1587,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b01;			// set to data
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 						
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1629,7 +1630,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1672,7 +1673,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 						
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1715,7 +1716,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1758,7 +1759,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b01;			// set to data to memmux
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 						
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1802,7 +1803,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;			// content of rt (20-16)
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
@@ -1844,7 +1845,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1886,7 +1887,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1928,7 +1929,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b1;
+					ShamtOrRs <= 1'b1;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -1969,7 +1970,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -2010,7 +2011,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b1;  
+					ShamtOrRs <= 1'b1;  
 					
 					A_load <= 0;
 					A_reset <= 0;
@@ -2053,7 +2054,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRt <= 1'b0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
