@@ -302,7 +302,10 @@ module Control(
 					
 					ADDI:
 					begin
-						state <= R_WAIT_IMMEDIATE; 
+						if(ALU_overflow) 
+							state <= TREATING_OVERFLOW_1;
+						else 
+							state <= R_WAIT_IMMEDIATE;
 					end
 					
 					ADDIU:
@@ -312,9 +315,9 @@ module Control(
 				
 					ADD: 
 					begin
-						if(ALU_overflow) // se houve overflow vai para o tratador
+						if(ALU_overflow) 
 							state <= TREATING_OVERFLOW_1;
-						else //senao, segue normalmente
+						else 
 							state <= R_WAIT;
 					end
 					
@@ -365,7 +368,10 @@ module Control(
 					
 					SUB:
 					begin
-						state <= R_WAIT;
+						if(ALU_overflow) 
+							state <= TREATING_OVERFLOW_1;
+						else 
+							state <= R_WAIT;
 					end
 					
 					SUBU:
