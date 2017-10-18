@@ -73,7 +73,7 @@ module Control(
 				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b,
 				  LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9,
 				  ANDI_OP = 6'hc, SXORI_OP = 6'he, JAL_OP = 6'h3, RTE_OP = 6'h10,
-				  SB_OP = 6'h28, SH_OP = 6'h29 } OpCodeEnum;
+				  SB_OP = 6'h28, SH_OP = 6'h29, LBU_OP = 6'h24, LHU_OP = 6'h25 } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
 						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
@@ -87,11 +87,12 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP,
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE,   
-							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE,
-							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE,
-							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP, //42
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 51
+							SB_ADDRESS_COMP, SB_READ, SB_DELAY1, SB_DELAY2, SB_WRITE, //56
+							SH_ADDRESS_COMP, SH_READ, SH_DELAY1, SH_DELAY2, SH_WRITE, //61
+							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
+		    					LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3 // 71
 											
 						 } StateEnum;
 							
@@ -259,6 +260,16 @@ module Control(
 								else state <= RESET;//INVALID OPCODE;								
 							end
 							
+							LBU_OP:
+							begin
+								state <= LBU_1;
+							end
+							
+							LHU_OP:
+							begin
+								state <= LHU_1;
+							end
+							
 							BEQ_OP:
 							begin
 								state <= BEQ;
@@ -328,6 +339,55 @@ module Control(
 						
 					end // DECODE
 					
+					LBU_1:
+					begin
+						state <= LBU_2;
+					end
+					
+					LBU_2:
+					begin
+						state <= LBU_2_DELAY1;
+					end
+						
+					LBU_2_DELAY1:
+					begin
+						state <= LBU_2_DELAY2;
+					end
+						
+					LBU_2_DELAY2:
+					begin
+						state <= LBU_3;
+					end
+						
+					LBU_3:
+					begin
+						state <= FETCH;
+					end	
+
+					LHU_1:
+					begin
+						state <= LHU_2;
+					end
+					
+					LHU_2:
+					begin
+						state <= LHU_2_DELAY1;
+					end
+						
+					LHU_2_DELAY1:
+					begin
+						state <= LHU_2_DELAY2;
+					end
+						
+					LHU_2_DELAY2:
+					begin
+						state <= LHU_3;
+					end
+						
+					LHU_3:
+					begin
+						state <= FETCH;
+					end						
 					ADDU:
 					begin
 						state <= R_WAIT; 
@@ -356,12 +416,27 @@ module Control(
 					
 					TREATING_OVERFLOW_1:
 					begin
-						
+						state <= TREATING_OVERFLOW_2;
 					end
 					
 					TREATING_OVERFLOW_2:
 					begin
-						
+						state <= EXCEPTION_DELAY;
+					end
+					
+					LOAD_PC_EXCEPTION:
+					begin
+						state <= FETCH;
+					end
+					
+					EXCEPTION_DELAY:
+					begin
+						state <= LOAD_PC_EXCEPTION;
+					end
+					
+					TREATING_INVALID_OP:
+					begin
+						state <= EXCEPTION_DELAY;
 					end
 					
 					R_WAIT:
@@ -603,7 +678,7 @@ module Control(
 					
 					default:
 					begin
-						state <= RESET;
+						state <= TREATING_INVALID_OP;
 					end
 				endcase	// state
 			end // RESET signal
@@ -1413,7 +1488,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_OVERFLOW_2: // leitura da mem�ria do endere�o 255 (overflow)
+				TREATING_OVERFLOW_2: // leitura da memória do endereço 255 (overflow)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1545,7 +1620,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_INVALID_OP: // leitura da mem�ria do endere�o 254 (invalid opcode)
+				TREATING_INVALID_OP: // leitura da memória do endereço 254 (invalid opcode)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -2266,7 +2341,7 @@ module Control(
 					MemDataSize <= 2'b00;
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // DÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âºvida
+					IRWrite <= 0;     // DÃÆÃâÃâ Ã¢â¬â¢ÃÆÃ¢â¬Â ÃÂ¢Ã¢âÂ¬Ã¢âÂ¢ÃÆÃâÃÂ¢Ã¢âÂ¬ÃÂ¡ÃÆÃ¢â¬Å¡ÃâÃÂºvida
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
