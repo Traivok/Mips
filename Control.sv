@@ -26,7 +26,6 @@ module Control(
 				output logic RegReset,
 												
 				output logic [2:0] ALU_sel,
-				output logic ShamtOrRs,
 				output logic workMult,
 				
 				output logic [2:0] MemtoReg, 
@@ -77,7 +76,7 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV,  // 37
-							TREATING_OVERFLOW
+							TREATING_OVERFLOW, TREATING_OVERFLOW_1
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
