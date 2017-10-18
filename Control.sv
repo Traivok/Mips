@@ -83,8 +83,8 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV,  // 37
-							TREATING_OVERFLOW, TREATING_OVERFLOW_1, // 39
-							MULT0, MULT1, MFHI, MHLO, MFSTORE  // 44
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, TREATING_OVERFLOW_3,// 40
+							MULT0, MULT1, MFHI, MHLO, MFSTORE  // 45
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -306,14 +306,19 @@ module Control(
 					ADD: 
 					begin
 						if(ALU_overflow) // se houve overflow vai para o tratador
-							state <= TREATING_OVERFLOW;
+							state <= TREATING_OVERFLOW_1;
 						else //senÃ£o, segue normalmente
 							state <= R_WAIT;
 					end
 					
-					TREATING_OVERFLOW:
+					TREATING_OVERFLOW_1:
 					begin
-						
+						state <= TREATING_OVERFLOW_2;
+					end
+					
+					TREATING_OVERFLOW_1:
+					begin
+						state <= TREATING_OVERFLOW_3;
 					end
 					
 					R_WAIT:
@@ -816,24 +821,24 @@ module Control(
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b010; // sub
-					workMult <= 6'd0;
+					workMult <= 0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
 					
 					ALUSrcA <= 1'b0; //PC
-					ALUSrcB <= 2'bxx; //4
+					ALUSrcB <= 2'b01; //4
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRs <= 1'b0;
+					ShamtOrRs <= 0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
-					E_PC_load <= 1; // resultado no ALU_out
+					E_PC_load <= 1; // resultado no EPC
 					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
@@ -843,6 +848,94 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;
 				end
+				
+				TREATING_OVERFLOW_2: // extensão do byte lido na memória, localizado no endereço 255 é guardado no MDR
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0; // leitura
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'bxxx;
+					PCSource <= 3'b0xx; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b10; // OVERFLOW_EXCEPTION
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; // leitura para o MDR
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				/*TREATING_OVERFLOW_3:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <=  
+					PCWrite <= 
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 				
+					IRWrite <= 
+					RegWrite <= 
+					RegReset <= 
+													
+					ALU_sel <= 3'bxxx;
+					workMult <= 0;
+					
+					MemtoReg <= 3'bxxx;
+					PCSource <= 3'b0xx; 
+					
+					ALUSrcA <= 1'bx;
+					ALUSrcB <= 2'bxx;
+					ALUOutSrc <= 2'bxx;
+					IorD <= 2'bxx;
+					RegDst <= 2'bxx;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 
+					A_reset <= 		
+					B_load <= 
+					B_reset <= 
+					PC_reset <= 
+					E_PC_load <=
+					E_PC_reset <=	
+					MDR_load <= 
+					MDR_reset <= 
+					ALUOut_load <= 
+					ALUOut_reset <= 
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 
+				end*/
 				
 				ADDIU:
 				begin
