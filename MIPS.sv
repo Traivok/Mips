@@ -221,7 +221,7 @@ module MIPS(input logic Clk, input logic reset,
 				.ALU_result(ALU_result), .overflow(ALU_overflow), 
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
-				.NumberofShifts(REG_NumberOfShifts), .Array(ALU_RHS), .Shifted_Array(Reg_Desloc),
+				.NumberofShifts(REG_NumberOfShifts), .Array(ReadData2), .Shifted_Array(Reg_Desloc),
 				.workMult(workMult), .mul(mul_Module), .endMult(endMult)
 			);
 	
