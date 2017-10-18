@@ -70,7 +70,8 @@ module Control(
 		
 	/* BEGIN OF ENUM SECTION */		
 		enum logic [5:0] { FUNCT_OP = 6'h0,
-				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he } OpCodeEnum;
+				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he,
+				  JAL_OP = 6'h3 } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
 						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
@@ -84,7 +85,7 @@ module Control(
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
 							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, TREATING_OVERFLOW_3,// 40
-							MULT0, MULT1, MFHI, MHLO, MFSTORE  // 45
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31  // 45
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -168,7 +169,10 @@ module Control(
 									
 									XOR_FUNCT:
 									begin
-										state <= XOR;
+										if(REG_funct == 5'b010)
+											state <= SLL;
+										else
+											state <= XOR;
 									end
 									
 									BREAK_FUNCT:
@@ -265,6 +269,11 @@ module Control(
 							J_OP:
 							begin
 								state <= J;
+							end
+							
+							JAL_OP:
+							begin
+								state <= JAL_WR31;
 							end
 							
 							ADDI_OP:
@@ -379,6 +388,10 @@ module Control(
 						state <= FETCH;
 					end
 					
+					JAL_WR31:
+					begin
+						state <= J;
+					end
 					LUI:
 					begin
 						state <= FETCH;
@@ -1648,6 +1661,50 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+				end
+				
+				JAL_WR31:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0;			// get the current instruction
+					RegWrite <= 1;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b001; // sum
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b01;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;			// instruction set
+					RegDst <= 2'b11; // link adress
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;			// store the content of address read 
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;	
 				end
 				
 				BEQ:		// branch if Aout == Bout
