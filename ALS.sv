@@ -17,7 +17,7 @@ module ALS(
 	
 	RegDesloc DESL(Clk, RegDesloc_reset, RegDesloc_OP, NumberofShifts, Array, Shifted_Array);
 
-	multiplication( .Clk(Clk), .work(workMult), .reset(reset), 
+	multiplication( .Clk(Clk), .state(workMult), .reset(reset), 
 					.lhs(oper_A), .rhs(oper_B), .result(mul), .endSignal(endMult)
 				   );
 endmodule 

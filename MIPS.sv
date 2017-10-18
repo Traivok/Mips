@@ -46,7 +46,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [4:0] REG_NumberOfShifts;
 	logic [31:0] REG_array;
 	logic [31:0] Shifted_Register;
-	logic workMult;
+	logic [5:0] workMult;
 	logic endMult;
 
 	logic A_load;
