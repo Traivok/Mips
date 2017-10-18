@@ -72,13 +72,17 @@ module Control(
 		enum logic [5:0] { FUNCT_OP = 6'h0,
 				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b, LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9, ANDI_OP = 6'hc, SXORI_OP = 6'he } OpCodeEnum;
 				  
-		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22, XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0, ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23 } FunctEnum;
+		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
+						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
+						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
+						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12 } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV,  // 37
-							TREATING_OVERFLOW, TREATING_OVERFLOW_1
+							TREATING_OVERFLOW, TREATING_OVERFLOW_1,
+							MULT, MFHI, MHLO, MFSTORE
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -183,6 +187,21 @@ module Control(
 									SUBU_FUNCT:
 									begin
 										state <= SUBU;
+									end
+									
+									MULT_FUNCT:
+									begin
+										state <= MULT;
+									end
+									
+									MFHI_FUNCT:
+									begin
+										state <= MFHI;
+									end
+									
+									MHLO_FUNCT:
+ 									begin
+										state <= MHLO;
 									end
 							
 								endcase // case funct
@@ -399,7 +418,28 @@ module Control(
 					begin
 						state <= FETCH;
 					end
-										
+							
+					MULT:
+					begin
+						if (endMult == 1'b0) state <= MULT;
+						else state <= FETCH;
+					end
+					
+					MFHI:
+					begin
+						state <= MFSTORE;
+					end
+								
+					MHLO:
+					begin
+						state <= MFSTORE;
+					end
+
+					MFSTORE:
+					begin
+						state <= FETCH;
+					end 
+					
 					default:
 					begin
 						state <= RESET;
@@ -2059,7 +2099,7 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
-				end				
+				end	
 				
 				SRAV:
 				begin
@@ -2083,7 +2123,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00;
+					ALUOutSrc <= 2'b00; // alu_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b1;  
@@ -2104,6 +2144,178 @@ module Control(
 					IR_reset <= 0;
 				end				
 				
+				MULT:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b000;
+					workMult <= 1;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					ALUOutSrc <= 2'b00; // ALU_result
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 1;
+					IR_reset <= 0;		
+				end
+				
+				MFHI:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b000;
+					workMult <= 1;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b10;  //get himul
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; 		// store himul at ALUOut
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				MHLO:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b000;
+					workMult <= 1;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b11;  //get lomul
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1; 		// store lomul at ALUOut
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				MFSTORE:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 1;   // write mul result
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b000;
+					workMult <= 1;
+					
+					MemtoReg <= 3'b000;  // select aluout
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b01; // select RD
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+							
 				default:
 				begin
 					REG_reset <= 0;
