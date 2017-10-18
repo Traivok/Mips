@@ -212,7 +212,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador B(Clk, B_reset, B_load, ReadData2, Bout); 
   
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
-	Mux32bits_4x2 RHS_Mux(ALUSrcB, Aout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
+	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
 	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Aout, Shamt, REG_NumberOfShifts );
   
