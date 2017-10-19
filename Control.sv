@@ -99,7 +99,7 @@ module Control(
 							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //64
 							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 69
 		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 74											
-							JAL_COMP, SLTI
+							JAL_COMP, SLTI, SHF_LOAD 						 // 77
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -197,7 +197,8 @@ module Control(
 									if(Shamt == 5'd0)
 										state <= NOP;
 									else
-										state <= SLL;
+										state <= SHF_LOAD;
+										nextState <= SLL;
 									end
 									
 									ADDU_FUNCT:
@@ -227,23 +228,26 @@ module Control(
 									
 									SRL_FUNCT:
  									begin
-										state <= SRL;
+										state <= SHF_LOAD;
+										nextState <= SRL;
 									end
 									
 									SLLV_FUNCT:
  									begin
-										state <= RegDeslocLoad;
+										state <= SHF_LOAD;
 										nextState <= SLLV;
 									end
 									
 									SRA_FUNCT:
  									begin
-										state <= SRA;
+										state <= SHF_LOAD;
+										nextState <= SRA;
 									end
 									
 									SRAV_FUNCT:
  									begin
-										state <= SRAV;
+										state <= SHF_LOAD;
+										nextState <= SRAV;
 									end
 									
 									JR_FUNCT:
@@ -653,6 +657,11 @@ module Control(
 					begin
 						state <= FETCH;
 					end					
+					
+					SHF_LOAD:
+					begin
+						state <= nextState;
+					end
 					
 					SLL:
 					begin
