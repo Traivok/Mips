@@ -192,7 +192,7 @@ module Control(
 									
 									NOP_FUNCT:
 									begin
-									if(Shamt == 3'b000)
+									if(Shamt == 5'd0)
 										state <= NOP;
 									else
 										state <= SLL;
