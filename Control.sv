@@ -261,7 +261,7 @@ module Control(
 							RTE_OP:
 							begin
 								if (Funct == 6'h10) state <= RTE;
-								else state <= RESET;//INVALID OPCODE;								
+								else state <= TREATING_INVALID_OP_1;//INVALID OPCODE;								
 							end
 							
 							LBU_OP:
