@@ -88,12 +88,13 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 38
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP_1, TREATING_INVALID_OP_2, //44
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 53
-							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //58
-							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //63
-							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 68
-		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 73											
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY1, // 42
+							EXCEPTION_DELAY2, TREATING_INVALID_OP_1, TREATING_INVALID_OP_2, //45
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 54
+							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //59
+							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //64
+							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 69
+		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 74											
 							JAL_COMP, SLTI
 						 } StateEnum;
 							
@@ -433,7 +434,7 @@ module Control(
 					
 					TREATING_OVERFLOW_2:
 					begin
-						state <= EXCEPTION_DELAY;
+						state <= EXCEPTION_DELAY1;
 					end
 					
 					LOAD_PC_EXCEPTION:
@@ -441,7 +442,12 @@ module Control(
 						state <= FETCH;
 					end
 					
-					EXCEPTION_DELAY:
+					EXCEPTION_DELAY1:
+					begin
+						state <= EXCEPTION_DELAY2;
+					end
+					
+					EXCEPTION_DELAY2:
 					begin
 						state <= LOAD_PC_EXCEPTION;
 					end
@@ -453,7 +459,7 @@ module Control(
 					
 					TREATING_INVALID_OP_2:
 					begin
-						state <= EXCEPTION_DELAY;
+						state <= EXCEPTION_DELAY1;
 					end
 					
 					R_WAIT:
@@ -1472,7 +1478,7 @@ module Control(
           
 					MemDataSize <= 2'b00;
 					
-					wr <= 0;		
+					wr <= 0;	
 					IRWrite <= 0; 
 					RegWrite <= 0;
 					RegReset <= 0;
@@ -1541,7 +1547,7 @@ module Control(
 					PC_reset <= 0;
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
-					MDR_load <= 0;
+					MDR_load <= 1;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
@@ -1550,7 +1556,7 @@ module Control(
 					IR_reset <= 0;
 				end
 	
-				EXCEPTION_DELAY: 
+				EXCEPTION_DELAY1: 
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1585,7 +1591,51 @@ module Control(
 					PC_reset <= 0;
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
-					MDR_load <= 0;
+					MDR_load <= 1; //
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; //
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
@@ -1600,7 +1650,7 @@ module Control(
 					REG_funct <= 3'b000;
 					
 					PCWriteCond <= 0;
-					PCWrite <= 1; // escreve no pc o Byte_Address
+					PCWrite <= 1; // escreve no pc o MDR_Byte
           
 					MemDataSize <= 2'b00;
 					
@@ -1613,7 +1663,7 @@ module Control(
 					workMult <= 0;
 					
 					MemtoReg <= 3'b000;
-					PCSource <= 3'b101;  // Byte_Address
+					PCSource <= 3'b101;  // MDR_Byte
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
