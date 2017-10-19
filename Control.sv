@@ -10,6 +10,7 @@ module Control(
 				input logic ALU_gt,					// alu greater flag
 				input logic ALU_lt,					// alu less flag
 				input logic endMult,
+				input logic [4:0] Shamt,
 				
 				output logic ShamtOrRs,
 				output logic REG_reset,
