@@ -581,7 +581,7 @@ module Control(
 					begin
 						state <= FETCH;
 					end
-					
+										
 					SH_ADDRESS_COMP:
 					begin
 						state <= SH_DELAY1;
@@ -3647,9 +3647,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;
 				end
-
+				
 				SH_ADDRESS_COMP: 			// compute the address of memory acsess
 				begin
 					REG_reset <= 0;
