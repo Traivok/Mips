@@ -3075,7 +3075,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00;
+					ALUOutSrc <= 2'b01;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b0;
@@ -3119,7 +3119,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00;
+					ALUOutSrc <= 2'b01;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b0;
@@ -3163,7 +3163,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00;
+					ALUOutSrc <= 2'b01;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b1;
@@ -3206,7 +3206,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00;
+					ALUOutSrc <= 2'b01;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b0;
@@ -3249,7 +3249,7 @@ module Control(
 					PCSource <= 3'b000;
 					ALUSrcA <= 1'b1; // A
 					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b00; // alu_result
+					ALUOutSrc <= 2'b01; // alu_result
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b1;  
