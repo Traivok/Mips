@@ -92,7 +92,8 @@ module Control(
 							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //56
 							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //61
 							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
-		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3 // 71											
+		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 71											
+							
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -316,7 +317,7 @@ module Control(
 							
 							JAL_OP:
 							begin
-								state <= JAL_WR31;
+								state <= JAL_COMP;
 							end
 							
 							ADDI_OP:
@@ -506,9 +507,14 @@ module Control(
 						state <= FETCH;
 					end
 					
+					JAL_COMP:
+					begin
+						state <= JAL_WR31;
+					end
+					
 					JAL_WR31:
 					begin
-						state <= J;
+						state <= FETCH;
 					end
 					
 					SLT:
@@ -2326,8 +2332,7 @@ module Control(
 				J:
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
 					PCWriteCond <= 0; // Don't care?
 					PCWrite <= 1;     // Write at PC
@@ -2361,16 +2366,14 @@ module Control(
 					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 1;
+					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
-				end
+				end				
 				
-				
-				
-				JAL_WR31:
+				JAL_COMP:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -2382,7 +2385,7 @@ module Control(
 					
 					wr <= 0;		
 					IRWrite <= 0;			// get the current instruction
-					RegWrite <= 1;
+					RegWrite <= 0;
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b001; // sum
@@ -2405,7 +2408,51 @@ module Control(
 					PC_reset <= 0;	
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
-					MDR_load <= 0;			// store the content of address read 
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;   // store PC + 4
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;	
+				end
+				
+				JAL_WR31
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 1;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0;
+					RegWrite <= 1;  // write PC+4 at 31
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b010; // jump address 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b01;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b11; // link adress
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;	
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
@@ -2413,12 +2460,11 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;	
 				end
-				
+			
 				JR:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
-					
 					
 					PCWriteCond <= 0; 
 					PCWrite <= 1;     // Write at PC
