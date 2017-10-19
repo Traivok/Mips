@@ -88,8 +88,10 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 38
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY1, // 42
-							EXCEPTION_DELAY2, TREATING_INVALID_OP_1, TREATING_INVALID_OP_2, //45
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, OVERFLOW_EXCEPTION_DELAY1, // 42
+							OVERFLOW_EXCEPTION_DELAY2, LOAD_PC_OVERFLOW_EXCEPTION, 
+							TREATING_INVALID_OP_1, TREATING_INVALID_OP_2, OP_EXCEPTION_DELAY1, 
+							OP_EXCEPTION_DELAY2,LOAD_PC_OP_EXCEPTION, //45
 							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 54
 							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //59
 							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //64
@@ -434,22 +436,22 @@ module Control(
 					
 					TREATING_OVERFLOW_2:
 					begin
-						state <= EXCEPTION_DELAY1;
+						state <= OVERFLOW_EXCEPTION_DELAY1;
 					end
 					
-					LOAD_PC_EXCEPTION:
+					OVERFLOW_EXCEPTION_DELAY1:
+					begin
+						state <= OVERFLOW_EXCEPTION_DELAY2;
+					end
+					
+					OVERFLOW_EXCEPTION_DELAY2:
+					begin
+						state <= LOAD_PC_OVERFLOW_EXCEPTION;
+					end
+					
+					LOAD_PC_OVERFLOW_EXCEPTION:
 					begin
 						state <= FETCH;
-					end
-					
-					EXCEPTION_DELAY1:
-					begin
-						state <= EXCEPTION_DELAY2;
-					end
-					
-					EXCEPTION_DELAY2:
-					begin
-						state <= LOAD_PC_EXCEPTION;
 					end
 					
 					TREATING_INVALID_OP_1:
@@ -459,7 +461,22 @@ module Control(
 					
 					TREATING_INVALID_OP_2:
 					begin
-						state <= EXCEPTION_DELAY1;
+						state <= OP_EXCEPTION_DELAY1;
+					end
+					
+					OP_EXCEPTION_DELAY1:
+					begin
+						state <= OP_EXCEPTION_DELAY2;
+					end
+					
+					OP_EXCEPTION_DELAY2:
+					begin
+						state <= LOAD_PC_OP_EXCEPTION;
+					end
+					
+					LOAD_PC_OP_EXCEPTION:
+					begin
+						state <= FETCH;
 					end
 					
 					R_WAIT:
@@ -987,7 +1004,7 @@ module Control(
 				DECODE:					// store values read of 32 Mips registers at A,B;
 				begin					// add PC content with instruction offset field, uset if next OP is beq
 					REG_reset <= 0;
-					REG_funct <= 3'b001; // load regdesloc with content of ReadData1			
+					REG_funct <= 3'b000; // load regdesloc with content of ReadData1			
 					
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
@@ -1536,7 +1553,7 @@ module Control(
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
 					ALUOutSrc <= 2'b00;
-					IorD <= 2'b10; // OVERFLOW_EXCEPTION
+					IorD <= 2'b10; // EXCEPTION_ADDRESS
 					RegDst <= 2'b00;
 					ShamtOrRs <= 0;
 					
@@ -1556,7 +1573,7 @@ module Control(
 					IR_reset <= 0;
 				end
 	
-				EXCEPTION_DELAY1: 
+				OVERFLOW_EXCEPTION_DELAY1: 
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1600,7 +1617,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
+				OVERFLOW_EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1644,7 +1661,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				LOAD_PC_EXCEPTION:
+				LOAD_PC_OVERFLOW_EXCEPTION:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1663,7 +1680,7 @@ module Control(
 					workMult <= 0;
 					
 					MemtoReg <= 3'b000;
-					PCSource <= 3'b101;  // MDR_Byte
+					PCSource <= 3'b101;  // MDR_Byte (255)
 					
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
@@ -1732,7 +1749,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_INVALID_OP_2: // leitura da memória do endereço 254 (invalid opcode)
+				TREATING_INVALID_OP_2: // leitura da memória do endereço 252 (invalid opcode)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1756,12 +1773,144 @@ module Control(
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
 					ALUOutSrc <= 2'b00;
-					IorD <= 2'b11; // INVALIDCODE_EXCEPTION
+					IorD <= 2'b10; // EXCEPTION_ADDRESS
 					RegDst <= 2'b00;
 					ShamtOrRs <= 0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				OP_EXCEPTION_DELAY1: 
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; //
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				OP_EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 1; //
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				LOAD_PC_OP_EXCEPTION:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 1; // escreve no pc o BYTE DE 254
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b110;  // (254)
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;		
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;

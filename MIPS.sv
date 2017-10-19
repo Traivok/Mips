@@ -187,7 +187,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ProgramCounter(Clk, PC_reset, PC_load, NEW_PC, PC);
 	Registrador ExcProgramCounter(Clk, EPC_reset, EPC_load, ALU_result, EPC);
 	
-	Mux32bits_4x2 MemMux(IorD, PC, AluOut, OVERFLOW_EXCEPTION, INVALIDCODE_EXCEPTION, Address);
+	Mux32bits_4x2 MemMux(IorD, PC, AluOut, EXCEPTION_ADDRESS, 32'd0, Address);
 	
 	MemWrapper MemDataSizeHandler( .MemData(MDR), .Address(Address), .value(Bout), .HalfWord(Bout_Halfword), .Byte(Bout_Byte) );
 	
@@ -234,7 +234,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
 	
 	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
-							MDR_Byte,{ 24'd0, MDR[15:08]}, 32'd0,
+							MDR_Byte, {24'd0, MDR[15:08]}, 32'd0,
 							NEW_PC
 						);
 
