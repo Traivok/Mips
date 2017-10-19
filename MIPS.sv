@@ -143,7 +143,7 @@ module MIPS(input logic Clk, input logic reset,
 			.endMult(endMult), .workMult(workMult),
 			//Shift
 			.REG_reset(REG_reset), .REG_funct(REG_funct),
-			.ShamtOrRs(ShamtOrRs), .Shamt(Shamt)
+			.ShamtOrRs(ShamtOrRs), .Shamt(Shamt),
 			.StateOut(Estado),
 				
 			// enables, disables
