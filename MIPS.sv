@@ -99,8 +99,7 @@ module MIPS(input logic Clk, input logic reset,
 	
 	logic [31:0] SetLessThan;
   
-	logic [31:0] OVERFLOW_EXCEPTION;
-	logic [31:0] INVALIDCODE_EXCEPTION;
+	logic [31:0] EXCEPTION_ADDRESS;
 	logic [31:0] STACK_ADDRESS;
 	logic [5:00] STACK_POINTER;
 	logic [5:00] LINK_ADDRESS;
