@@ -192,10 +192,10 @@ module Control(
 									
 									NOP_FUNCT:
 									begin
-									if(REG_funct == 3'b010)
-										state <= SLL;
-									else
+									if(Shamt == 3'b000)
 										state <= NOP;
+									else
+										state <= SLL;
 									end
 									
 									ADDU_FUNCT:
