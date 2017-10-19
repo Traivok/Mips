@@ -83,16 +83,16 @@ module Control(
 						 SRA_FUNCT = 6'h3, SRAV_FUNCT = 6'h7, JR_FUNCT = 6'h8, 
 						  SLT_FUNCT = 6'h2a /*,	 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
 		
-  enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW, LUI, 		// 10
+  enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW , LUI, 		// 10
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 37
 							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP, //42
 							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 51
-							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_WRITE, //55
-							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_WRITE, //60
-							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 65
-		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3 // 70											
+							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //56
+							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //61
+							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
+		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3 // 71											
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -566,8 +566,13 @@ module Control(
 					begin
 						state <= SB_DELAY2;
 					end
-					
+
 					SB_DELAY2:
+					begin
+						state <= SB_DELAY3;
+					end
+					
+					SB_DELAY3:
 					begin
 						state <= SB_WRITE;
 					end
@@ -588,6 +593,11 @@ module Control(
 					end
 					
 					SH_DELAY2:
+					begin
+						state <= SH_DELAY3;
+					end
+
+					SH_DELAY3:
 					begin
 						state <= SH_WRITE;
 					end
@@ -770,8 +780,7 @@ module Control(
 				STACK_INIT:
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
  					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -815,8 +824,7 @@ module Control(
 				FETCH:					// get content of pc, read it and send a memread signal
 				begin					// the MDR and IR will be loaded with Memory content
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -861,8 +869,7 @@ module Control(
 				begin
 				
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -906,8 +913,7 @@ module Control(
 				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 1;
@@ -951,8 +957,7 @@ module Control(
 				DECODE:					// store values read of 32 Mips registers at A,B;
 				begin					// add PC content with instruction offset field, uset if next OP is beq
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b001;					
 					
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
@@ -2330,7 +2335,7 @@ module Control(
 					MemDataSize <= 2'b00;
 					
 					wr <= 0;			 // Don't write
-					IRWrite <= 0;     // DÃÆÃâÃâ Ã¢â¬â¢ÃÆÃ¢â¬Â ÃÂ¢Ã¢âÂ¬Ã¢âÂ¢ÃÆÃâÃÂ¢Ã¢âÂ¬ÃÂ¡ÃÆÃ¢â¬Å¡ÃâÃÂºvida
+					IRWrite <= 0;     // 
 					RegWrite <= 0;    // ?
 					RegReset <= 0;	
 													
@@ -3472,8 +3477,7 @@ module Control(
 				SB_DELAY1:
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;
-					
+					REG_funct <= 3'b000;					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -3493,7 +3497,7 @@ module Control(
 					ALUSrcA <= 1'b0;
 					ALUSrcB <= 2'b00;
 					ALUOutSrc <= 2'b00;
-					IorD <= 2'b01;			// set to data to memmux
+					IorD <= 2'b01;			// set data to memmux
 					RegDst <= 2'b00;
 					ShamtOrRs <= 1'b0;
 					
@@ -3549,6 +3553,50 @@ module Control(
 					PC_reset <= 0;
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+				
+				SB_DELAY3:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
 					MDR_load <= 1;			// get word
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
@@ -3557,7 +3605,7 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
-
+				
 				SB_WRITE:
 				begin
 					REG_reset <= 0;
@@ -3694,6 +3742,50 @@ module Control(
 				SH_DELAY2:
 				begin
 					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+						
+					wr <= 0;					// read
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+														
+					ALU_sel <= 3'b000;
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b01;			// set to data to memmux
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+						
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;			
+				end
+
+				SH_DELAY3:
+				begin
+					REG_reset <= 0;
 					REG_funct <= 3'b000;
 					
 					
@@ -3735,7 +3827,7 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end
-
+				
 				SH_WRITE:
 				begin
 					REG_reset <= 0;
