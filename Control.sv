@@ -77,7 +77,7 @@ module Control(
 				  SLTI_OP = 6'h0a } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
-						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, SLL_FUNCT = 6'h0,
+						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
 						 ADDU_FUNCT = 6'h21, SUBU_FUNCT = 6'h23,
 						 MULT_FUNCT = 6'h18, MFHI_FUNCT = 6'h10, MHLO_FUNCT = 6'h12,
 						 SRL_FUNCT = 6'h2, SLLV_FUNCT = 6'h4,
@@ -85,7 +85,7 @@ module Control(
 						  SLT_FUNCT = 6'h2a /*,	 RTE_FUNCT = 6'h10 == MFHI*/ } FunctEnum;
 		
   enum logic [7:0] { RESET, STACK_INIT, FETCH, FETCH_MEM_DELAY1, FETCH_MEM_DELAY2, DECODE, BEQ, BNE, LW, SW , LUI, 		// 10
-							J, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
+							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 38
 							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, OVERFLOW_EXCEPTION_DELAY1, // 42
@@ -179,14 +179,22 @@ module Control(
 										state <= SUB;
 									end
 									
-									SLL_FUNCT:
+									XOR_FUNCT:
 									begin
-									state <= SLL;
+										state <= XOR;
 									end
 									
 									BREAK_FUNCT:
 									begin
 										state <= BREAK;
+									end
+									
+									NOP_FUNCT:
+									begin
+									if(REG_funct == 3'b010)
+										state <= SLL;
+									else
+										state <= NOP;
 									end
 									
 									ADDU_FUNCT:
@@ -668,6 +676,11 @@ module Control(
 					end
 					
 					S_WAIT:
+					begin
+						state <= FETCH;
+					end
+										
+					NOP:
 					begin
 						state <= FETCH;
 					end
@@ -1513,7 +1526,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_OVERFLOW_2: // leitura da memÃ³ria do endereÃ§o 255 (overflow)
+				TREATING_OVERFLOW_2: // leitura da memória do endereço 255 (overflow)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1733,7 +1746,7 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_INVALID_OP_2: // leitura da memÃ³ria do endereÃ§o 252 (invalid opcode)
+				TREATING_INVALID_OP_2: // leitura da memória do endereço 252 (invalid opcode)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -2220,6 +2233,96 @@ module Control(
 					IR_reset <= 0;
 				end
 
+				
+				NOP:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				AND:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;
+					IRWrite <= 0;
+					RegWrite <= 0;
+					RegReset <= 0;
+					
+					ALU_sel <= 3'b011;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000;
+					ALUSrcA <= 1'b1; // A
+					ALUSrcB <= 2'b00; // B
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 1;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
 				ANDI:
 				begin
 					REG_reset <= 0;
@@ -3197,49 +3300,6 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;	
 				end
-				
-				/*REG_DESL_READ:
-				begin
-					REG_reset <= 0;
-					REG_funct <= 3'b000;
-						
-					PCWriteCond <= 0;
-					PCWrite <= 0;
-          
-					MemDataSize <= 2'b00;
-					
-					wr <= 0;
-					IRWrite <= 0;
-					RegWrite <= 0;
-					RegReset <= 0;
-					
-					ALU_sel <= 3'b000;
-					workMult <= 6'd0;
-					
-					MemtoReg <= 3'b101;
-					PCSource <= 3'b000;
-					ALUSrcA <= 1'b1; // A
-					ALUSrcB <= 2'b00; // B
-					ALUOutSrc <= 2'b01;
-					IorD <= 2'b00;
-					RegDst <= 2'b00;
-					ShamtOrRs <= 1'b0;
-					
-					A_load <= 0;
-					A_reset <= 0;
-					B_load <= 0;
-					B_reset <= 0;
-					PC_reset <= 0;
-					E_PC_load <= 0;
-					E_PC_reset <= 0;
-					MDR_load <= 0;
-					MDR_reset <= 0;
-					ALUOut_load <= 1;
-					ALUOut_reset <= 0;
-					MulReg_reset <= 0;
- 					MulReg_load <= 0;
-					IR_reset <= 0;
-				end*/
 				
 				SLL:
 				begin
