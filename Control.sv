@@ -70,10 +70,11 @@ module Control(
 		
 	/* BEGIN OF ENUM SECTION */		
 		enum logic [5:0] { FUNCT_OP = 6'h0,
-				  BEQ_OP = 6'h4, BNE_OP = 6'h5, LW_OP = 6'h23, SW_OP = 6'h2b,
-				  LUI_OP = 6'hf, J_OP = 6'h2, ADDI_OP = 6'h8, ADDIU_OP = 6'h9,
-				  ANDI_OP = 6'hc, SXORI_OP = 6'he, JAL_OP = 6'h3, RTE_OP = 6'h10,
-				  SB_OP = 6'h28, SH_OP = 6'h29, LBU_OP = 6'h24, LHU_OP = 6'h25 } OpCodeEnum;
+				  BEQ_OP = 6'h04, BNE_OP = 6'h05, LW_OP = 6'h23, SW_OP = 6'h2b,
+				  LUI_OP = 6'h0f, J_OP = 6'h02, ADDI_OP = 6'h08, ADDIU_OP = 6'h09,
+				  ANDI_OP = 6'h0c, SXORI_OP = 6'h0e, JAL_OP = 6'h03, RTE_OP = 6'h10,
+				  SB_OP = 6'h28, SH_OP = 6'h29, LBU_OP = 6'h24, LHU_OP = 6'h25,
+				  SLTI_OP = 6'h0a } OpCodeEnum;
 				  
 		enum logic [5:0] { ADD_FUNCT = 6'h20, AND_FUNCT = 6'h24, SUB_FUNCT = 6'h22,
 						  XOR_FUNCT = 6'h26, BREAK_FUNCT = 6'hd, NOP_FUNCT = 6'h0,
@@ -93,7 +94,7 @@ module Control(
 							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //61
 							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
 		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 71											
-							JAL_COMP
+							JAL_COMP, SLTI
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -333,6 +334,11 @@ module Control(
 							SXORI_OP:
 							begin
 								state <= SXORI;
+							end
+							
+							SLTI_OP:
+							begin
+								state <= SLTI;
 							end
 							
 						endcase // case OP		
@@ -679,7 +685,10 @@ module Control(
 						state <= FETCH;
 					end
 					
-					
+					SLTI:
+					begin
+						state <= FETCH;
+					end					
 					
 					default:
 					begin
@@ -2517,10 +2526,10 @@ module Control(
 					
 					wr <= 0	;	
 					IRWrite <= 0;
-					RegWrite <= 0;
+					RegWrite <= 1;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b000;
+					ALU_sel <= 3'b111;
 					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b100;// set less than
@@ -2542,7 +2551,51 @@ module Control(
 					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 1;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				SLTI:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0	;	
+					IRWrite <= 0;
+					RegWrite <= 1;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b111;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b100;// set less than
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b1;
+					ALUSrcB <= 2'b10;
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
