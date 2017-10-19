@@ -93,7 +93,7 @@ module Control(
 							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //61
 							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 66
 		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 71											
-							
+							JAL_COMP
 						 } StateEnum;
 							
 	/* END OF enum SECTION */
@@ -2417,7 +2417,7 @@ module Control(
 					IR_reset <= 0;	
 				end
 				
-				JAL_WR31
+				JAL_WR31:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
