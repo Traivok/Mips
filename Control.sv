@@ -88,12 +88,12 @@ module Control(
 							J, NOP, ADD, R_WAIT, AND, SUB, XOR, BREAK, NOT_A, INC, 									// 20
 							LW_ADDRESS_COMP, SW_ADDRESS_COMP, WRITE_BACK, LW_DELAY1, LW_DELAY2, ADDU, ADDI, ADDIU, // 28
 							R_WAIT_IMMEDIATE, ANDI, SUBU, SXORI, SLL, SRL, SLLV, SRA, SRAV, S_WAIT,  // 38
-							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP, //43
-							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 52
-							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //57
-							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //62
-							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 67
-		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 72											
+							TREATING_OVERFLOW_1, TREATING_OVERFLOW_2, LOAD_PC_EXCEPTION, EXCEPTION_DELAY, TREATING_INVALID_OP_1, TREATING_INVALID_OP_2, //44
+							MULT0, MULT1, MFHI, MHLO, MFSTORE, JAL_WR31, JR, SLT, RTE, // 53
+							SB_ADDRESS_COMP, SB_DELAY1, SB_DELAY2, SB_DELAY3, SB_WRITE, //58
+							SH_ADDRESS_COMP, SH_DELAY1, SH_DELAY2, SH_DELAY3, SH_WRITE, //63
+							LBU_1, LBU_2, LBU_2_DELAY1, LBU_2_DELAY2, LBU_3, // 68
+		    				LHU_1, LHU_2, LHU_2_DELAY1, LHU_2_DELAY2, LHU_3, // 73											
 							JAL_COMP, SLTI
 						 } StateEnum;
 							
@@ -251,6 +251,9 @@ module Control(
 									begin
 										state <= SLT;
 									end
+									
+									default:
+										state <= TREATING_INVALID_OP_1;
 							
 								endcase // case funct
 							end
@@ -340,6 +343,9 @@ module Control(
 							begin
 								state <= SLTI;
 							end
+							
+							default:
+								state <= TREATING_INVALID_OP_1;
 							
 						endcase // case OP		
 						
@@ -440,7 +446,12 @@ module Control(
 						state <= LOAD_PC_EXCEPTION;
 					end
 					
-					TREATING_INVALID_OP:
+					TREATING_INVALID_OP_1:
+					begin
+						state <= TREATING_INVALID_OP_2;
+					end
+					
+					TREATING_INVALID_OP_2:
 					begin
 						state <= EXCEPTION_DELAY;
 					end
@@ -692,7 +703,7 @@ module Control(
 					
 					default:
 					begin
-						state <= TREATING_INVALID_OP;
+						state <= RESET;
 					end
 				endcase	// state
 			end // RESET signal
@@ -1627,7 +1638,51 @@ module Control(
 					IR_reset <= 0;
 				end
 				
-				TREATING_INVALID_OP: // leitura da memória do endereço 254 (invalid opcode)
+				TREATING_INVALID_OP_1: // EPC = PC - 4 
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;		
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b010; // sub
+					workMult <= 0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0; //PC
+					ALUSrcB <= 2'b01; //4
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 1; // resultado no EPC
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0; 
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+				end
+				
+				TREATING_INVALID_OP_2: // leitura da memória do endereço 254 (invalid opcode)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -3968,45 +4023,46 @@ module Control(
  					MulReg_load <= 0;
 					IR_reset <= 0;			
 				end 
-								
-				default: // EPC = PC - 4 
+				
+				default:
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
+					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
 					MemDataSize <= 2'b00;
 					
-					wr <= 0;		
+					wr <= 0;				
 					IRWrite <= 0; 
 					RegWrite <= 0;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b010; // sub
-					workMult <= 0;
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
 					
-					ALUSrcA <= 1'b0; //PC
-					ALUSrcB <= 2'b01; //4
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRs <= 0;
+					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
 					A_reset <= 0;	
 					B_load <= 0;
 					B_reset <= 0;
 					PC_reset <= 0;
-					E_PC_load <= 1; // resultado no EPC
+					E_PC_load <= 0;
 					E_PC_reset <= 0;
 					MDR_load <= 0;
 					MDR_reset <= 0;
-					ALUOut_load <= 0; 
+					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
