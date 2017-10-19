@@ -963,7 +963,7 @@ module Control(
 				DECODE:					// store values read of 32 Mips registers at A,B;
 				begin					// add PC content with instruction offset field, uset if next OP is beq
 					REG_reset <= 0;
-					REG_funct <= 3'b001;					
+					REG_funct <= 3'b001; // load regdesloc with content of ReadData1			
 					
 					PCWriteCond <= 0;	// and store it's content at aluout
 					PCWrite <= 0; 
