@@ -130,11 +130,8 @@ module MIPS(input logic Clk, input logic reset,
 	assign UPPER_IMMEDIATE[31:00] = { Instr15_0[15:00], 16'd0 };
 	
 	assign SetLessThan [31:0] = { 31'd0, ALU_lt };
-	
-	assign Byte_Address [31:0] = { 24'd0, MemData[7:0] };
 	  
-	assign OVERFLOW_EXCEPTION = 32'd255;
-	assign INVALIDCODE_EXCEPTION = 32'd254;
+	assign EXCEPTION_ADDRESS = 32'd252;
 	assign STACK_ADDRESS = 32'd227;
 	assign STACK_POINTER = 5'd29;
 	assign LINK_ADDRESS = 5'd31;
@@ -226,7 +223,7 @@ module MIPS(input logic Clk, input logic reset,
 				.ALU_result(ALU_result), .overflow(ALU_overflow), 
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
-				.NumberofShifts(REG_NumberOfShifts), .Array(ReadData2), .Shifted_Array(Reg_Desloc),
+				.NumberofShifts(REG_NumberOfShifts), .Array(Bout), .Shifted_Array(Reg_Desloc),
 				.workMult(workMult), .mul(mul_Module), .endMult(endMult), .MultCounter(MultCounter)
 			);
 	
@@ -237,7 +234,7 @@ module MIPS(input logic Clk, input logic reset,
 	Registrador ALUOut_Reg(Clk, ALUOut_reset, ALUOut_load, ALUOutIn, AluOut);
 	
 	Mux32bit_8x1 PC_MUX( PCSource, ALU_result, AluOut, JMP_address, EPC, Aout, 
-							Byte_Address, 32'd0, 32'd0,
+							MDR_Byte,{ 24'd0, MDR[15:08]}, 32'd0,
 							NEW_PC
 						);
 
