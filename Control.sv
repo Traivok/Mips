@@ -57,6 +57,7 @@ module Control(
 				
 	/* BEGIN OF DATA SECTION */				
 		logic [7:0] state;
+		logic [7:0] nextState;
 		// load it if PCWrite is set or a conditional jump is set and result of alu op is zero
 		
 		always_comb
@@ -144,6 +145,7 @@ module Control(
 					FETCH:
 					begin
 						state <= FETCH_MEM_DELAY1;
+						nextState <= TREATING_INVALID_OP_1;
 					end
 					
 					FETCH_MEM_DELAY1:
@@ -230,7 +232,8 @@ module Control(
 									
 									SLLV_FUNCT:
  									begin
-										state <= SLLV;
+										state <= RegDeslocLoad;
+										nextState <= SLLV;
 									end
 									
 									SRA_FUNCT:
