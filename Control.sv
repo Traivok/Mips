@@ -1591,7 +1591,7 @@ module Control(
 					RGD_load <= 0;
 				end
 				
-				TREATING_OVERFLOW_2: // leitura da memória do endereço 255 (overflow)
+				TREATING_OVERFLOW_2: // leitura da memÃ³ria do endereÃ§o 255 (overflow)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -1821,7 +1821,7 @@ module Control(
 					RGD_load <= 0;
 				end
 				
-				TREATING_INVALID_OP_2: // leitura da memória do endereço 252 (invalid opcode)
+				TREATING_INVALID_OP_2: // leitura da memÃ³ria do endereÃ§o 252 (invalid opcode)
 				begin
 					REG_reset <= 0;
 					REG_funct <= 3'b000;
@@ -4176,6 +4176,191 @@ module Control(
 					IR_reset <= 0;
 					RGD_reset <= 0;
 					RGD_load <= 0;
+				end
+				
+				NOP:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;
+					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;				
+				end
+				
+				SHF_LOAD_SLL:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b001;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;				
+				end
+				
+				SLL:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 0;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b010;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b000;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b00;
+					ShamtOrRs <= 1'b1;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 1;			
+				end
+				
+				S_WAIT:
+				begin
+					REG_reset <= 0;
+					REG_funct <= 3'b000;					
+					
+					PCWriteCond <= 0;
+					PCWrite <= 0;
+          
+					MemDataSize <= 2'b00;
+					
+					wr <= 0;				
+					IRWrite <= 0; 
+					RegWrite <= 1;
+					RegReset <= 0;
+													
+					ALU_sel <= 3'b000;
+					workMult <= 6'd0;
+					
+					MemtoReg <= 3'b101;
+					PCSource <= 3'b000; 
+					
+					ALUSrcA <= 1'b0;
+					ALUSrcB <= 2'b00; 
+					ALUOutSrc <= 2'b00;
+					IorD <= 2'b00;
+					RegDst <= 2'b01;
+					ShamtOrRs <= 1'b0;
+					
+					A_load <= 0;
+					A_reset <= 0;	
+					B_load <= 0;
+					B_reset <= 0;
+					PC_reset <= 0;
+					E_PC_load <= 0;
+					E_PC_reset <= 0;
+					MDR_load <= 0;
+					MDR_reset <= 0;
+					ALUOut_load <= 0;
+					ALUOut_reset <= 0;
+					MulReg_reset <= 0;
+ 					MulReg_load <= 0;
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;			
 				end
 							
 			endcase // state
