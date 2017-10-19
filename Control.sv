@@ -52,7 +52,9 @@ module Control(
 				output logic ALUOut_reset,
 				output logic MulReg_reset,
 				output logic MulReg_load,
-				output logic IR_reset		
+				output logic IR_reset,
+				output logic RGD_reset,
+				output logic RGD_load	
 			  );
 				
 	/* BEGIN OF DATA SECTION */				
@@ -797,6 +799,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 
+					RGD_reset <= 0;
+					RGD_load <= 0;
 */
 
 	always_comb
@@ -845,7 +849,9 @@ module Control(
 					ALUOut_reset <= 1;
 					MulReg_reset <= 1;
  					MulReg_load <= 0;
-					IR_reset <= 1;			
+					IR_reset <= 1;
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
         
 				STACK_INIT:
@@ -890,6 +896,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 			
 				FETCH:					// get content of pc, read it and send a memread signal
@@ -933,7 +941,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				FETCH_MEM_DELAY1:					// just hold memread signal
@@ -978,7 +988,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;	
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				FETCH_MEM_DELAY2: 				// increment PC+4 and hold memread signals
@@ -1022,7 +1034,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;	
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				DECODE:					// store values read of 32 Mips registers at A,B;
@@ -1067,6 +1081,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LBU_1:
@@ -1111,6 +1127,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LBU_2:
@@ -1155,6 +1173,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LBU_2_DELAY1:
@@ -1199,6 +1219,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LBU_2_DELAY2: 
@@ -1243,6 +1265,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LBU_3:
@@ -1287,6 +1311,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LHU_1:
@@ -1331,6 +1357,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LHU_2:
@@ -1375,6 +1403,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LHU_2_DELAY1:
@@ -1419,6 +1449,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LHU_2_DELAY2: 
@@ -1463,6 +1495,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 
 				LHU_3:
@@ -1507,6 +1541,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				TREATING_OVERFLOW_1: // EPC = PC - 4 
@@ -1551,6 +1587,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				TREATING_OVERFLOW_2: // leitura da memória do endereço 255 (overflow)
@@ -1595,6 +1633,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 	
 				OVERFLOW_EXCEPTION_DELAY1: 
@@ -1639,6 +1679,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				OVERFLOW_EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
@@ -1683,6 +1725,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LOAD_PC_OVERFLOW_EXCEPTION:
@@ -1727,6 +1771,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				TREATING_INVALID_OP_1: // EPC = PC - 4 
@@ -1771,6 +1817,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				TREATING_INVALID_OP_2: // leitura da memória do endereço 252 (invalid opcode)
@@ -1815,6 +1863,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				OP_EXCEPTION_DELAY1: 
@@ -1859,6 +1909,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				OP_EXCEPTION_DELAY2: // mdr recebe o valor lido da memoria
@@ -1903,6 +1955,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				LOAD_PC_OP_EXCEPTION:
@@ -1947,6 +2001,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				ADDIU:
@@ -1991,6 +2047,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				ADDI:
@@ -2035,6 +2093,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				ADDU: 
@@ -2079,6 +2139,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				ADD:
@@ -2123,6 +2185,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				R_WAIT:
@@ -2168,6 +2232,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				R_WAIT_IMMEDIATE:
@@ -2213,6 +2279,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 								
 				NOP:
@@ -2258,6 +2326,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				AND:
@@ -2302,6 +2372,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				ANDI:
@@ -2346,6 +2418,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SUB:
@@ -2390,6 +2464,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SUBU:
@@ -2434,6 +2510,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				XOR:
@@ -2477,6 +2555,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SXORI:
@@ -2521,6 +2601,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				BREAK:
@@ -2566,6 +2648,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				J:
@@ -2610,6 +2694,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end				
 				
 				JAL_COMP:
@@ -2653,7 +2739,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;	
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;	
 				end
 				
 				JAL_WR31:
@@ -2698,6 +2786,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 			
 				JR:
@@ -2742,6 +2832,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SLT:
@@ -2786,6 +2878,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SLTI:
@@ -2830,6 +2924,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 								
 				BEQ:		// branch if Aout == Bout
@@ -2874,7 +2970,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;				
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;			
 				end
 								
 				BNE:					//	branch if Aout != Bout
@@ -2919,7 +3017,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;				
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;			
 				end
 				
 				LUI:
@@ -2965,6 +3065,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SW_ADDRESS_COMP: 			// compute the address of memory acsess
@@ -3009,7 +3111,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				SW:
@@ -3055,6 +3159,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 
 				LW_ADDRESS_COMP: 			// compute the address of memory acsess
@@ -3099,7 +3205,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 			
 				LW:
@@ -3144,7 +3252,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				LW_DELAY1:
@@ -3189,7 +3299,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				LW_DELAY2:
@@ -3234,7 +3346,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 			
 				WRITE_BACK:
@@ -3280,6 +3394,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				MULT0:
@@ -3323,6 +3439,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 1;
 					IR_reset <= 0;		
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 
 				MULT1:
@@ -3365,7 +3483,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 1;
-					IR_reset <= 0;		
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;	
 				end
 			
 				MFHI:
@@ -3408,7 +3528,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 
 				MHLO:
@@ -3451,7 +3573,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 
 				MFSTORE:
@@ -3494,7 +3618,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 					
 				RTE:
@@ -3539,6 +3665,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SB_ADDRESS_COMP: 			// compute the address of memory acsess
@@ -3582,7 +3710,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 							
 				SB_DELAY1:
@@ -3626,7 +3756,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				SB_DELAY2:
@@ -3670,7 +3802,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				SB_DELAY3:
@@ -3714,7 +3848,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				SB_WRITE:
@@ -3759,6 +3895,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 				
 				SH_ADDRESS_COMP: 			// compute the address of memory acsess
@@ -3802,7 +3940,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 			
 				SH_DELAY1:
@@ -3847,7 +3987,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 				
 				SH_DELAY2:
@@ -3891,7 +4033,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;	
+					RGD_reset <= 0;
+					RGD_load <= 0;		
 				end
 
 				SH_DELAY3:
@@ -3936,7 +4080,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;			
 				end
 				
 				SH_WRITE:
@@ -3980,7 +4126,9 @@ module Control(
 					ALUOut_reset <= 0;
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
-					IR_reset <= 0;			
+					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;			
 				end 
 				
 				default:
@@ -4026,6 +4174,8 @@ module Control(
 					MulReg_reset <= 0;
  					MulReg_load <= 0;
 					IR_reset <= 0;
+					RGD_reset <= 0;
+					RGD_load <= 0;
 				end
 							
 			endcase // state
