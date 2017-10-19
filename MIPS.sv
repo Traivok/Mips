@@ -17,7 +17,8 @@ module MIPS(input logic Clk, input logic reset,
 			output logic [63:0] mul_Module,
 			output logic [31:0] ALU_LHS,
 			output logic [31:0] ALU_RHS,
-			output logic [5:00] MultCounter	
+			output logic [5:00] MultCounter,
+			output logic [4:0] Shamt
   );
 	  
 	/* Begin of Control Section */
@@ -83,7 +84,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] Instr15_0_EXTENDED; // sign extend result of Instruction[15:0]
 	logic [31:0] UPPER_IMMEDIATE; 	// used in LUI instruction 15-0 field at MSD and 0 at LSD
     logic [5:0] Funct;
-	logic [4:0] Shamt; // 10-6
+
     
 	logic [31:0] ReadData1;
 	logic [31:0] ReadData2;
@@ -98,6 +99,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] Byte_Address;
 	
 	logic [31:0] SetLessThan;
+	logic [31:0] ShiftedArray;
   
 	logic [31:0] EXCEPTION_ADDRESS;
 	logic [31:0] STACK_ADDRESS;
@@ -178,8 +180,9 @@ module MIPS(input logic Clk, input logic reset,
  			.MulReg_load(MulReg_load),
 			.IR_reset(IR_reset),
 			.RegReset(RegReset),
-			.RegWrite(RegWrite)
-						
+			.RegWrite(RegWrite),
+			.RGD_reset(RGD_reset),
+			.RGD_load(RGD_load)						
 		);			
 	/* CONTROL SECTION ENDS HERE */
 	
@@ -215,16 +218,19 @@ module MIPS(input logic Clk, input logic reset,
 	Mux32bit_2x1 LHS_Mux(ALUSrcA, PC, Aout, ALU_LHS);
 	Mux32bits_4x2 RHS_Mux(ALUSrcB, Bout, 32'd4, Instr15_0_EXTENDED, BEQ_address, ALU_RHS);
   
-	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Aout, Shamt, REG_NumberOfShifts );
+	Mux5bit_2x1 ShiftAmountMux( ShamtOrRs, Aout [4:0], Shamt, REG_NumberOfShifts );
   
 	ALS ALU (
 				.oper_A(ALU_LHS), .oper_B(ALU_RHS), . ALU_sel(ALU_sel), 
 				.ALU_result(ALU_result), .overflow(ALU_overflow), 
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
-				.NumberofShifts(REG_NumberOfShifts), .Array(Bout), .Shifted_Array(Reg_Desloc),
+				.NumberofShifts(REG_NumberOfShifts), .Array(Bout), .Shifted_Array(ShiftedArray),
 				.workMult(workMult), .mul(mul_Module), .endMult(endMult), .MultCounter(MultCounter)
 			);
+	
+	
+	Registrador RGD(Clk, RGD_reset, RGD_load, ShiftedArray, Reg_Desloc);
 	
 	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul_Module[63:32], himul);
 	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul_Module[31:00], lomul);
