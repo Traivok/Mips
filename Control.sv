@@ -2713,15 +2713,15 @@ module Control(
 					RegWrite <= 0;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b001; // sum
+					ALU_sel <= 3'b000; // PC value
 					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
-					ALUSrcA <= 1'b0;
+					ALUSrcA <= 1'b0;  // select PC
 					ALUSrcB <= 2'b01;
 					ALUOutSrc <= 2'b00;
-					IorD <= 2'b00;			// instruction set
+					IorD <= 2'b00;	 // instruction set
 					RegDst <= 2'b11; // link adress
 					ShamtOrRs <= 1'b0;
 					
