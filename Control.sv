@@ -4093,7 +4093,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-					MemDataSize <= 2'b01;
+					MemDataSize <= 2'b10;
 						
 					wr <= 1;
 					IRWrite <= 0; 
@@ -4120,7 +4120,7 @@ module Control(
 					PC_reset <= 0;
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
-					MDR_load <= 1;			// get word
+					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
