@@ -866,7 +866,7 @@ module Control(
 					
 					wr <= 0;		
 					IRWrite <= 0; 
-					RegWrite <= 0;
+					RegWrite <= 1;
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
@@ -2713,15 +2713,15 @@ module Control(
 					RegWrite <= 0;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b001; // sum
+					ALU_sel <= 3'b000; // PC value
 					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;
 					PCSource <= 3'b000; 
-					ALUSrcA <= 1'b0;
+					ALUSrcA <= 1'b0;  // select PC
 					ALUSrcB <= 2'b01;
 					ALUOutSrc <= 2'b00;
-					IorD <= 2'b00;			// instruction set
+					IorD <= 2'b00;	 // instruction set
 					RegDst <= 2'b11; // link adress
 					ShamtOrRs <= 1'b0;
 					
@@ -4093,7 +4093,7 @@ module Control(
 					PCWriteCond <= 0;
 					PCWrite <= 0;
           
-					MemDataSize <= 2'b01;
+					MemDataSize <= 2'b10;
 						
 					wr <= 1;
 					IRWrite <= 0; 
@@ -4120,7 +4120,7 @@ module Control(
 					PC_reset <= 0;
 					E_PC_load <= 0;
 					E_PC_reset <= 0;
-					MDR_load <= 1;			// get word
+					MDR_load <= 0;
 					MDR_reset <= 0;
 					ALUOut_load <= 0;
 					ALUOut_reset <= 0;
@@ -4665,7 +4665,7 @@ module Control(
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
 					RegDst <= 2'b00;
-					ShamtOrRs <= 1'b1; // get shamt
+					ShamtOrRs <= 1'b0; // select value
 					
 					A_load <= 0;
 					A_reset <= 0;	

@@ -1,6 +1,7 @@
-5
-lui 10 32768
-addi 5 0 1
-sra 12 10 1
-srav 12 10 5
+6
+addiu 10 0 43690
+sw 10 50 0
+lbu 8 50 0
+lhu 9 50 0
+sub 2 9 8
 break
