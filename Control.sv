@@ -661,7 +661,7 @@ module Control(
 					
 					SHF_LOAD_SRL:
 					begin
-						state <= SLL;
+						state <= SRL;
 					end
 					
 					SHF_LOAD_SLLV:
@@ -671,12 +671,12 @@ module Control(
 					
 					SHF_LOAD_SRA:
 					begin
-						state <= SLL;
+						state <= SRA;
 					end
 					
 					SHF_LOAD_SRAV:
 					begin
-						state <= SLL;
+						state <= SRAV;
 					end
 					
 					SLL:
@@ -4274,7 +4274,7 @@ module Control(
 				SLL:
 				begin
 					REG_reset <= 0;
-					REG_funct <= 3'b000;					
+					REG_funct <= 3'b010;					
 					
 					PCWriteCond <= 0;
 					PCWrite <= 0;
@@ -4286,7 +4286,7 @@ module Control(
 					RegWrite <= 0;
 					RegReset <= 0;
 													
-					ALU_sel <= 3'b010;
+					ALU_sel <= 3'b000;
 					workMult <= 6'd0;
 					
 					MemtoReg <= 3'b000;

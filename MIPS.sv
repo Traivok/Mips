@@ -18,7 +18,11 @@ module MIPS(input logic Clk, input logic reset,
 			output logic [31:0] ALU_LHS,
 			output logic [31:0] ALU_RHS,
 			output logic [5:00] MultCounter,
-			output logic [4:0] Shamt
+			output logic [4:0] Shamt,
+			output logic [4:0] REG_NumberOfShifts,
+			//output logic [31:0] ShiftedArray,
+			output logic [31:0] Aout, 
+			output logic [31:0] Bout	// content of registers a and b, respectively
   );
 	  
 	/* Begin of Control Section */
@@ -44,8 +48,7 @@ module MIPS(input logic Clk, input logic reset,
 	logic ALU_gt;					// alu greater flag
 	logic ALU_lt;					// alu less flag
 	logic REG_reset;
-	logic [2:0] REG_funct;
-	logic [4:0] REG_NumberOfShifts;
+	logic [2:0] REG_funct;	
 	logic [31:0] REG_array;
 	logic [31:0] Shifted_Register;
 	logic [5:0] workMult;
@@ -71,7 +74,7 @@ module MIPS(input logic Clk, input logic reset,
 	/* Begin of Data Section */
 	logic [31:0] NEW_PC;
 	
-	logic [31:0] Aout, Bout;	// content of registers a and b, respectively
+	
 	logic [31:0] ALUOutIn;
 	logic [31:0] himul, lomul;
 
@@ -99,7 +102,6 @@ module MIPS(input logic Clk, input logic reset,
 	logic [31:0] Byte_Address;
 	
 	logic [31:0] SetLessThan;
-	logic [31:0] ShiftedArray;
   
 	logic [31:0] EXCEPTION_ADDRESS;
 	logic [31:0] STACK_ADDRESS;
@@ -116,7 +118,7 @@ module MIPS(input logic Clk, input logic reset,
 		
 	// concatenate [25-0] instruction's bits 
 	assign Instr25_0[25:00] = { Instr25_21, Instr20_16, Instr15_0};
-	assign Shamt [4:0] = { Instr15_0 [10:6] };
+	assign Shamt [4:0] = Instr15_0 [10:06];
 	
 	// extract JMP field of MSD of PC, and [25:0] field of instruction, also concatenate it with 00
 	assign JMP_address[31:0] = { PC[31:28], Instr25_0, 2'b00 };
@@ -225,12 +227,12 @@ module MIPS(input logic Clk, input logic reset,
 				.ALU_result(ALU_result), .overflow(ALU_overflow), 
 				.negative(ALU_neg), .zero(ALU_zero), .equal(ALU_eq), .greater(ALU_gt), .lesser(ALU_lt), 
 				.Clk(Clk), .RegDesloc_reset(REG_reset), .RegDesloc_OP(REG_funct), 
-				.NumberofShifts(REG_NumberOfShifts), .Array(Bout), .Shifted_Array(ShiftedArray),
+				.NumberofShifts(REG_NumberOfShifts), .Array(Bout), .Shifted_Array(Reg_Desloc),
 				.workMult(workMult), .mul(mul_Module), .endMult(endMult), .MultCounter(MultCounter)
 			);
 	
 	
-	Registrador RGD(Clk, RGD_reset, RGD_load, ShiftedArray, Reg_Desloc);
+	//Registrador RGD(Clk, RGD_reset, RGD_load, ShiftedArray, Reg_Desloc);
 	
 	Registrador HImul(Clk, MulReg_reset, MulReg_load, mul_Module[63:32], himul);
 	Registrador LOmul(Clk, MulReg_reset, MulReg_load, mul_Module[31:00], lomul);
