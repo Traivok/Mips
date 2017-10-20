@@ -866,7 +866,7 @@ module Control(
 					
 					wr <= 0;		
 					IRWrite <= 0; 
-					RegWrite <= 0;
+					RegWrite <= 1;
 					RegReset <= 0;
 													
 					ALU_sel <= 3'b000;
