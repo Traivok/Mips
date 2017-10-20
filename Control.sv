@@ -2861,7 +2861,7 @@ module Control(
 					ALUSrcB <= 2'b00;
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
-					RegDst <= 2'b00;
+					RegDst <= 2'b01;   // select rd
 					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
@@ -2907,7 +2907,7 @@ module Control(
 					ALUSrcB <= 2'b10;
 					ALUOutSrc <= 2'b00;
 					IorD <= 2'b00;
-					RegDst <= 2'b00;
+					RegDst <= 2'b01;   // select rd
 					ShamtOrRs <= 1'b0;
 					
 					A_load <= 0;
